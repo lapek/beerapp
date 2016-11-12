@@ -1,0 +1,38 @@
+body {
+    width:100%;
+    height: 100%;
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+md-no-animations,
+md-dialog.md-transition-in,
+md-dialog.md-transition-out {
+    -webkit-transform: none !important;
+    transform: none !important;
+}
+
+md-dialog {
+    min-width: 400px;
+}
+
+md-dialog form {
+    padding: 15px;
+    margin-top: 30px;
+}
+
+md-sidenav {
+    width: 110px;
+    height: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+md-content {
+    height:100%;
+    padding:10px;
+}
+md-toolbar {
+    height: 60px;
+}

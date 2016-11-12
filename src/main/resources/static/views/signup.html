@@ -1,0 +1,18 @@
+<div ng-controller="SignupController as signupCtrl" layout="column" layout-padding ng-cloak>
+    <md-content class="md-no-momentum">
+        <md-input-container class="md-icon-float md-block">
+            <label>Nazwa użytkownika</label>
+            <!--<md-icon></md-icon>-->
+            <input ng-model="user.name" type="text">
+        </md-input-container>
+        <md-input-container class="md-icon-float md-block">
+            <label>Hasło</label>
+            <!--<md-icon></md-icon>-->
+            <input ng-model="user.pass" type="text">
+        </md-input-container>
+        <hr/>
+        <div layout="row" layout-align="center center">
+            <md-button class="md-raised md-primary">Rejestracja</md-button>
+        </div>
+    </md-content>
+</div>

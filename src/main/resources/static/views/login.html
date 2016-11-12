@@ -1,0 +1,31 @@
+<md-dialog ng-controller="LoginController as loginCtrl" md-theme="login">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Logowanie</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-icon="close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:500px;max-height:600px; ">
+        <form name="accountLogin">
+            <md-input-container class="md-icon-float md-block" required>
+                <label>Nazwa użytkownika</label>
+                <md-icon md-svg-icon="account"></md-icon>
+                <input ng-model="user.name" type="text">
+            </md-input-container>
+            <md-input-container class="md-icon-float md-block" required>
+                <label>Hasło</label>
+                <md-icon md-svg-icon="lock"></md-icon>
+                <input ng-model="user.pass" type="text">
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" md-whiteframe="2">
+        <md-button ui-sref="singup">Nie masz konta?</md-button>
+        <span flex></span>
+        <md-button ng-click="cancel()">Anuluj</md-button>
+        <md-button class="md-raised md-primary">Zaloguj</md-button>
+    </md-dialog-actions>
+</md-dialog>

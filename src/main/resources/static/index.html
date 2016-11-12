@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <title>BeerApp</title>
+    <meta name="viewport" content="initial-scale=1"/>
+    <link rel="stylesheet" href="webjars/angular-material/1.1.1/angular-material.min.css">
+    <link rel="stylesheet" href="styles/app.css">
+</head>
+<body ng-app="beerApp">
+
+<div layout="column" flex>
+    <md-toolbar>
+        <div class="md-toolbar-tools" ng-controller="NavigationController as navbar" md-theme="default">
+            <h2><a class="navbar-brand" ui-sref="home"> <md-icon md-svg-icon="beer"></md-icon><span>BeerApp</span></a></h2>
+            <span flex></span>
+            <md-button ui-sref="signup"><md-icon md-svg-icon="account-plus"></md-icon>Rejestracja</md-button>
+            <md-button ng-click="navbar.showLogin($event)"><md-icon md-svg-icon="login">Logowanie</md-button>
+
+            <md-menu>
+                <md-button ng-click="navbar.openMenu($mdOpenMenu, $event)">
+                    <md-icon md-svg-icon="account"></md-icon>
+                    Nazwa użytkownika
+                </md-button>
+                <md-menu-content width="4">
+                    <md-menu-item>
+                        <md-button ui-sref="myRecipes"><md-icon md-svg-icon="library-books"></md-icon>Moje receptury</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ui-sref="myAccount"><md-icon md-svg-icon="wrench"></md-icon>Moje konto</md-button>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item>
+                        <md-button ng-click=""><md-icon md-svg-icon="logout"></md-icon>Wyloguj</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+    </md-toolbar>
+
+    <div layout="column" flex>
+        <md-content flex layout="column">
+            <div ui-view></div>
+
+            <div flex="flex">
+                <footer flex="none" layout-padding="layout-padding" class="red">
+                    <span><small>BeerApp 2016 by P.Łapa</small></span>
+                    <span flex></span>
+                    <md-button ui-sref="">Kontakt</md-button>
+                    <md-button ui-sref="">Pomoc</md-button>
+                </footer>
+            </div>
+        </md-content>
+    </div>
+</div>
+
+<script type="text/javascript" src="webjars/angularjs/1.5.8/angular.min.js"></script>
+<script type="text/javascript" src="webjars/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="webjars/angularjs/1.5.8/angular-animate.min.js"></script>
+<script type="text/javascript" src="webjars/angularjs/1.5.8/angular-aria.min.js"></script>
+<script type="text/javascript" src="webjars/angular-material/1.1.1/angular-material.min.js"></script>
+<script type="text/javascript" src="scripts/app.js"></script>
+</body>
+</html>
