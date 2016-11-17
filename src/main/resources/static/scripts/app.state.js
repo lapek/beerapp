@@ -24,6 +24,10 @@
             .state('signup', {
                 url: '/signup',
                 templateUrl: '../views/signup.html'
+            })
+            .state('newRecipe', {
+                url: '/newRecipe',
+                templateUrl: '../views/newRecipe.html'
             });
     }
 })();

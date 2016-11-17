@@ -1,51 +1,59 @@
-<md-content class="md-padding" layout-xs="column" layout="row">
-    <!-- 1 column -->
-    <div flex-xs flex-gt-xs="50" layout="column">
-        <md-card flex flex-gt-xs="30">
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">Witaj na BeerApp</span>
-                    <span class="md-subhead">Strona dla piwowarów domowych.</span>
-                </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-                Zapraszamy do logowania. Jeśli nie masz jeszcze konta, zapraszamy do założenia takowego.
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button ui-sref="signup">Utwórz nowe konto</md-button>
-                <md-button ng-click="navbar.showLogin($event)">Zaloguj się</md-button>
-            </md-card-actions>
-        </md-card>
-        <md-card flex>
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">Ostatnie recepury</span>
-                    <!--<span class="md-subhead">Subheader</span>-->
-                </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-                <p>bedo tu sie pokazywac osattnio dodana receptura</p>
-            </md-card-content>
-        </md-card>
-    </div>
+<div ng-controller="HomeController as homeCtrl" layout="column" layout-padding ng-cloak>
+    <md-content class="md-no-momentum" layout-xs="column" layout="row">
+        <!-- 1 column -->
+        <div flex-xs flex-gt-xs="50" layout="column">
+                        <md-card flex flex-gt-xs="30">
+                            <md-card-title>
+                                <md-card-title-text>
+                        <span class="md-headline">Witaj na BeerApp</span>
+                        <span class="md-subhead">Strona dla piwowarów domowych.</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    Zapraszamy do logowania. Jeśli nie masz jeszcze konta, zapraszamy do założenia takowego.
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button ui-sref="signup">Utwórz nowe konto</md-button>
+                    <!--<md-button ng-click="navbar.showLogin($event)">Zaloguj się</md-button>-->
+                </md-card-actions>
+            </md-card>
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Ostatnie recepury</span>
+                        <!--<span class="md-subhead">Subheader</span>-->
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p>bedo tu sie pokazywac osattnio dodana receptura</p>
+                </md-card-content>
+            </md-card>
+        </div>
 
-    <!-- 2 column -->
-    <div flex-xs flex-gt-xs="50" layout="column">
-        <md-card flex>
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">O czym strona</span>
-                    <span class="md-subhead">Subheader</span>
-                </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-                <p>Opis strony.</p>
-            </md-card-content>
-        </md-card>
-        <md-card flex>
-            <md-card-content>
-                <p>Tutaj nie wiem.</p>
-            </md-card-content>
-        </md-card>
-    </div>
-</md-content>
+        <!-- 2 column -->
+        <div flex-xs flex-gt-xs="50" layout="column">
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">O czym strona</span>
+                        <span class="md-subhead">Subheader</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p>Opis strony.</p>
+                </md-card-content>
+            </md-card>
+            <md-card flex>
+                <md-card-content>
+                    <div ng-show='!auth'>
+                        <md-button ui-sref="newRecipe">
+                            <md-icon md-svg-icon="plus-circle-outline"></md-icon>
+                        Dodaj nową recepturę
+                        </md-button>
+                    </div>
+                    <p>Tutaj nie wiem.</p>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+</div>

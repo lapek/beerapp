@@ -11,69 +11,72 @@
 <body ng-app="beerApp" layout="row">
 
 <div layout="column" flex>
-    <md-toolbar>
-        <div class="md-toolbar-tools" ng-controller="NavigationController as navig" md-theme="default">
-            <h2><a class="navbar-brand" ui-sref="home">
-                <md-icon md-svg-icon="beer"></md-icon>
-                <span>BeerApp</span></a></h2>
-            <span flex></span>
-            <div ng-show='!auth'>
-                <md-button ui-sref="signup">
-                    <md-icon md-svg-icon="account-plus"></md-icon>
-                    Rejestracja
-                </md-button>
-                <md-button ng-click="navig.showLogin($event)">
-                    <md-icon md-svg-icon="account"></md-icon>
-                    Logowanie
-                </md-button>
-            </div>
-            <div ng-show='!auth'>
-                <md-menu>
-                    <md-button ng-click="navig.openMenu($mdOpenMenu, $event)">
-                        <md-icon md-svg-icon="account"></md-icon>
-                        Nazwa użytkownika
-                    </md-button>
-                    <md-menu-content width="4">
-                        <md-menu-item>
-                            <md-button ui-sref="myRecipes">
-                                <md-icon md-svg-icon="library-books"></md-icon>
-                                Moje receptury
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button ui-sref="myAccount">
-                                <md-icon md-svg-icon="wrench"></md-icon>
-                                Moje konto
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-divider></md-menu-divider>
-                        <md-menu-item>
-                            <md-button ng-click="">
-                                <md-icon md-svg-icon="logout"></md-icon>
-                                Wyloguj
-                            </md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-            </div>
-        </div>
-    </md-toolbar>
-
-    <div layout="column" flex>
-        <md-content layout="column" flex>
-            <div ui-view></div>
-        </md-content>
-
-        <div flex="flex">
-            <footer flex="none" layout-padding="layout-padding" class="red">
-                <span><small>BeerApp 2016 by P.Łapa</small></span>
+    <header>
+        <md-toolbar>
+            <div class="md-toolbar-tools" ng-controller="NavigationController as navig" md-theme="default">
+                <h2><a class="navbar-brand" ui-sref="home">
+                    <md-icon md-svg-icon="beer"></md-icon>
+                    <span>BeerApp</span></a></h2>
                 <span flex></span>
-                <md-button>Kontakt</md-button>
-                <md-button>Pomoc</md-button>
-            </footer>
+                <div ng-show='!auth'>
+                    <md-button ui-sref="signup">
+                        <md-icon md-svg-icon="account-plus"></md-icon>
+                        Rejestracja
+                    </md-button>
+                    <md-button ng-click="navig.showLogin($event)">
+                        <md-icon md-svg-icon="account"></md-icon>
+                        Logowanie
+                    </md-button>
+                </div>
+                <div ng-show='!auth'>
+                    <md-menu>
+                        <md-button ng-click="navig.openMenu($mdOpenMenu, $event)">
+                            <md-icon md-svg-icon="account"></md-icon>
+                            Nazwa użytkownika
+                        </md-button>
+                        <md-menu-content width="4">
+                            <md-menu-item>
+                                <md-button ui-sref="myRecipes">
+                                    <md-icon md-svg-icon="library-books"></md-icon>
+                                    Moje receptury
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ui-sref="myAccount">
+                                    <md-icon md-svg-icon="wrench"></md-icon>
+                                    Moje konto
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-divider></md-menu-divider>
+                            <md-menu-item>
+                                <md-button ng-click="">
+                                    <md-icon md-svg-icon="logout"></md-icon>
+                                    Wyloguj
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+            </div>
+        </md-toolbar>
+    </header>
+
+    <main class='md-padding' layout="row" flex>
+        <div layout="column" flex>
+            <md-content layout="column" flex>
+                <div ui-view></div>
+            </md-content>
         </div>
-        </md-content>
-    </div>
+    </main>
+
+    <footer>
+        <div layout="row" layout-align="center center">
+            <span><small>BeerApp 2016 by P.Łapa</small></span>
+            <span flex></span>
+            <md-button>Kontakt</md-button>
+            <md-button>Pomoc</md-button>
+        </div>
+    </footer>
 </div>
 
 <script type="text/javascript" src="webjars/angularjs/1.5.8/angular.min.js"></script>
@@ -83,6 +86,7 @@
 <script type="text/javascript" src="webjars/angularjs/1.5.8/angular-animate.min.js"></script>
 <script type="text/javascript" src="webjars/angularjs/1.5.8/angular-aria.min.js"></script>
 <script type="text/javascript" src="webjars/angularjs/1.5.8/angular-route.min.js"></script>
+<script type="text/javascript" src="webjars/angularjs/1.5.8/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="webjars/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
 <script type="text/javascript" src="webjars/angular-material/1.1.1/angular-material.min.js"></script>
 <script type="text/javascript" src="webjars/ngstorage/0.3.11/ngStorage.min.js"></script>
@@ -90,10 +94,12 @@
 <script type="text/javascript" src="scripts/app.module.js"></script>
 <script type="text/javascript" src="scripts/app.state.js"></script>
 <script type="text/javascript" src="scripts/app.theme.js"></script>
+<script type="text/javascript" src="scripts/app.constants.js"></script>
+<script type="text/javascript" src="scripts/controllers/HomeController.js"></script>
 <script type="text/javascript" src="scripts/controllers/LoginController.js"></script>
 <script type="text/javascript" src="scripts/controllers/NavigationController.js"></script>
 <script type="text/javascript" src="scripts/controllers/SignupController.js"></script>
-<script type="text/javascript" src="scripts/app.constants.js"></script>
+<script type="text/javascript" src="scripts/controllers/NewRecipeController.js"></script>
 
 </body>
 </html>

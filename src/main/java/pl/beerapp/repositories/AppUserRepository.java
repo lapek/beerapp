@@ -4,6 +4,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import pl.beerapp.entities.AppUser;
 
+import java.util.List;
+
 @Repository
-public interface UserRepository extends CrudRepository<AppUser, Long> {
+public interface AppUserRepository extends CrudRepository<AppUser, Long> {
+
+    List<AppUser> findByUsername(String username);
+
 }

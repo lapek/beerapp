@@ -8,7 +8,7 @@
 
     function NavigationController($mdDialog, $scope) {
         var vm = this;
-        
+
         vm.showLogin = showLogin;
         vm.openMenu = openMenu;
 

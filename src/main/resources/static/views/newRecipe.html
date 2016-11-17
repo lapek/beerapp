@@ -1,7 +1,32 @@
-<div flex layout="row">
-    <md-sidenav flex="15" md-is-locked-open="true" class="md-whiteframe-z1">
-        <md-content>
-            sidenav
-        </md-content>
-    </md-sidenav>
-    </div>
+<div ng-controller="NewRecipeController as signupCtrl" layout="column" layout-padding ng-cloak>
+    <md-content class="md-no-momentum">
+        <div flex-xs flex-gt-xs="50" layout="column">
+            <md-card flex flex-gt-xs="30">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Witaj na BeerApp</span>
+                        <span class="md-subhead">Strona dla piwowarów domowych.</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    Zapraszamy do logowania. Jeśli nie masz jeszcze konta, zapraszamy do założenia takowego.
+                </md-card-content>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button ui-sref="signup">Utwórz nowe konto</md-button>
+                    <!--<md-button ng-click="navbar.showLogin($event)">Zaloguj się</md-button>-->
+                </md-card-actions>
+            </md-card>
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Ostatnie recepury</span>
+                        <!--<span class="md-subhead">Subheader</span>-->
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <p>bedo tu sie pokazywac osattnio dodana receptura</p>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+</div>

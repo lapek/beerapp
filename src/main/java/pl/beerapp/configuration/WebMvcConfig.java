@@ -43,18 +43,18 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                 .setCachePeriod(cachePeriod);
 
 
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/static/index.html")
-                .setCachePeriod(cachePeriod)
-                .resourceChain(true)
-                .addResolver(new PathResourceResolver() {
-                    @Override
-                    protected Resource getResource(String resourcePath,
-                                                   Resource location) throws IOException {
-                        return location.exists() && location.isReadable() ? location
-                                : null;
-                    }
-                });
+//        registry.addResourceHandler("/**")
+//                .addResourceLocations("classpath:/static/index.html")
+//                .setCachePeriod(cachePeriod)
+//                .resourceChain(true)
+//                .addResolver(new PathResourceResolver() {
+//                    @Override
+//                    protected Resource getResource(String resourcePath,
+//                                                   Resource location) throws IOException {
+//                        return location.exists() && location.isReadable() ? location
+//                                : null;
+//                    }
+//                });
     }
 
 }
