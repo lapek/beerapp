@@ -6,9 +6,7 @@ body {
     box-sizing: border-box;
 }
 
-md-no-animations,
-md-dialog.md-transition-in,
-md-dialog.md-transition-out {
+md-no-animations, md-dialog.md-transition-in, md-dialog.md-transition-out {
     -webkit-transform: none !important;
     transform: none !important;
 }
@@ -22,17 +20,28 @@ md-dialog form {
     margin-top: 30px;
 }
 
-md-sidenav {
-    width: 110px;
-    height: 100%;
-    padding: 10px;
-    background-color: #ffffff;
-}
-
 md-content {
     height:100%;
     padding:10px;
 }
 md-toolbar {
     height: 60px;
+}
+
+.hint {
+    /* Position the hint */
+    position: absolute;
+    left: 2px;
+    right: auto;
+    bottom: 7px;
+    /* Copy styles from ng-messages */
+    font-size: 12px;
+    line-height: 14px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+    /* Set our own color */
+    color: grey;
+}
+
+.min-200 {
+    min-width: 200px;
 }

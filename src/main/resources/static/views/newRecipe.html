@@ -1,30 +1,144 @@
-<div ng-controller="NewRecipeController as signupCtrl" layout="column" layout-padding ng-cloak>
-    <md-content class="md-no-momentum">
-        <div flex-xs flex-gt-xs="50" layout="column">
-            <md-card flex flex-gt-xs="30">
+<div ng-controller="NewRecipeController as nrVm" layout="column" layout-padding ng-cloak>
+    <md-content class="md-no-momentum" layout-xs="column" layout="row" layout-wrap>
+        <!-- head -->
+        <div flex="100">
+            <md-card flex>
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline">Witaj na BeerApp</span>
-                        <span class="md-subhead">Strona dla piwowarów domowych.</span>
+                        <div layout="row" layout-align="space-between start">
+                            <span class="md-display-1">Edycja Receptury</span>
+                            <span flex></span>
+                            <md-input-container>
+                                <md-switch ng-model="vm.recipe.visible">Widoczność receptury: {{vm.recipe.visible ?
+                                    'Prywatna' : 'Publiczna'}}
+                                </md-switch>
+                            </md-input-container>
+                            <md-input-container>
+                                <md-button class="md-raised md-primary" ng-click="nrVm.save()">Zapisz</md-button>
+                            </md-input-container>
+                        </div>
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    Zapraszamy do logowania. Jeśli nie masz jeszcze konta, zapraszamy do założenia takowego.
+                    <div layout="row" layout-align="space-between start">
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Nazwa receptury</label>
+                            <input ng-model="nrVm.recipe.name" maxlength="256">
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Styl piwa</label>
+                            <md-select ng-model="nrVm.recipe.style" md-on-open="nrVm.getStylesList()"
+                                       class="min-200">
+                                <md-option ng-value="stl" ng-repeat="stl in nrVm.styles">
+                                    {{stl.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Wielkość warki:</label>
+                            <input type="number" min="1" ng-model="nrVm.recipe.batchSize">
+                            <div class="hint">Szacowana wielkość warki w litrach.</div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Szacowana ilość do gotowania:</label>
+                            <input type="number" min="1" ng-model="nrVm.recipe.estBoilSize">
+                            <div class="hint">Szacowana ilość brzeczki do gotowania w litrach.</div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Wydajność:</label>
+                            <input type="number" min="1" max="100" ng-model="nrVm.recipe.efficiency">
+                            <div class="hint">Wydajność w procentach.</div>
+                        </md-input-container>
+                    </div>
+                    <!--<md-divider></md-divider>-->
+                    <div layout="row" layout-align="space-around end">
+                        <div layout="column">
+                            <p class="md-subhead">OG</p>
+                            <p class="md-title">{{nrVm.recipe.details.OG | number: 1 }} °P</p>
+                        </div>
+                        <div layout="column">
+                            <p class="md-subhead">FG</p>
+                            <p class="md-title">{{nrVm.recipe.details.FG | number: 1 }} °P</p>
+                        </div>
+                        <div layout="column">
+                            <p class="md-subhead">ABV</p>
+                            <p class="md-title">{{nrVm.recipe.details.ABV | number: 1 }}%</p>
+                        </div>
+                        <div layout="column">
+                            <p class="md-subhead">IBU</p>
+                            <p class="md-title">{{nrVm.recipe.details.IBU | number: 2 }}</p>
+                        </div>
+                        <div layout="column">
+                            <p class="md-subhead">SRM</p>
+                            <!--<p class="md-title">{{nrVm.recipe.details.SRM == 0 ? '-' : nrVm.recipe.details.SRM | number: 1 }}</p>-->
+                            <p class="md-title">{{nrVm.recipe.details.SRM | number: 2 }}</p>
+                        </div>
+                        <div layout="column">
+                            <p class="md-subhead">Przybliżony Kolor</p>
+                            <p class="md-title" ng-style="{ 'background-color': nrVm.color }">{{nrVm.color == null ? '-' : nrVm.color}}</p>
+                        </div>
+                    </div>
                 </md-card-content>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button ui-sref="signup">Utwórz nowe konto</md-button>
-                    <!--<md-button ng-click="navbar.showLogin($event)">Zaloguj się</md-button>-->
-                </md-card-actions>
+            </md-card>
+        </div>
+
+        <!-- 1 column -->
+        <div flex="50">
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <div layout="row" layout-align="space-between start">
+                            <span class="md-headline">Zasyp</span>
+                            <md-input-container>
+                                <md-button ng-click="nrVm.addMalt()" md-on-open="nrVm.getMaltsList()">
+                                    <span>Dodaj</span>
+                                </md-button>
+                            </md-input-container>
+                        </div>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <div id="maltDiv">
+                    </div>
+                </md-card-content>
             </md-card>
             <md-card flex>
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline">Ostatnie recepury</span>
-                        <!--<span class="md-subhead">Subheader</span>-->
+                        <span class="md-headline">Zacieranie</span>
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    <p>bedo tu sie pokazywac osattnio dodana receptura</p>
+                    ---
+                </md-card-content>
+            </md-card>
+        </div>
+
+        <!-- 2 column -->
+        <div flex="50">
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Chmielenie</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <md-input-container class="md-block" flex-gt-sm="">
+                        <label>Długość gotowania:</label>
+                        <input type="number" min="1" ng-model="nrVm.recipe.estBoilTime">
+                        <div class="hint">Długość gotowania w minutach.</div>
+                    </md-input-container>
+                    ---
+                </md-card-content>
+            </md-card>
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Drożdże</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    ---
                 </md-card-content>
             </md-card>
         </div>

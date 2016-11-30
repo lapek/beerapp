@@ -1,9 +1,9 @@
-<md-dialog ng-controller="LoginController as loginCtrl" md-theme="login">
+<md-dialog ng-controller="LoginController as loginVm" md-theme="login">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>Logowanie</h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="loginCtrl.cancel()">
+            <md-button class="md-icon-button" ng-click="loginVm.cancel()">
                 <md-icon md-svg-icon="close"></md-icon>
             </md-button>
         </div>
@@ -13,19 +13,19 @@
             <md-input-container class="md-icon-float md-block" required>
                 <label>Nazwa użytkownika</label>
                 <md-icon md-svg-icon="account"></md-icon>
-                <input ng-model="loginCtrl.user.name" type="text">
+                <input ng-model="loginVm.user.name" type="text">
             </md-input-container>
             <md-input-container class="md-icon-float md-block" required>
                 <label>Hasło</label>
                 <md-icon md-svg-icon="lock"></md-icon>
-                <input ng-model="loginCtrl.user.pass" type="text">
+                <input ng-model="loginVm.user.pass" type="text">
             </md-input-container>
         </form>
     </md-dialog-content>
     <md-dialog-actions layout="row" md-whiteframe="2">
         <md-button ui-sref="signup">Nie masz konta?</md-button>
         <span flex></span>
-        <md-button ng-click="loginCtrl.cancel()">Anuluj</md-button>
-        <md-button class="md-raised md-primary" ng-click="loginCtrl.login($event)">Zaloguj</md-button>
+        <md-button ng-click="loginVm.cancel()">Anuluj</md-button>
+        <md-button class="md-raised md-primary" ng-click="loginVm.login($event)">Zaloguj</md-button>
     </md-dialog-actions>
 </md-dialog>

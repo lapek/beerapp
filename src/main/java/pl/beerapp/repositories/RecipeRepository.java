@@ -1,4 +1,8 @@
 package pl.beerapp.repositories;
 
-public interface RecipeRepository {
+import org.springframework.data.repository.CrudRepository;
+import pl.beerapp.entities.Recipe;
+
+public interface RecipeRepository extends CrudRepository<Recipe, Long> {
+
 }

@@ -1,0 +1,18 @@
+<div layout="row" layout-align="space-between start">
+    <md-input-container class="md-block" flex-gt-sm="">
+        <label>Ilość</label>
+        <input type="number" min="0" ng-model="adVm.grain.weight">
+        <div class="hint">Ilość słodu w kilogramach.</div>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm="">
+        <label>Nazwa słodu</label>
+        <md-select ng-model="adVm.grain.malt" style="min-width: 250px;" md-on-open="adVm.getMaltsList()">
+            <md-option ng-value="mlt" ng-repeat="mlt in adVm.malts">
+                {{mlt.country}} | {{mlt.name}}
+            </md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm="">
+        <md-button ng-click="adVm.Delete($event)">Usuń</md-button>
+    </md-input-container>
+</div>
