@@ -25,6 +25,14 @@
                 url: '/signup',
                 templateUrl: '../views/signup.html'
             })
+            .state('contact', {
+                url: '/contact',
+                templateUrl: '../views/contact.html'
+            })
+            .state('help', {
+                url: '/help',
+                templateUrl: '../views/help.html'
+            })
             .state('newRecipe', {
                 url: '/newRecipe',
                 templateUrl: '../views/newRecipe.html'

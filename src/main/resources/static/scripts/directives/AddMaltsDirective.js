@@ -18,7 +18,6 @@
         };
 
         return directive;
-
     }
 
     function AddMaltController($rootScope, $scope, $element, $http, GrainService, $log) {

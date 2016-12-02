@@ -27,8 +27,11 @@ public class Recipe implements Serializable {
     @Column(name = "efficiency", nullable = false)
     private Double efficiency;
 
-    @Column(name = "volume", nullable = false)
-    private Double volume;
+    @Column(name = "batch_size", nullable = false)
+    private Double batchSize;
+
+    @Column(name = "boil_size", nullable = false)
+    private Double boilSize;
 
     @Column(name = "boil_time", nullable = false)
     private Double boilTime;
@@ -54,30 +57,36 @@ public class Recipe implements Serializable {
             joinColumns = @JoinColumn(name = "id_recipe"),
             inverseJoinColumns = @JoinColumn(name = "id_store")
     )
-    private Set<HopStore> hopStore = new HashSet<>();
+    private Set<HopStore> hopStores = new HashSet<>();
 
     @OneToMany
     @JoinTable(
-            name = "RecipeYeast",
+            name = "RecipeMashing",
             joinColumns = @JoinColumn(name = "id_recipe"),
-            inverseJoinColumns = @JoinColumn(name = "id_yeast")
+            inverseJoinColumns = @JoinColumn(name = "id_mashing")
     )
-    private Set<Yeast> yeast = new HashSet<>();
+    private Set<Mashing> mashings = new HashSet<>();
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JoinColumn(name = "ferment_fk")
+    private Fermentation fermentation;
 
     public Recipe() {
     }
 
-    public Recipe(String style, String name, Double efficiency, Double volume, Double boilTime, boolean visible, AppUser appUser, Set<Grain> grains, Set<HopStore> hopStore, Set<Yeast> yeast) {
+    public Recipe(String style, String name, Double efficiency, Double batchSize, Double boilSize, Double boilTime, boolean visible, AppUser appUser, Set<Grain> grains, Set<HopStore> hopStores, Set<Mashing> mashings, Fermentation fermentation) {
         this.style = style;
         this.name = name;
         this.efficiency = efficiency;
-        this.volume = volume;
+        this.batchSize = batchSize;
+        this.boilSize = boilSize;
         this.boilTime = boilTime;
         this.visible = visible;
         this.appUser = appUser;
         this.grains = grains;
-        this.hopStore = hopStore;
-        this.yeast = yeast;
+        this.hopStores = hopStores;
+        this.mashings = mashings;
+        this.fermentation = fermentation;
     }
 
     public Long getId_recipe() {
@@ -88,12 +97,52 @@ public class Recipe implements Serializable {
         this.id_recipe = id_recipe;
     }
 
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Double getEfficiency() {
+        return efficiency;
+    }
+
+    public void setEfficiency(Double efficiency) {
+        this.efficiency = efficiency;
+    }
+
+    public Double getBatchSize() {
+        return batchSize;
+    }
+
+    public void setBatchSize(Double batchSize) {
+        this.batchSize = batchSize;
+    }
+
+    public Double getBoilSize() {
+        return boilSize;
+    }
+
+    public void setBoilSize(Double boilSize) {
+        this.boilSize = boilSize;
+    }
+
+    public Double getBoilTime() {
+        return boilTime;
+    }
+
+    public void setBoilTime(Double boilTime) {
+        this.boilTime = boilTime;
     }
 
     public boolean isVisible() {
@@ -120,69 +169,28 @@ public class Recipe implements Serializable {
         this.grains = grains;
     }
 
-    public Set<HopStore> getHopStore() {
-        return hopStore;
+    public Set<HopStore> getHopStores() {
+        return hopStores;
     }
 
-    public void setHopStore(Set<HopStore> hopStore) {
-        this.hopStore = hopStore;
+    public void setHopStores(Set<HopStore> hopStores) {
+        this.hopStores = hopStores;
     }
 
-    public String getStyle() {
-        return style;
+    public Set<Mashing> getMashings() {
+        return mashings;
     }
 
-    public void setStyle(String style) {
-        this.style = style;
+    public void setMashings(Set<Mashing> mashings) {
+        this.mashings = mashings;
     }
 
-    public Double getEfficiency() {
-        return efficiency;
+    public Fermentation getFermentation() {
+        return fermentation;
     }
 
-    public void setEfficiency(Double efficiency) {
-        this.efficiency = efficiency;
-    }
-
-    public Double getVolume() {
-        return volume;
-    }
-
-    public void setVolume(Double volume) {
-        this.volume = volume;
-    }
-
-    public Double getBoilTime() {
-        return boilTime;
-    }
-
-    public void setBoilTime(Double boilTime) {
-        this.boilTime = boilTime;
-    }
-
-    public Set<Yeast> getYeast() {
-        return yeast;
-    }
-
-    public void setYeast(Set<Yeast> yeast) {
-        this.yeast = yeast;
-    }
-
-    @Override
-    public String toString() {
-        return "Recipe{" +
-                "id_recipe=" + id_recipe +
-                ", style='" + style + '\'' +
-                ", name='" + name + '\'' +
-                ", efficiency=" + efficiency +
-                ", volume=" + volume +
-                ", boilTime=" + boilTime +
-                ", visible=" + visible +
-                ", appUser=" + appUser +
-                ", grains=" + grains +
-                ", hopStore=" + hopStore +
-                ", yeast=" + yeast +
-                '}';
+    public void setFermentation(Fermentation fermentation) {
+        this.fermentation = fermentation;
     }
 
     @Override
@@ -197,13 +205,14 @@ public class Recipe implements Serializable {
         if (style != null ? !style.equals(recipe.style) : recipe.style != null) return false;
         if (name != null ? !name.equals(recipe.name) : recipe.name != null) return false;
         if (efficiency != null ? !efficiency.equals(recipe.efficiency) : recipe.efficiency != null) return false;
-        if (volume != null ? !volume.equals(recipe.volume) : recipe.volume != null) return false;
+        if (batchSize != null ? !batchSize.equals(recipe.batchSize) : recipe.batchSize != null) return false;
+        if (boilSize != null ? !boilSize.equals(recipe.boilSize) : recipe.boilSize != null) return false;
         if (boilTime != null ? !boilTime.equals(recipe.boilTime) : recipe.boilTime != null) return false;
         if (appUser != null ? !appUser.equals(recipe.appUser) : recipe.appUser != null) return false;
         if (grains != null ? !grains.equals(recipe.grains) : recipe.grains != null) return false;
-        if (hopStore != null ? !hopStore.equals(recipe.hopStore) : recipe.hopStore != null) return false;
-        return yeast != null ? yeast.equals(recipe.yeast) : recipe.yeast == null;
-
+        if (hopStores != null ? !hopStores.equals(recipe.hopStores) : recipe.hopStores != null) return false;
+        if (mashings != null ? !mashings.equals(recipe.mashings) : recipe.mashings != null) return false;
+        return fermentation != null ? fermentation.equals(recipe.fermentation) : recipe.fermentation == null;
     }
 
     @Override
@@ -212,13 +221,34 @@ public class Recipe implements Serializable {
         result = 31 * result + (style != null ? style.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (efficiency != null ? efficiency.hashCode() : 0);
-        result = 31 * result + (volume != null ? volume.hashCode() : 0);
+        result = 31 * result + (batchSize != null ? batchSize.hashCode() : 0);
+        result = 31 * result + (boilSize != null ? boilSize.hashCode() : 0);
         result = 31 * result + (boilTime != null ? boilTime.hashCode() : 0);
         result = 31 * result + (visible ? 1 : 0);
         result = 31 * result + (appUser != null ? appUser.hashCode() : 0);
         result = 31 * result + (grains != null ? grains.hashCode() : 0);
-        result = 31 * result + (hopStore != null ? hopStore.hashCode() : 0);
-        result = 31 * result + (yeast != null ? yeast.hashCode() : 0);
+        result = 31 * result + (hopStores != null ? hopStores.hashCode() : 0);
+        result = 31 * result + (mashings != null ? mashings.hashCode() : 0);
+        result = 31 * result + (fermentation != null ? fermentation.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id_recipe=" + id_recipe +
+                ", style='" + style + '\'' +
+                ", name='" + name + '\'' +
+                ", efficiency=" + efficiency +
+                ", batchSize=" + batchSize +
+                ", boilSize=" + boilSize +
+                ", boilTime=" + boilTime +
+                ", visible=" + visible +
+                ", appUser=" + appUser +
+                ", grains=" + grains +
+                ", hopStores=" + hopStores +
+                ", mashings=" + mashings +
+                ", fermentation=" + fermentation +
+                '}';
     }
 }

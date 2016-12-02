@@ -6,13 +6,13 @@
     </md-input-container>
     <md-input-container class="md-block" flex-gt-sm="">
         <label>Nazwa słodu</label>
-        <md-select ng-model="adVm.grain.malt" style="min-width: 250px;" md-on-open="adVm.getMaltsList()">
+        <md-select ng-model="adVm.grain.malt" class="min-200" md-on-open="adVm.getMaltsList()">
             <md-option ng-value="mlt" ng-repeat="mlt in adVm.malts">
                 {{mlt.country}} | {{mlt.name}}
             </md-option>
         </md-select>
     </md-input-container>
-    <md-input-container class="md-block" flex-gt-sm="">
+    <md-input-container>
         <md-button ng-click="adVm.Delete($event)">Usuń</md-button>
     </md-input-container>
 </div>

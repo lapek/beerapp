@@ -81,3 +81,11 @@ INSERT INTO styles(name) VALUES ('Vienna-Style Lager');
 -----------------------------
 
 INSERT INTO malts(name, malt_type, country, colorebc, max, potential) VALUES ('Pale - 2 Row', 'SŁÓD', 'Belgia', 5.9, 100, 37);
+
+-----------------------------
+
+INSERT INTO hops(name, alpha, country, hop_type) VALUES ('Cascade', 6.0, 'USA', 'AROMATYCZNY');
+
+-----------------------------
+
+INSERT INTO yeasts(name, lab, attenuation, packaging, symbol, type) VALUES ('Nottingham', 'Danstar', 77.0, 'Suche', '', 'Ale');

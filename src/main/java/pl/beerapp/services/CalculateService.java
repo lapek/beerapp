@@ -154,7 +154,7 @@ public class CalculateService {
         } else {
             GA = 0.0;
         }
-        IBU = (weightInG * utilization * (Alpha / 100) * 1000) / (volumeInLiters * (1 + GA));
+        IBU = (weightInG * (utilization/100) * (Alpha / 100) * 1000) / (volumeInLiters * (1 + GA));
         return IBU;
     }
 
@@ -178,7 +178,7 @@ public class CalculateService {
      * @return Boil Gravity
      */
     public Double calculateBoilGravity(Double OG, Double boilVolume, Double finalVolume) {
-        return (boilVolume / finalVolume) * ((OG - 1) / 100);
+        return ((boilVolume / finalVolume) * ((calculatePlatoToSG(OG) - 1) * 1000)/1000) + 1;
     }
 
     /* ------------------------- Conversions ------------------------- */

@@ -9,8 +9,7 @@
                             <span class="md-display-1">Edycja Receptury</span>
                             <span flex></span>
                             <md-input-container>
-                                <md-switch ng-model="vm.recipe.visible">Widoczność receptury: {{vm.recipe.visible ?
-                                    'Prywatna' : 'Publiczna'}}
+                                <md-switch ng-model="vm.recipe.visible">Widoczność receptury: {{vm.recipe.visible === true ? 'Prywatna' : 'Publiczna'}}
                                 </md-switch>
                             </md-input-container>
                             <md-input-container>
@@ -35,6 +34,13 @@
                             </md-select>
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Wydajność:</label>
+                            <input type="number" min="1" max="100" ng-model="nrVm.recipe.efficiency">
+                            <div class="hint">Wydajność w procentach.</div>
+                        </md-input-container>
+                    </div>
+                    <div layout="row" layout-align="space-between start">
+                        <md-input-container class="md-block" flex-gt-sm="">
                             <label>Wielkość warki:</label>
                             <input type="number" min="1" ng-model="nrVm.recipe.batchSize">
                             <div class="hint">Szacowana wielkość warki w litrach.</div>
@@ -45,37 +51,38 @@
                             <div class="hint">Szacowana ilość brzeczki do gotowania w litrach.</div>
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-sm="">
-                            <label>Wydajność:</label>
-                            <input type="number" min="1" max="100" ng-model="nrVm.recipe.efficiency">
-                            <div class="hint">Wydajność w procentach.</div>
+                            <label>Długość gotowania:</label>
+                            <input type="number" min="1" ng-model="nrVm.recipe.estBoilTime">
+                            <div class="hint">Długość gotowania w minutach.</div>
                         </md-input-container>
                     </div>
                     <!--<md-divider></md-divider>-->
                     <div layout="row" layout-align="space-around end">
-                        <div layout="column">
+                        <div layout="column"  layout-align="center center">
                             <p class="md-subhead">OG</p>
                             <p class="md-title">{{nrVm.recipe.details.OG | number: 1 }} °P</p>
                         </div>
-                        <div layout="column">
+                        <div layout="column"  layout-align="center center">
                             <p class="md-subhead">FG</p>
                             <p class="md-title">{{nrVm.recipe.details.FG | number: 1 }} °P</p>
                         </div>
-                        <div layout="column">
+                        <div layout="column"  layout-align="center center">
                             <p class="md-subhead">ABV</p>
                             <p class="md-title">{{nrVm.recipe.details.ABV | number: 1 }}%</p>
                         </div>
-                        <div layout="column">
+                        <div layout="column"  layout-align="center center">
                             <p class="md-subhead">IBU</p>
                             <p class="md-title">{{nrVm.recipe.details.IBU | number: 2 }}</p>
                         </div>
-                        <div layout="column">
+                        <div layout="column"  layout-align="center center">
                             <p class="md-subhead">SRM</p>
                             <!--<p class="md-title">{{nrVm.recipe.details.SRM == 0 ? '-' : nrVm.recipe.details.SRM | number: 1 }}</p>-->
                             <p class="md-title">{{nrVm.recipe.details.SRM | number: 2 }}</p>
                         </div>
-                        <div layout="column">
+                        <div layout="column"  layout-align="center center">
                             <p class="md-subhead">Przybliżony Kolor</p>
-                            <p class="md-title" ng-style="{ 'background-color': nrVm.color }">{{nrVm.color == null ? '-' : nrVm.color}}</p>
+                            <p class="md-title" ng-style="{ 'background-color': nrVm.color, 'width': '48px', 'height': '48px' }">{{nrVm.color == null ? '-'
+                                : ''}}</p>
                         </div>
                     </div>
                 </md-card-content>
@@ -90,7 +97,7 @@
                         <div layout="row" layout-align="space-between start">
                             <span class="md-headline">Zasyp</span>
                             <md-input-container>
-                                <md-button ng-click="nrVm.addMalt()" md-on-open="nrVm.getMaltsList()">
+                                <md-button class="md-raised" ng-click="nrVm.addMalt()">
                                     <span>Dodaj</span>
                                 </md-button>
                             </md-input-container>
@@ -105,11 +112,26 @@
             <md-card flex>
                 <md-card-title>
                     <md-card-title-text>
+                        <div layout="row" layout-align="space-between start">
+                            <md-input-container>
                         <span class="md-headline">Zacieranie</span>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm="">
+                                <label>Początkowa gęstość zacierania:</label>
+                                <input type="number" min="0.1" ng-model="nrVm.recipe.thickness">
+                                <div class="hint">Ilość wody w litrach na kilogram słodu.</div>
+                            </md-input-container>
+                            <md-input-container>
+                                <md-button class="md-raised" ng-click="nrVm.addMashStep()">
+                                    <span>Dodaj</span>
+                                </md-button>
+                            </md-input-container>
+                        </div>
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    ---
+                    <div id="mashDiv">
+                    </div>
                 </md-card-content>
             </md-card>
         </div>
@@ -119,26 +141,73 @@
             <md-card flex>
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline">Chmielenie</span>
+                        <div layout="row" layout-align="space-between start">
+                            <span class="md-headline">Chmielenie</span>
+                            <md-input-container>
+                                <md-button class="md-raised" ng-click="nrVm.addHop()">
+                                    <span>Dodaj</span>
+                                </md-button>
+                            </md-input-container>
+                        </div>
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    <md-input-container class="md-block" flex-gt-sm="">
-                        <label>Długość gotowania:</label>
-                        <input type="number" min="1" ng-model="nrVm.recipe.estBoilTime">
-                        <div class="hint">Długość gotowania w minutach.</div>
-                    </md-input-container>
-                    ---
+                    <div id="hopDiv">
+                    </div>
                 </md-card-content>
             </md-card>
             <md-card flex>
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline">Drożdże</span>
+                        <span class="md-headline">Fermentacja</span>
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    ---
+                    <div layout="row" layout-align="space-between start">
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Drożdże</label>
+                            <md-select ng-model="nrVm.recipe.yeast" class="min-200" md-on-open="nrVm.getYeastsList()">
+                                <md-option ng-value="yst" ng-repeat="yst in nrVm.yeasts">
+                                    {{yst.lab}} | {{yst.name}} {{yst.symbol}} | {{yst.type}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <p class="md-body-2">Poziom przemiany:
+                                <span class="md-body-1">{{nrVm.recipe.yeast == null ? nrVm.recipe.attenuation : nrVm.recipe.attenuation = nrVm.recipe.yeast.attenuation}} %</span>
+                            </p>
+                        </md-input-container>
+                    </div>
+                    <div layout="row" layout-align="space-between start">
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            Fermentacja burzliwa:
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Czas:</label>
+                            <input type="number" min="1" ng-model="nrVm.recipe.fermentation.primary.time">
+                            <div class="hint">Czas feremtacji w dniach.</div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Temperatura:</label>
+                            <input type="number" min="1" ng-model="nrVm.recipe.fermentation.primary.temperature">
+                            <div class="hint">W stopniach Celsjusza.</div>
+                        </md-input-container>
+                    </div>
+                    <div layout="row" layout-align="space-between start">
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            Fermentacja cicha:
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Czas:</label>
+                            <input type="number" min="1" ng-model="nrVm.recipe.fermentation.secondary.time">
+                            <div class="hint">Czas feremtacji w dniach.</div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm="">
+                            <label>Temperatura:</label>
+                            <input type="number" min="1" ng-model="nrVm.recipe.fermentation.secondary.temperature">
+                            <div class="hint">W stopniach Celsjusza.</div>
+                        </md-input-container>
+                    </div>
                 </md-card-content>
             </md-card>
         </div>

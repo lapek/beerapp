@@ -1,0 +1,20 @@
+<div layout="row" layout-align="space-between start">
+    <md-input-container class="md-block" flex-gt-sm="">
+        <label>Temperatura</label>
+        <input type="number" min="0" ng-model="amVm.mashing.temperature">
+        <div class="hint">Temperatura kroku w stopniach Celsjusza.</div>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm="">
+        <label>Czas</label>
+        <input type="number" min="0" ng-model="amVm.mashing.time">
+        <div class="hint">Czas kroku w minutach.</div>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm="">
+        <label>Ilość</label>
+        <input type="number" min="0" ng-model="amVm.mashing.amount">
+        <div class="hint">Ilość wody w kroku.</div>
+    </md-input-container>
+    <md-input-container>
+        <md-button ng-click="ahVm.Delete($event)">Usuń</md-button>
+    </md-input-container>
+</div>

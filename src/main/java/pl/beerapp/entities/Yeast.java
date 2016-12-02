@@ -21,21 +21,25 @@ public class Yeast implements Serializable {
     @Column(name = "symbol", nullable = false)
     private String symbol;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type")
     private String type;
 
-    @Column(name = "packaging", nullable = false)
+    @Column(name = "packaging")
     private String packaging;
+
+    @Column(name = "attenuation", nullable = false)
+    private Double attenuation;
 
     public Yeast() {
     }
 
-    public Yeast(String lab, String name, String symbol, String type, String packaging) {
-        this.lab = lab;
+    public Yeast(String name, String lab, String symbol, String type, String packaging, Double attenuation) {
         this.name = name;
+        this.lab = lab;
         this.symbol = symbol;
         this.type = type;
         this.packaging = packaging;
+        this.attenuation = attenuation;
     }
 
     public Long getId_yeast() {
@@ -86,6 +90,14 @@ public class Yeast implements Serializable {
         this.packaging = packaging;
     }
 
+    public Double getAttenuation() {
+        return attenuation;
+    }
+
+    public void setAttenuation(Double attenuation) {
+        this.attenuation = attenuation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,8 +110,8 @@ public class Yeast implements Serializable {
         if (lab != null ? !lab.equals(yeast.lab) : yeast.lab != null) return false;
         if (symbol != null ? !symbol.equals(yeast.symbol) : yeast.symbol != null) return false;
         if (type != null ? !type.equals(yeast.type) : yeast.type != null) return false;
-        return packaging != null ? packaging.equals(yeast.packaging) : yeast.packaging == null;
-
+        if (packaging != null ? !packaging.equals(yeast.packaging) : yeast.packaging != null) return false;
+        return attenuation != null ? attenuation.equals(yeast.attenuation) : yeast.attenuation == null;
     }
 
     @Override
@@ -110,6 +122,7 @@ public class Yeast implements Serializable {
         result = 31 * result + (symbol != null ? symbol.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (packaging != null ? packaging.hashCode() : 0);
+        result = 31 * result + (attenuation != null ? attenuation.hashCode() : 0);
         return result;
     }
 
@@ -122,6 +135,7 @@ public class Yeast implements Serializable {
                 ", symbol='" + symbol + '\'' +
                 ", type='" + type + '\'' +
                 ", packaging='" + packaging + '\'' +
+                ", attenuation=" + attenuation +
                 '}';
     }
 }

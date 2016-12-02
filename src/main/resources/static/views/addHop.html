@@ -1,0 +1,23 @@
+<div layout="row" layout-align="space-between start">
+    <md-input-container class="md-block" flex-gt-sm="">
+        <label>Ilość</label>
+        <input type="number" min="0" ng-model="ahVm.hopStore.weight">
+        <div class="hint">Ilość chmielu w gramach.</div>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm="">
+        <label>Czas</label>
+        <input type="number" min="0" ng-model="ahVm.hopStore.time">
+        <div class="hint">Czas gotowania w minutach.</div>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm="">
+        <label>Chmiel</label>
+        <md-select ng-model="ahVm.hopStore.hop" class="min-200" md-on-open="ahVm.getHopsList()">
+            <md-option ng-value="hop" ng-repeat="hop in ahVm.hops">
+                {{hop.country}} | {{hop.name}} | AA: {{hop.alpha}}
+            </md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container>
+        <md-button ng-click="ahVm.Delete($event)">Usuń</md-button>
+    </md-input-container>
+</div>
