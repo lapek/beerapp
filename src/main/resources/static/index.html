@@ -19,7 +19,7 @@
                     <md-icon md-svg-icon="beer"></md-icon>
                     <span>BeerApp</span></a></h2>
                 <span flex></span>
-                <div ng-show='!auth'>
+                <div  ng-show="!authenticated">
                     <md-button ui-sref="signup">
                         <md-icon md-svg-icon="account-plus"></md-icon>
                         Rejestracja
@@ -29,7 +29,7 @@
                         Logowanie
                     </md-button>
                 </div>
-                <div ng-show='!auth'>
+                <div ng-show="authenticated">
                     <md-menu>
                         <md-button ng-click="navVm.openMenu($mdOpenMenu, $event)">
                             <md-icon md-svg-icon="account"></md-icon>
@@ -51,7 +51,7 @@
                             <md-menu-divider></md-menu-divider>
                             <md-menu-item>
                                 <md-button ng-click="">
-                                    <md-icon md-svg-icon="logout"></md-icon>
+                                    <md-icon md-svg-icon="logout" ng-click="navVm.logout($event)"></md-icon>
                                     Wyloguj
                                 </md-button>
                             </md-menu-item>

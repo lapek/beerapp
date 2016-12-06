@@ -10,15 +10,18 @@
     </md-toolbar>
     <md-dialog-content style="max-width:500px;max-height:600px; ">
         <form name="accountLogin">
+            <div class="" ng-show="error">
+                Problem z logowaniem, spróbuj ponownie.
+            </div>
             <md-input-container class="md-icon-float md-block" required>
                 <label>Nazwa użytkownika</label>
                 <md-icon md-svg-icon="account"></md-icon>
-                <input ng-model="loginVm.user.name" type="text">
+                <input ng-model="loginVm.credentials.username" type="text">
             </md-input-container>
             <md-input-container class="md-icon-float md-block" required>
                 <label>Hasło</label>
                 <md-icon md-svg-icon="lock"></md-icon>
-                <input ng-model="loginVm.user.pass" type="text">
+                <input ng-model="loginVm.credentials.password" type="password">
             </md-input-container>
         </form>
     </md-dialog-content>

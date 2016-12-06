@@ -4,13 +4,14 @@
     angular.module('beerApp')
         .controller('NavigationController', NavigationController);
 
-    NavigationController.$inject = ['$mdDialog', '$scope'];
+    NavigationController.$inject = ['$mdDialog', '$mdToast', '$log', '$scope', '$http', '$rootScope', '$location'];
 
-    function NavigationController($mdDialog, $scope) {
+    function NavigationController($mdDialog, $mdToast, $log, $scope, $http, $rootScope, $location) {
         var vm = this;
 
         vm.showLogin = showLogin;
         vm.openMenu = openMenu;
+        vm.logout = logout;
 
         function openMenu($mdOpenMenu, $event) {
             vm.originatorEv = $event;
@@ -26,5 +27,22 @@
                 fullscreen: $scope.customFullscreen
             });
         }
+
+        function logout() {
+            $log.info('Logging out...');
+            $http.post('logout', {}).success(function () {
+                $rootScope.authenticated = false;
+                $location.path("/");
+            }).error(function (data) {
+                $rootScope.authenticated = false;
+            });
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Wylogowano.')
+                    .position("top left")
+                    .hideDelay(2000)
+            );
+        }
+
     }
 })();

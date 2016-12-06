@@ -116,10 +116,11 @@
                             <md-input-container>
                         <span class="md-headline">Zacieranie</span>
                             </md-input-container>
-                            <md-input-container class="md-block" flex-gt-sm="">
+                            <span flex></span>
+                            <md-input-container>
                                 <label>Początkowa gęstość zacierania:</label>
                                 <input type="number" min="0.1" ng-model="nrVm.recipe.thickness">
-                                <div class="hint">Ilość wody w litrach na kilogram słodu.</div>
+                                <div class="hint">Ilość wody w L/kg słodu.</div>
                             </md-input-container>
                             <md-input-container>
                                 <md-button class="md-raised" ng-click="nrVm.addMashStep()">
@@ -174,7 +175,7 @@
                         </md-input-container>
                         <md-input-container class="md-block" flex-gt-sm="">
                             <p class="md-body-2">Poziom przemiany:
-                                <span class="md-body-1">{{nrVm.recipe.yeast == null ? nrVm.recipe.attenuation : nrVm.recipe.attenuation = nrVm.recipe.yeast.attenuation}} %</span>
+                                <span class="md-body-1">{{nrVm.recipe.yeast.attenuation  == null ? nrVm.recipe.attenuation : nrVm.recipe.attenuation = nrVm.recipe.yeast.attenuation}} %</span>
                             </p>
                         </md-input-container>
                     </div>
