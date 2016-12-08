@@ -8,17 +8,14 @@
         '$mdToast',
         '$log', '$rootScope',
         '$scope', '$http',
-        '$state', '$cookieStore',
-        '$cookies', '$location',
-        '$q', '$resource'
+        '$state', 'AuthService'
     ];
 
-    function LoginController($mdDialog, $mdToast, $log, $rootScope, $scope, $http, $state, $cookieStore, $cookies, $location, $q, $resource, LoginService, appConfiguration) {
+    function LoginController($mdDialog, $mdToast, $log, $rootScope, $scope, $http, $state, AuthService) {
         var vm = this;
 
         vm.cancel = cancel;
         vm.login = login;
-        vm.authenticate = authenticate;
         vm.credentials = {};
         vm.credentials.username = '';
         vm.credentials.password = '';
@@ -28,7 +25,6 @@
         }
 
         function login($event) {
-            $log.info('Logging in...', vm.credentials);
             $http.post('login', vm.credentials, {
                 headers: {
                     "content-type": 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -39,36 +35,23 @@
                         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
                     return str.join("&");
                 }
-            })
-                .success(function (data) {
-                    vm.authenticate(function () {
-                        if ($rootScope.authenticated) {
-                            $state.go("home");
-                            successToast();
-                            cancel();
-                        } else {
-                            $location.path("/login");
-                            errorToast();
-                        }
-                    });
-                }).error(function (data) {
+            }).success(function (data) {
+                AuthService.authenticate(function () {
+                    if ($rootScope.authenticated) {
+                        $state.go("home");
+                        successToast();
+                        cancel();
+                    } else {
+                        //$location.path("/login");
+                        errorToast();
+                    }
+                });
+            }).error(function (data) {
                 errorToast();
+                window.localStorage.setItem('CurrentUser', null);
+                $rootScope.currentUser = null;
                 $rootScope.authenticated = false;
 
-            });
-        }
-
-        function authenticate(callback) {
-            $http.get('/api/users').success(function (data) {
-                if (data.name) {
-                    $rootScope.authenticated = true;
-                } else {
-                    $rootScope.authenticated = false;
-                }
-                callback && callback();
-            }).error(function () {
-                $rootScope.authenticated = false;
-                callback && callback();
             });
         }
 

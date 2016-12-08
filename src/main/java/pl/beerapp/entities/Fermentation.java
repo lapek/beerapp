@@ -3,6 +3,7 @@ package pl.beerapp.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Table
@@ -26,27 +27,38 @@ public class Fermentation implements Serializable {
     @Column(name = "secondary_temperature", nullable = false)
     private Double secondaryTemperature;
 
-    @OneToOne(mappedBy = "fermentation")
+    @OneToOne
     private Recipe recipe;
 
-    @OneToMany
-    @JoinTable(
-            name = "FermentationYeast",
-            joinColumns = @JoinColumn(name = "id_ferment"),
-            inverseJoinColumns = @JoinColumn(name = "id_yeast")
-    )
-    private Set<Yeast> yeasts = new HashSet<>();
+    @Column(name = "id_yeast")
+    private Long yeastId;
+
+//    @OneToMany
+//    @JoinTable(
+//            name="FermentationYeasts",
+//            joinColumns = @JoinColumn( name="id_ferment"),
+//            inverseJoinColumns = @JoinColumn( name="id_yeast")
+//    )
+//    private List<Yeast> yeasts;
+
+//    @OneToMany
+//    @JoinColumn(
+//            name = "FermentationYeast",
+//            joinColumns = @JoinColumn(name = "id_ferment"),
+//            inverseJoinColumns = @JoinColumn(name = "id_yeast")
+//    )
+//    private Set<Yeast> yeasts = new HashSet<>();
 
     public Fermentation() {
     }
 
-    public Fermentation(Double primaryTime, Double primaryTemperature, Double secondaryTime, Double secondaryTemperature, Recipe recipe, Set<Yeast> yeasts) {
+    public Fermentation(Double primaryTime, Double primaryTemperature, Double secondaryTime, Double secondaryTemperature, Recipe recipe, Long yeastId) {
         this.primaryTime = primaryTime;
         this.primaryTemperature = primaryTemperature;
         this.secondaryTime = secondaryTime;
         this.secondaryTemperature = secondaryTemperature;
         this.recipe = recipe;
-        this.yeasts = yeasts;
+        this.yeastId = yeastId;
     }
 
     public Long getId_ferment() {
@@ -89,12 +101,12 @@ public class Fermentation implements Serializable {
         this.secondaryTemperature = secondaryTemperature;
     }
 
-    public Set<Yeast> getYeasts() {
-        return yeasts;
+    public Recipe getRecipe() {
+        return recipe;
     }
 
-    public void setYeasts(Set<Yeast> yeasts) {
-        this.yeasts = yeasts;
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
     @Override
@@ -113,7 +125,7 @@ public class Fermentation implements Serializable {
         if (secondaryTemperature != null ? !secondaryTemperature.equals(that.secondaryTemperature) : that.secondaryTemperature != null)
             return false;
         if (recipe != null ? !recipe.equals(that.recipe) : that.recipe != null) return false;
-        return yeasts != null ? yeasts.equals(that.yeasts) : that.yeasts == null;
+        return yeastId != null ? yeastId.equals(that.yeastId) : that.yeastId == null;
     }
 
     @Override
@@ -124,8 +136,16 @@ public class Fermentation implements Serializable {
         result = 31 * result + (secondaryTime != null ? secondaryTime.hashCode() : 0);
         result = 31 * result + (secondaryTemperature != null ? secondaryTemperature.hashCode() : 0);
         result = 31 * result + (recipe != null ? recipe.hashCode() : 0);
-        result = 31 * result + (yeasts != null ? yeasts.hashCode() : 0);
+        result = 31 * result + (yeastId != null ? yeastId.hashCode() : 0);
         return result;
+    }
+
+    public Long getYeastId() {
+        return yeastId;
+    }
+
+    public void setYeastId(Long yeastId) {
+        this.yeastId = yeastId;
     }
 
     @Override
@@ -137,7 +157,7 @@ public class Fermentation implements Serializable {
                 ", secondaryTime=" + secondaryTime +
                 ", secondaryTemperature=" + secondaryTemperature +
                 ", recipe=" + recipe +
-                ", yeasts=" + yeasts +
+                ", yeastId=" + yeastId +
                 '}';
     }
 }

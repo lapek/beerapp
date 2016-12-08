@@ -2,7 +2,6 @@ INSERT INTO styles(name) VALUES ('American Amber Ale');
 INSERT INTO styles(name) VALUES ('American Amber Lager');
 INSERT INTO styles(name) VALUES ('American Barley Wine');
 INSERT INTO styles(name) VALUES ('American Black Ale');
-INSERT INTO styles(name) VALUES ('American Black Ale');
 INSERT INTO styles(name) VALUES ('American Brett');
 INSERT INTO styles(name) VALUES ('American Brown Ale');
 INSERT INTO styles(name) VALUES ('American Cream Ale');

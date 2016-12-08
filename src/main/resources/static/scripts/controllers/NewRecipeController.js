@@ -4,14 +4,15 @@
     angular.module('beerApp')
         .controller('NewRecipeController', NewRecipeController);
 
-    NewRecipeController.$inject = ['$mdDialog', '$scope', '$http', '$compile', '$log', 'GrainService', 'HopStoreService'];
+    NewRecipeController.$inject = ['$mdDialog', '$mdToast', '$scope', '$location', '$http', '$compile', '$q', '$log', '$rootScope', 'GrainService', 'HopStoreService', 'MashingService'];
 
-    function NewRecipeController($mdDialog, $scope, $http, $compile, $log, GrainService, HopStoreService) {
+    function NewRecipeController($mdDialog, $mdToast, $scope, $location, $http, $compile, $log, $q, $rootScope, GrainService, HopStoreService, MashingService) {
         var vm = this;
 
         vm.recipe = {};
         vm.recipe.style = '';
         vm.recipe.name = '';
+        vm.recipe.author = '';
         vm.recipe.visible = true;
         vm.recipe.batchSize = 20;
         vm.recipe.estBoilTime = 60;
@@ -49,6 +50,7 @@
 
         vm.recipe.grain = GrainService.getList();
         vm.recipe.hopStore = HopStoreService.getList();
+        vm.recipe.mashing = MashingService.getList();
 
         /*Get Styles List from api*/
         function getStylesList() {
@@ -91,11 +93,6 @@
             var appendHtml = $compile('<add-Mashing></add-Mashing>')($scope);
             divElement.append(appendHtml);
         }
-
-        $scope.$watch('vm.recipe.batchSize', 'vm.recipe.grain', function () {
-            calculateColor();
-            calculateSG();
-        });
 
         /* Calculate SRM and return hexColor */
         function calculateColor() {
@@ -178,19 +175,129 @@
             });
         }
 
+        function saveRecipe() {
+            var grainList = [];
+            var hopStoreList = [];
+            var mashingList = [];
+            var temp = {};
+
+            angular.forEach(vm.recipe.grain, function (grain, index) {
+                temp = {};
+                temp.weight = grain.weight;
+                temp.maltID = grain.malt.id_malt;
+                grainList.push(temp);
+            });
+
+            angular.forEach(vm.recipe.hopStore, function (hop, index) {
+                temp = {};
+                temp.weight = hop.weight;
+                temp.time = hop.time;
+                temp.hopID = hop.hop.id_hop;
+                hopStoreList.push(temp);
+            });
+
+            angular.forEach(vm.recipe.mashing, function (mash, index) {
+                temp = {};
+                temp.amount = mash.amount;
+                temp.temperature = mash.temperature;
+                temp.time = mash.time;
+                mashingList.push(temp);
+            });
+
+            var request = {
+                name: vm.recipe.name,
+                author: vm.recipe.author,
+                visible: vm.recipe.visible,
+                style: vm.recipe.style.name,
+                batchSize: vm.recipe.batchSize,
+                estBoilSize: vm.recipe.estBoilSize,
+                estBoilTime: vm.recipe.estBoilTime,
+                efficiency: vm.recipe.efficiency,
+                fermentationDTO: {
+                    primaryTime: vm.recipe.fermentation.primary.time,
+                    primaryTemperature: vm.recipe.fermentation.primary.temperature,
+                    secondaryTime: vm.recipe.fermentation.secondary.time,
+                    secondaryTemperature: vm.recipe.fermentation.primary.temperature
+                },
+                yeastID: vm.recipe.yeast.id_yeast,
+                grainList: grainList,
+                hopStoreList: hopStoreList,
+                mashingList: mashingList
+            };
+
+            console.log('request: ', request);
+
+            $http({
+                method: 'POST',
+                url: '/api/recipe/save',
+                data: angular.toJson(request)
+            }).then(function mySuccess(response) {
+                vm.recipe.details.IBU = response.data.IBU;
+            }, function myError(response) {
+                //error
+            });
+        }
+
         /*Save recipe*/
         function save() {
             if (vm.recipe.grain.length > 0) {
                 calculateColor();
                 calculateSG();
+            } else {
+                showToast('Proszę uzupełnić zasyp.')
             }
+
+            if (vm.recipe.hopStore.length > 0) {
+                calculateIBU();
+            } else {
+                showToast('Proszę uzupełnić chmielenie.')
+            }
+
+            if ($rootScope.currentUser != undefined) {
+                vm.recipe.author = $rootScope.currentUser;
+            }
+
+            if (vm.recipe.mashing.length == 0) {
+                showToast('Proszę uzupełnić zacieranie.')
+            }
+
+            if (vm.recipe.yeast == null) {
+                showToast('Proszę wybrać drożdże.')
+            }
+
+            //console.log('recipe: ', vm.recipe);
+            if(vm.recipe.grain.length > 0 && vm.recipe.hopStore.length > 0 && vm.recipe.mashing.length > 0 && vm.recipe.yeast != null) {
+                saveRecipe();
+                showToast('Zapisano recepturę');
+                $location.path("/");
+            } else {
+                //showToast('Proszę uzupełnić recepturę.')
+            }
+
+        }
+
+        function showToast(message){
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position("top right")
+                    .hideDelay(3000)
+            );
+        }
+
+
+        $scope.$watchCollection('vm.recipe.grain', function () {
+            if (vm.recipe.grain.length > 0) {
+                calculateColor();
+                calculateSG();
+            }
+        }, true);
+
+        $scope.$watchCollection('vm.recipe.hopStore', function () {
             if (vm.recipe.hopStore.length > 0) {
                 calculateIBU();
             }
-
-            $log.info('recipe: ', vm.recipe)
-        }
-
+        }, true);
 
     }
 })();

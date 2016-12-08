@@ -13,8 +13,8 @@ public class Hops implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idHop", nullable = false)
-    private Long idHop;
+    @Column(name = "id_hop", nullable = false)
+    private Long id_hop;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -29,7 +29,6 @@ public class Hops implements Serializable {
     @Column(name = "alpha", nullable = false)
     private Double alpha;
 
-
     public Hops() {
     }
 
@@ -40,12 +39,12 @@ public class Hops implements Serializable {
         this.alpha = alpha;
     }
 
-    public Long getIdHop() {
-        return idHop;
+    public Long getId_hop() {
+        return id_hop;
     }
 
-    public void setIdHop(Long idHop) {
-        this.idHop = idHop;
+    public void setId_hop(Long id_hop) {
+        this.id_hop = id_hop;
     }
 
     public String getName() {
@@ -81,38 +80,37 @@ public class Hops implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Hops{" +
+                "id_hop=" + id_hop +
+                ", name='" + name + '\'' +
+                ", country='" + country + '\'' +
+                ", hopType=" + hopType +
+                ", alpha=" + alpha +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Hops hops = (Hops) o;
 
-        if (idHop != null ? !idHop.equals(hops.idHop) : hops.idHop != null) return false;
+        if (id_hop != null ? !id_hop.equals(hops.id_hop) : hops.id_hop != null) return false;
         if (name != null ? !name.equals(hops.name) : hops.name != null) return false;
         if (country != null ? !country.equals(hops.country) : hops.country != null) return false;
         if (hopType != hops.hopType) return false;
         return alpha != null ? alpha.equals(hops.alpha) : hops.alpha == null;
-
     }
 
     @Override
     public int hashCode() {
-        int result = idHop != null ? idHop.hashCode() : 0;
+        int result = id_hop != null ? id_hop.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (hopType != null ? hopType.hashCode() : 0);
         result = 31 * result + (alpha != null ? alpha.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Hops{" +
-                "idHop=" + idHop +
-                ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
-                ", hopType=" + hopType +
-                ", alpha=" + alpha +
-                '}';
     }
 }

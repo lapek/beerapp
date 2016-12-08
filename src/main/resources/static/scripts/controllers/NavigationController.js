@@ -4,9 +4,9 @@
     angular.module('beerApp')
         .controller('NavigationController', NavigationController);
 
-    NavigationController.$inject = ['$mdDialog', '$mdToast', '$log', '$scope', '$http', '$rootScope', '$location'];
+    NavigationController.$inject = ['$mdDialog', '$mdToast', '$log', '$scope', '$http', '$rootScope', '$state'];
 
-    function NavigationController($mdDialog, $mdToast, $log, $scope, $http, $rootScope, $location) {
+    function NavigationController($mdDialog, $mdToast, $log, $scope, $http, $rootScope, $state) {
         var vm = this;
 
         vm.showLogin = showLogin;
@@ -19,22 +19,30 @@
         }
 
         function showLogin($event) {
-            $mdDialog.show({
-                templateUrl: '../../views/login.html',
-                parent: angular.element(document.body),
-                targetEvent: $event,
-                clickOutsideToClose: true,
-                fullscreen: $scope.customFullscreen
-            });
+            if ($rootScope.authenticated != true) {
+                $mdDialog.show({
+                    templateUrl: '../../views/login.html',
+                    parent: angular.element(document.body),
+                    targetEvent: $event,
+                    clickOutsideToClose: true,
+                    fullscreen: $scope.customFullscreen
+                });
+            }
         }
 
         function logout() {
-            $log.info('Logging out...');
-            $http.post('logout', {}).success(function () {
+            console.log('Logging out...');
+            $http.post('logout', {
+            }).success(function () {
                 $rootScope.authenticated = false;
-                $location.path("/");
+                $rootScope.currentUser = null;
+                window.localStorage.setItem('CurrentUser', null);
+                $state.go("home");
             }).error(function (data) {
                 $rootScope.authenticated = false;
+                $rootScope.currentUser = null;
+                window.localStorage.setItem('CurrentUser', null);
+
             });
             $mdToast.show(
                 $mdToast.simple()

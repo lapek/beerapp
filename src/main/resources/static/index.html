@@ -33,7 +33,7 @@
                     <md-menu>
                         <md-button ng-click="navVm.openMenu($mdOpenMenu, $event)">
                             <md-icon md-svg-icon="account"></md-icon>
-                            Nazwa użytkownika
+                            {{ currentUser }}
                         </md-button>
                         <md-menu-content width="4">
                             <md-menu-item>
@@ -50,8 +50,8 @@
                             </md-menu-item>
                             <md-menu-divider></md-menu-divider>
                             <md-menu-item>
-                                <md-button ng-click="">
-                                    <md-icon md-svg-icon="logout" ng-click="navVm.logout($event)"></md-icon>
+                                <md-button ng-click="navVm.logout()"">
+                                    <md-icon md-svg-icon="logout"></md-icon>
                                     Wyloguj
                                 </md-button>
                             </md-menu-item>
@@ -107,6 +107,7 @@
 <script type="text/javascript" src="scripts/services/GrainService.js"></script>
 <script type="text/javascript" src="scripts/services/HopStoreService.js"></script>
 <script type="text/javascript" src="scripts/services/MashingService.js"></script>
+<script type="text/javascript" src="scripts/services/AuthService.js"></script>
 
 </body>
 </html>

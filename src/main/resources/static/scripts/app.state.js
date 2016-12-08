@@ -21,38 +21,34 @@
         $stateProvider
             .state('home', {
                 url: '/home',
-                templateUrl: '../views/home.html',
-                access: {
-                    loginRequired: false
-                }
+                templateUrl: '../views/home.html'
             })
             .state('signup', {
                 url: '/signup',
-                templateUrl: '../views/signup.html',
-                access: {
-                    loginRequired: false
-                }
+                templateUrl: '../views/signup.html'
             })
             .state('contact', {
                 url: '/contact',
-                templateUrl: '../views/contact.html',
-                access: {
-                    loginRequired: false
-                }
+                templateUrl: '../views/contact.html'
             })
             .state('help', {
                 url: '/help',
-                templateUrl: '../views/help.html',
-                access: {
-                    loginRequired: false
-                }
+                templateUrl: '../views/help.html'
             })
             .state('newRecipe', {
                 url: '/newRecipe',
                 templateUrl: '../views/newRecipe.html',
-                access: {
-                    loginRequired: true
+                resolve : {
+                    resolvedUser : checkForAuthenticatedUser
                 }
             });
+
+        function checkForAuthenticatedUser(AuthService, $state) {
+            return AuthService.getCurrentUser().then(function (_user) {
+                return _user;
+            }, function (_error) {
+                $state.go('home');
+            })
+        }
     }
 })();

@@ -1,13 +1,10 @@
 package pl.beerapp.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 
 @Table
@@ -20,26 +17,37 @@ public class Grain implements Serializable {
     private Long id;
 
     @Column(name = "weight")
-    private Long weight;
+    private Double weight;
 
     @ManyToOne
     private Recipe recipe;
 
-    @OneToMany
-    @JoinTable(
-            name="GrainMalts",
-            joinColumns = @JoinColumn( name="id_grain"),
-            inverseJoinColumns = @JoinColumn( name="id_malt")
-    )
-    private Set<Malts> malt = new HashSet<>();
+    @Column(name = "id_malt")
+    private Long maltId;
+
+//    @OneToMany
+//    @JoinTable(
+//            name="GrainMalts",
+//            joinColumns = @JoinColumn( name="id_grain"),
+//            inverseJoinColumns = @JoinColumn( name="id_malt")
+//    )
+//    private List<Malts> malts;
+
+//    @OneToMany(cascade = {CascadeType.PERSIST})
+//    @JoinTable(
+//            name="GrainMalts",
+//            joinColumns = @JoinColumn( name="id_grain"),
+//            inverseJoinColumns = @JoinColumn( name="id_malt")
+//    )
+//    private Set<Malts> malt = new HashSet<>();
 
     public Grain() {
     }
 
-    public Grain(Long weight, Recipe recipe, Set<Malts> malt) {
+    public Grain(Double weight, Recipe recipe, Long maltId) {
         this.weight = weight;
         this.recipe = recipe;
-        this.malt = malt;
+        this.maltId = maltId;
     }
 
     public Long getId() {
@@ -50,11 +58,11 @@ public class Grain implements Serializable {
         this.id = id;
     }
 
-    public Long getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Long weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
@@ -66,12 +74,22 @@ public class Grain implements Serializable {
         this.recipe = recipe;
     }
 
-    public Set<Malts> getMalt() {
-        return malt;
+    public Long getMaltId() {
+        return maltId;
     }
 
-    public void setMalt(Set<Malts> malt) {
-        this.malt = malt;
+    public void setMaltId(Long maltId) {
+        this.maltId = maltId;
+    }
+
+    @Override
+    public String toString() {
+        return "Grain{" +
+                "id=" + id +
+                ", weight=" + weight +
+                ", recipe=" + recipe +
+                ", maltId=" + maltId +
+                '}';
     }
 
     @Override
@@ -84,8 +102,7 @@ public class Grain implements Serializable {
         if (id != null ? !id.equals(grain.id) : grain.id != null) return false;
         if (weight != null ? !weight.equals(grain.weight) : grain.weight != null) return false;
         if (recipe != null ? !recipe.equals(grain.recipe) : grain.recipe != null) return false;
-        return malt != null ? malt.equals(grain.malt) : grain.malt == null;
-
+        return maltId != null ? maltId.equals(grain.maltId) : grain.maltId == null;
     }
 
     @Override
@@ -93,17 +110,7 @@ public class Grain implements Serializable {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (weight != null ? weight.hashCode() : 0);
         result = 31 * result + (recipe != null ? recipe.hashCode() : 0);
-        result = 31 * result + (malt != null ? malt.hashCode() : 0);
+        result = 31 * result + (maltId != null ? maltId.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Grain{" +
-                "id=" + id +
-                ", weight=" + weight +
-                ", recipe=" + recipe +
-                ", malt=" + malt +
-                '}';
     }
 }

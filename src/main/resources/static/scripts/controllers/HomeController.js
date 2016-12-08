@@ -4,9 +4,9 @@
     angular.module('beerApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = [];
+    HomeController.$inject = ['$scope', '$state', '$timeout', 'AuthService'];
 
-    function HomeController() {
+    function HomeController($scope, $state, $timeout, AuthService) {
         var vm = this;
         
     }

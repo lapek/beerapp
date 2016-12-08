@@ -31,7 +31,6 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<User> createUser(@RequestBody User user) {
-
         user.setPassword(passwordCrypto.encrypt(user.getPassword()));
 
         //create a new user with basic user privileges
