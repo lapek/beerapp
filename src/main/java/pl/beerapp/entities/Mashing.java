@@ -1,5 +1,7 @@
 package pl.beerapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -22,6 +24,7 @@ public class Mashing implements Serializable {
     private Double amount;
 
     @ManyToOne
+    @JsonBackReference
     private Recipe recipe;
 
     public Mashing() {

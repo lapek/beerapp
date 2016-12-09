@@ -10,6 +10,7 @@ import pl.beerapp.repositories.StylesRepository;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api/styles")
 public class StylesController {
 
     private StylesRepository stylesRepository;
@@ -19,7 +20,7 @@ public class StylesController {
         this.stylesRepository = stylesRepository;
     }
 
-    @RequestMapping(value = "/api/styles/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Iterable<Styles> findAllStyles() {
         return stylesRepository.findAll();
     }

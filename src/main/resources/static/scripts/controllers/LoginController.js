@@ -6,12 +6,12 @@
 
     LoginController.$inject = ['$mdDialog',
         '$mdToast',
-        '$log', '$rootScope',
+        '$window', '$rootScope',
         '$scope', '$http',
         '$state', 'AuthService'
     ];
 
-    function LoginController($mdDialog, $mdToast, $log, $rootScope, $scope, $http, $state, AuthService) {
+    function LoginController($mdDialog, $mdToast, $window, $rootScope, $scope, $http, $state, AuthService) {
         var vm = this;
 
         vm.cancel = cancel;
@@ -48,7 +48,7 @@
                 });
             }).error(function (data) {
                 errorToast();
-                window.localStorage.setItem('CurrentUser', null);
+                $window.localStorage.setItem('CurrentUser', null);
                 $rootScope.currentUser = null;
                 $rootScope.authenticated = false;
 

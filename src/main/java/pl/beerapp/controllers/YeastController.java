@@ -8,6 +8,7 @@ import pl.beerapp.entities.Yeast;
 import pl.beerapp.repositories.YeastRepository;
 
 @RestController
+@RequestMapping(value = "/api/yeast")
 public class YeastController {
     private YeastRepository yeastRepository;
 
@@ -16,7 +17,7 @@ public class YeastController {
         this.yeastRepository = yeastRepository;
     }
 
-    @RequestMapping(value = "/api/yeast/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Iterable<Yeast> findAllStyles() {
         return yeastRepository.findAll();
     }

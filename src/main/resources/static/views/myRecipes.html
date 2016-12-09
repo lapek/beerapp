@@ -1,0 +1,73 @@
+<div ng-controller="myRecipesController as mrVm" data-ng-init="mrVm.init()" layout="column" layout-padding ng-cloak>
+    <md-content class="md-no-momentum">
+        <div layout="row">
+            <div flex="33">
+                <!-- list -->
+                <md-card flex class="md-whiteframe-2dp">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Twoje receptury:</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <md-list flex>
+                            <md-list-item class="md-3-line" ng-repeat="recipe in mrVm.recipes"
+                                          ng-click="mrVm.goToRecipe(recipe, $event)">
+                                <img ng-src="/images/beer.png" class="md-avatar"/>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{ recipe.name }}</h3>
+                                    <h4>{{ recipe.style }}</h4>
+                                    <p>Warka: {{ recipe.batchSize }}L</p>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                        <div layout="row" layout-align="center center">
+                            <md-button ui-sref="newRecipe">
+                                <md-icon md-svg-icon="plus-circle-outline"></md-icon>
+                                Dodaj nową recepturę
+                            </md-button>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+            <!-- details -->
+            <div flex="66">
+                <md-card flex=class="md-whiteframe-2dp">
+                    <md-card-title>
+                        <md-card-title-text layout="column" layout-align="center center">
+                            <span class="md-headline">{{mrVm.recipeToShow.name}}</span>
+                            <span class="md-subhead">{{mrVm.recipeToShow.style}}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <p>Wielkość warki: {{mrVm.recipeToShow.batchSize}} L</p>
+                        <p>Wielkość gotowania: {{mrVm.recipeToShow.boilSize}} L</p>
+                        <p>Czas gotowania: {{mrVm.recipeToShow.boilTime}} min</p>
+                        <p>Wydajność: {{mrVm.recipeToShow.efficiency}} %</p>
+
+                        <p>Fermentacja:</p>
+                        <div layout="row" layout-align="space-between start">
+                            <!--<p>Drożdże: </p>-->
+                            <span>Fermentacja burzliwa: {{mrVm.recipeToShow.fermentation.primaryTime}} dni w
+                            {{mrVm.recipeToShow.fermentation.primaryTemperature}} ℃</span>
+                            <span>Fermentacja cicha: {{mrVm.recipeToShow.fermentation.secondaryTime}} dni w
+                            {{mrVm.recipeToShow.fermentation.secondaryTemperature}} ℃</span>
+                        </div>
+
+                        <!-- TODO more informations about recipe, edit recipe, deleting -->
+
+                        <!--grains-->
+                        <!--[{id: 1, weight: 5, maltId: 1}]-->
+                        <!--hopStores-->
+                        <!--[{id: 1, weight: 16, time: 60, hopId: 1}, {id: 2, weight: 5, time: 15, hopId: 1}]-->
+                        <!--id_recipe-->
+                        <!--mashings-->
+                        <!--[{id_mashing: 1, temperature: 66, time: 45, amount: 15},…]-->
+
+                        <p></p>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </div>
+    </md-content>
+</div>

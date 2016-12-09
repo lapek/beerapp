@@ -1,5 +1,7 @@
 package pl.beerapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -24,6 +26,7 @@ public class HopStore implements Serializable {
     private Long hopId;
 
     @ManyToOne
+    @JsonBackReference
     private Recipe recipe;
 
 

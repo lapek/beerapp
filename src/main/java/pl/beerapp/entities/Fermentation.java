@@ -1,5 +1,7 @@
 package pl.beerapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -28,6 +30,7 @@ public class Fermentation implements Serializable {
     private Double secondaryTemperature;
 
     @OneToOne
+    @JsonBackReference
     private Recipe recipe;
 
     @Column(name = "id_yeast")

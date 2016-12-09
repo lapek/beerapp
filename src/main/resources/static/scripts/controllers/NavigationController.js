@@ -4,14 +4,24 @@
     angular.module('beerApp')
         .controller('NavigationController', NavigationController);
 
-    NavigationController.$inject = ['$mdDialog', '$mdToast', '$log', '$scope', '$http', '$rootScope', '$state'];
+    NavigationController.$inject = ['$mdDialog', '$mdToast', '$window', '$scope', '$interval', '$http', '$rootScope', '$state', 'AuthService'];
 
-    function NavigationController($mdDialog, $mdToast, $log, $scope, $http, $rootScope, $state) {
+    function NavigationController($mdDialog, $mdToast, $window, $scope, $interval, $http, $rootScope, $state, AuthService) {
         var vm = this;
 
         vm.showLogin = showLogin;
         vm.openMenu = openMenu;
         vm.logout = logout;
+
+        // function checkAuthenticated() {
+        //     if(AuthService.isAuthenticated() == true){
+        //         $rootScope.authenticated = true;
+        //         $rootScope.currentUser = $window.localStorage.getItem('CurrentUser').toString();
+        //     } else {
+        //         $rootScope.authenticated = false;
+        //         $rootScope.currentUser = null;
+        //     }
+        // }
 
         function openMenu($mdOpenMenu, $event) {
             vm.originatorEv = $event;
@@ -31,9 +41,8 @@
         }
 
         function logout() {
-            console.log('Logging out...');
-            $http.post('logout', {
-            }).success(function () {
+            console.log('Loging out...');
+            $http.post('logout', {}).success(function () {
                 $rootScope.authenticated = false;
                 $rootScope.currentUser = null;
                 window.localStorage.setItem('CurrentUser', null);
@@ -42,7 +51,7 @@
                 $rootScope.authenticated = false;
                 $rootScope.currentUser = null;
                 window.localStorage.setItem('CurrentUser', null);
-
+                $state.go("home");
             });
             $mdToast.show(
                 $mdToast.simple()

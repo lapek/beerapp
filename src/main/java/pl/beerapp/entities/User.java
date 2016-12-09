@@ -1,5 +1,8 @@
 package pl.beerapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -28,6 +31,7 @@ public class User implements Serializable {
     private String email;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Set<UserRole> roles;
 
     @OneToMany
@@ -36,6 +40,7 @@ public class User implements Serializable {
             joinColumns = @JoinColumn( name="id"),
             inverseJoinColumns = @JoinColumn( name="id_recipe")
     )
+    @JsonManagedReference
     private List<Recipe> recipes;
 
 //    @OneToMany

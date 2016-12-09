@@ -1,16 +1,20 @@
-# README #
+# BeerApp (under developing) #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Web app project for studies. Not finished yet, but already rated by the teacher.
 
-### What is this repository for? ###
+### Content ###
 
-* For my project for studies
-* Project is app for homebrewing
+* Website is in Polish
+* Working register/login
+* After login you can add new recipe
+* List of your recipes
 
 ### How to run? ###
 
-* You can use in your project directory
-
+* Create empty database for project named whatever you want
+* Change configuration in _configs/test/_ directory
+* Set profile _test_ in maven 
+* Use in your project directory
 ```sh
 mvn spring-boot:run
 ```

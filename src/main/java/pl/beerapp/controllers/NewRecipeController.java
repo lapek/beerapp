@@ -26,13 +26,21 @@ import java.util.Set;
 public class NewRecipeController {
 
     @Autowired
+    private CalculateService service;
+
+    private RecipeRepository recipeRepository;
+
     private UserRepository userRepository;
 
     @Autowired
-    private RecipeRepository recipeRepository;
+    public void setRecipeRepository(RecipeRepository recipeRepository) {
+        this.recipeRepository = recipeRepository;
+    }
 
     @Autowired
-    private CalculateService service;
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @RequestMapping(value = "/api/recipe/color", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public String calculateColor(@RequestBody List<GrainDTO> grains,
@@ -159,6 +167,7 @@ public class NewRecipeController {
                     )
             );
 
+            recipe.setAuthor(recipeDTO.getAuthor());
             recipe.setName(recipeDTO.getName());
             recipe.setStyle(recipeDTO.getStyle());
             recipe.setVisible(recipeDTO.getVisible());

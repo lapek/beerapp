@@ -1,3 +1,5 @@
+/* -------- Some test inserts -------- */
+
 INSERT INTO styles(name) VALUES ('American Amber Ale');
 INSERT INTO styles(name) VALUES ('American Amber Lager');
 INSERT INTO styles(name) VALUES ('American Barley Wine');
@@ -79,12 +81,181 @@ INSERT INTO styles(name) VALUES ('Vienna-Style Lager');
 
 -----------------------------
 
-INSERT INTO malts(name, malt_type, country, colorebc, max, potential) VALUES ('Pale - 2 Row', 'SŁÓD', 'Belgia', 5.9, 100, 37);
+--INSERT INTO malts(name, malt_type, country, colorebc, max, potential) VALUES ('Pale - 2 Row', 'SŁÓD', 'Belgia', 5.9, 100, 37);
+--SŁÓD, CUKIER, EKSTRAKT, EKSTRAKT_SUCHY
+
+INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES ('Acid Malt', 'Germany',	'SŁÓD',	6, 27, 10.0);
+--Amber Dry Extract	US	Dry Extract	13 SRM	No	1.044 SG	100.0 %
+--Amber Liquid Extract	US	Extract	13 SRM	No	1.036 SG	100.0 %
+INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES ('Amber Malt',	'United Kingdom',	'SŁÓD',	44, 35,20.0);
+INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES ('Aromatic Malt',	'Belgium',	'SŁÓD',	52, 36,10.0); --h
+--Barley Hulls	US	Adjunct	0 SRM	No	1.000 SG	5.0 %
+--Barley, Flaked	US	Grain	2 SRM	Yes	1.032 SG	20.0 %
+--Barley, Raw	US	Grain	2 SRM	Yes	1.028 SG	15.0 %
+--Barley, Torrefied	US	Grain	2 SRM	Yes	1.036 SG	40.0 %
+--Biscuit Malt	Belgium	Grain	23 SRM	No	1.036 SG	10.0 %
+--Black (Patent) Malt	US	Grain	500 SRM	No	1.025 SG	10.0 %
+--Black Barley (Stout)	US	Grain	500 SRM	No	1.025 SG	10.0 %
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Brown Malt	United Kingdom	Grain	65 SRM	Yes	1.032 SG	10.0);
+--Brown Sugar, Dark	US	Sugar	50 SRM	No	1.046 SG	10.0 %
+--Brown Sugar, Light	US	Sugar	8 SRM	No	1.046 SG	10.0 %
+--Brumalt	Germany	Grain	23 SRM	Yes	1.033 SG	10.0 %
+--Candi Sugar, Amber	Belgium	Sugar	75 SRM	No	1.036 SG	20.0 %
+--Candi Sugar, Clear	Belgium	Sugar	1 SRM	No	1.036 SG	20.0 %
+--Candi Sugar, Dark	Belgium	Sugar	275 SRM	No	1.036 SG	20.0 %
+--Cane (Beet) Sugar	US	Sugar	0 SRM	No	1.046 SG	7.0 %
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Cara-Pils/Dextrine	US	Grain	2 SRM	No	1.033 SG	20.0);
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Caraamber	US	Grain	30 SRM	No	1.035 SG	20.0);
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Carafoam	US	Grain	2 SRM	No	1.033 SG	20.0);
+--Caramel/Crystal Malt - 10L	US	Grain	10 SRM	No	1.035 SG	20.0 %
+--Caramel/Crystal Malt - 20L	US	Grain	20 SRM	No	1.035 SG	20.0 %
+--Caramel/Crystal Malt - 30L	US	Grain	30 SRM	No	1.035 SG	20.0 %
+--Caramel/Crystal Malt - 40L	US	Grain	40 SRM	No	1.034 SG	20.0 %
+--Caramel/Crystal Malt - 60L	US	Grain	60 SRM	No	1.034 SG	20.0 %
+--Caramel/Crystal Malt - 80L	US	Grain	80 SRM	No	1.034 SG	20.0 %
+--Caramel/Crystal Malt -120L	US	Grain	120 SRM	No	1.033 SG	20.0 %
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Caramunich Malt	Belgium	Grain	56 SRM	No	1.033 SG	10.0);
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Carared	US	Grain	20 SRM	No	1.035 SG	20.0);
+--Caravienne Malt	Belgium	Grain	22 SRM	No	1.034 SG	10.0 %
+--Chocolate Malt	US	Grain	350 SRM	No	1.028 SG	10.0 %
+--Chocolate Malt	United Kingdom	Grain	450 SRM	No	1.034 SG	10.0 %
+--Corn Sugar (Dextrose)	US	Sugar	0 SRM	No	1.046 SG	5.0 %
+/*Corn Syrup	US	Sugar	1 SRM	No	1.036 SG	10.0 %
+Corn, Flaked	US	Grain	1 SRM	Yes	1.037 SG	40.0 %
+Dark Dry Extract	US	Dry Extract	18 SRM	No	1.044 SG	100.0 %
+Dark Liquid Extract	US	Extract	18 SRM	No	1.036 SG	100.0 %
+Dememera Sugar	United Kingdom	Sugar	2 SRM	No	1.046 SG	10.0 %
+Extra Light Dry Extract	US	Dry Extract	3 SRM	No	1.044 SG	100.0 %
+Grits	US	Adjunct	1 SRM	No	1.037 SG	10.0 %
+Honey	US	Extract	1 SRM	No	1.035 SG	100.0 %
+Invert Sugar	United Kingdom	Sugar	0 SRM	No	1.046 SG	10.0 %
+Light Dry Extract	US	Dry Extract	8 SRM	No	1.044 SG	100.0 %
+Maple Syrup	US	Sugar	35 SRM	No	1.030 SG	10.0 %
+Melanoiden Malt	Germany	Grain	20 SRM	Yes	1.037 SG	15.0 %*/
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Mild Malt	United Kingdom	Grain	4 SRM	Yes	1.037 SG	100.0);
+--Milk Sugar (Lactose)	US	Sugar	0 SRM	No	1.035 SG	10.0 %
+--Molasses	US	Sugar	80 SRM	No	1.036 SG	5.0 %
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Munich Malt	Germany	Grain	9 SRM	Yes	1.037 SG	80.0);
+/*Munich Malt - 10L	US	Grain	10 SRM	Yes	1.035 SG	80.0 %
+Munich Malt - 20L	US	Grain	20 SRM	Yes	1.035 SG	80.0 %
+Oats, Flaked	US	Grain	1 SRM	Yes	1.037 SG	30.0 %
+Oats, Malted	US	Grain	1 SRM	Yes	1.037 SG	10.0 %
+Pale Liquid Extract	US	Extract	8 SRM	No	1.036 SG	100.0 %*/
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Pale Malt (2 Row) Bel	Belgium	Grain	3 SRM	Yes	1.037 SG	100.0);
+--Pale Malt (2 Row) UK	United Kingdom	Grain	3 SRM	Yes	1.036 SG	100.0 %
+--Pale Malt (2 Row) US	US	Grain	2 SRM	Yes	1.036 SG	100.0 %
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Pale Malt (6 Row) US	US	Grain	2 SRM	Yes	1.035 SG	100.0);
+--Peat Smoked Malt	United Kingdom	Grain	3 SRM	Yes	1.034 SG	20.0 %
+--Pilsner (2 Row) Bel	Belgium	Grain	2 SRM	Yes	1.036 SG	100.0 %
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Pilsner (2 Row) Ger	Germany	Grain	2 SRM	Yes	1.037 SG	100.0);
+/*Pilsner (2 Row) UK	United Kingdom	Grain	1 SRM	Yes	1.036 SG	100.0 %
+Pilsner Liquid Extract	US	Extract	4 SRM	No	1.036 SG	100.0 %
+Rice Extract Syrup	US	Extract	7 SRM	No	1.032 SG	15.0 %
+Rice Hulls	US	Adjunct	0 SRM	No	1.000 SG	5.0 %
+Rice, Flaked	US	Grain	1 SRM	Yes	1.032 SG	25.0 %
+Roasted Barley	US	Grain	300 SRM	No	1.025 SG	10.0 %
+Rye Malt	US	Grain	5 SRM	Yes	1.029 SG	15.0 %
+Rye, Flaked	US	Grain	2 SRM	Yes	1.036 SG	10.0 %
+Smoked Malt	Germany	Grain	9 SRM	Yes	1.037 SG	100.0 %
+Special B Malt	Belgium	Grain	180 SRM	Yes	1.030 SG	10.0 %
+Special Roast	US	Grain	50 SRM	Yes	1.033 SG	10.0 %
+Sugar, Table (Sucrose)	US	Sugar	1 SRM	No	1.046 SG	10.0 %
+Toasted Malt	United Kingdom	Grain	27 SRM	Yes	1.033 SG	10.0 %
+Turbinado	United Kingdom	Sugar	10 SRM	No	1.044 SG	10.0 %
+Victory Malt	US	Grain	25 SRM	Yes	1.034 SG	15.0 % */
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Vienna Malt	Germany	Grain	4 SRM	Yes	1.036 SG	90.0);
+--Wheat Dry Extract	US	Dry Extract	8 SRM	No	1.044 SG	100.0 %
+--Wheat Liquid Extract	US	Extract	8 SRM	No	1.036 SG	100.0 %
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Wheat Malt, Bel	Belgium	Grain	2 SRM	Yes	1.037 SG	60.0);
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Wheat Malt, Dark	Germany	Grain	9 SRM	Yes	1.039 SG	20.0);
+--INSERT INTO malts(name, country, malt_type, colorebc, potential, max) VALUES (Wheat Malt, Ger	Germany	Grain	2 SRM	Yes	1.039 SG	60.0);
+--Wheat, Flaked	US	Grain	2 SRM	Yes	1.035 SG	40.0 %
+--Wheat, Roasted	Germany	Grain	425 SRM	Yes	1.025 SG	10.0 %
+--Wheat, Torrified	US	Grain	2 SRM	Yes	1.036 SG	40.0 %
+--White Wheat Malt	US	Grain	2 SRM	Yes	1.040 SG	60.0 %
 
 -----------------------------
+--, 'UNIWERSALNY', 'GORYCZKOWY', 'AROMATYCZNY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Admiral',	'UK',	14.8,	'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Ahtanum', 'USA',	6.0, 'AROMATYCZNY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Amarillo Gold', 'USA',	8.5 ,'AROMATYCZNY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Aquila', 'USA',	6.5 ,'AROMATYCZNY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Banner', 'USA',	10.0, 'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Bramling Cross','UK',	6.0,'AROMATYCZNY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Brewers Gold','UK',	8.0,'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Bullion','UK',	8.0	,'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Cascade', 'USA',	5.5,'UNIWERSALNY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Centennial'	, 'USA',	10.0,'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Challenger','UK',	7.5,'AROMATYCZNY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Chinook'	, 'USA',	13.0 ,'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Cluster'	, 'USA',	7.0 ,'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Columbia',	'UK',	5.5 ,'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Columbus(Tomahawk)', 'USA',	14.0,'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Comet',	'USA',	9.5 ,	'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Eroica',	'USA',	13.0,	'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('First Gold',	'UK',	7.5 ,	'UNIWERSALNY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Fuggles',	'UK',	4.5, 'AROMATYCZNY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Galena',	'USA',	13.0, 'GORYCZKOWY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Glacier'	,'USA',	5.6, 'AROMATYCZNY');
+/*
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Goldings, B. C.	Canada	5.0, 'AROMATYCZNY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Goldings, East Kent (EK)	UK	5.0, 'AROMATYCZNY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Green Bullet	New Zealand	13.5, 'GORYCZKOWY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Hallertauer Hallertauer',	'Niemcy',	4.8 , 'AROMATYCZNY');
+INSERT INTO hops(name, country, alpha, hop_type) VALUES ('Hallertauer,
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Hersbrucker	Germany	4.0 , 'AROMATYCZNY'
+Hallertauer,
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Mittelfrueh	Germany	4.0, 'AROMATYCZNY'
+Hallertauer,
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (New Zealand	New Zealand	8.5, 'UNIWERSALNY',
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Herald	UK	12.0, 'GORYCZKOWY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Horizon	US	12.0, 'GORYCZKOWY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Liberty	US	4.3, 'AROMATYCZNY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Lublin	Poland	5.0, 'GORYCZKOWY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Magnum	Germany	14.0, 'GORYCZKOWY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Mt. Hood	US	6.0, 'AROMATYCZNY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Northdown	UK	8.5, 'UNIWERSALNY',
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Northern Brewer	Germany	8.5 , 'UNIWERSALNY',
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Nugget	US	13.0, 'GORYCZKOWY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Orion	Germany	7.3, 'UNIWERSALNY',
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Pacific Gem	New Zealand	15.0, 'GORYCZKOWY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Pearle	Germany	8.0, 'GORYCZKOWY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Phoenix	UK	8.0, 'GORYCZKOWY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Pilgrim	UK	11.5, 'GORYCZKOWY'
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Pioneer	UK	9.0 , 'UNIWERSALNY',
+INSERT INTO hops(name, country, alpha, hop_type) VALUES (Pride of Ringwood	Australia	9.0, 'GORYCZKOWY'
 
-INSERT INTO hops(name, alpha, country, hop_type) VALUES ('Cascade', 6.0, 'USA', 'AROMATYCZNY');
+Progress	UK	6.3 %	Aroma
+Saaz	Czech Rep	4.0 %	Aroma
+Santiam	US	6.0 %	Aroma
+Select Spalt	Germany	4.8 %	Aroma
+Southern Cross	New Zealand	13.0 %	Both
+Spalter	Germany	4.5 %	Aroma
+Sterling	US	7.5 %	Both
+Sticklebract	New Zealand	13.5 %	Both
+Strisselspalt	France	4.0 %	Aroma
+Styrian Goldings	Slovenia	5.4 %	Aroma
+Sun	US	14.0 %	Bittering
+Super Alpha	New Zealand	13.0 % 	Bittering
+Target	UK	11.0 %	Bittering
+Tettnang	Germany	4.5 %	Aroma
+Tradition	Germany	6.0 %	Bittering
+Ultra	US	3.0 %	Aroma
+Vanguard	US	5.5 %	Aroma
+Warrior	US	15%	Both
+Whitbread
+Golding Var (WGV)	UK	6.0 %	Aroma
+Willamette	US	5.5 %	Aroma
+Zeus	US	14.0 %	Bittering
+*/
 
 -----------------------------
 
 INSERT INTO yeasts(name, lab, attenuation, packaging, symbol, type) VALUES ('Nottingham', 'Danstar', 77.0, 'Suche', '', 'Ale');
+INSERT INTO yeasts(name, lab, symbol, type, packaging, attenuation) VALUES ('Pilsner Lager',	'White Labs',	'WLP800',	'Lager',	'Mokre', 80);
+INSERT INTO yeasts(name, lab, symbol, type, packaging, attenuation) VALUES ('American Lager',	'White Labs',	'WLP840',	'Lager',	'Mokre',	70);
+INSERT INTO yeasts(name, lab, symbol, type, packaging, attenuation) VALUES ('English Ale',	'White Labs',	'WLP002',	'Ale',	'Mokre',	90);
+INSERT INTO yeasts(name, lab, symbol, type, packaging, attenuation) VALUES ('German Wheat',	'Brewtek',	'CL-0920',	'Wheat',	'Mokre',	72);
+INSERT INTO yeasts(name, lab, symbol, type, packaging, attenuation) VALUES ('Saison',	'Brewtek',	'CL-0380',	'Ale',	'Mokre',	73);
+INSERT INTO yeasts(name, lab, symbol, type, packaging, attenuation) VALUES ('Kolsch',	'Brewtek',	'CL-0400',	'Ale',	'Mokre',	76);
+INSERT INTO yeasts(name, lab, symbol, type, packaging, attenuation) VALUES ('Trappist High Gravity',	'Wyeast Labs', '3787', 'Wheat',	'Mokre', 77);

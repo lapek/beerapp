@@ -217,7 +217,7 @@
                     primaryTime: vm.recipe.fermentation.primary.time,
                     primaryTemperature: vm.recipe.fermentation.primary.temperature,
                     secondaryTime: vm.recipe.fermentation.secondary.time,
-                    secondaryTemperature: vm.recipe.fermentation.primary.temperature
+                    secondaryTemperature: vm.recipe.fermentation.secondary.temperature
                 },
                 yeastID: vm.recipe.yeast.id_yeast,
                 grainList: grainList,

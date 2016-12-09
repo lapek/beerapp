@@ -12,7 +12,16 @@ import java.util.List;
 @Repository
 public interface RecipeRepository extends CrudRepository<Recipe, Long> {
 
-    //@Query("Select a from Account a where a.'#nameoffied'=?1")
-    //List<Recipe> findAllPublic(@Param("name") String name);
+    @Query("SELECT r FROM recipe r WHERE (r.visible = true) AND (r.name != '') AND (r.id_recipe=( SELECT max(re.id_recipe) FROM recipe re ))")
+    Recipe findLastPublic();
+
+    @Query("SELECT r FROM recipe r WHERE (r.id_recipe=( SELECT max(re.id_recipe) FROM recipe re WHERE re.author = :author))")
+    Recipe findUserLast(@Param("author") String author);
+
+    @Query("SELECT r FROM recipe r WHERE (r.visible = true) AND (r.name != '')")
+    List<Recipe> findAllPublic();
+
+    @Query("SELECT r FROM recipe r WHERE r.author = :author ORDER BY r.id_recipe DESC")
+    List<Recipe> findAllByAuthor(@Param("author") String author);
 
 }

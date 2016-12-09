@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
+@RequestMapping(value = "/api/malts")
 public class MaltsController {
 
     private MaltsRepository maltsRepository;
@@ -21,8 +22,8 @@ public class MaltsController {
         this.maltsRepository = maltsRepository;
     }
 
-    @RequestMapping(value = "/api/malts/list", method = RequestMethod.GET)
-    public Iterable<Malts> findAllStyles() {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public Iterable <Malts> findAllMalts() {
         return maltsRepository.findAll();
     }
 }

@@ -1,0 +1,16 @@
+<div ng-controller="myAccountController as maVm" data-ng-init="maVm.init()" layout="column" layout-padding ng-cloak>
+    <md-content class="md-no-momentum">
+        <div layout="column" layout-align="start center">
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Moje dane:</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content> <!-- TODO myaccount page, edit user data-->
+                    {{maVm.userdata.username}}
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+</div>

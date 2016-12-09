@@ -1,5 +1,6 @@
 package pl.beerapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import pl.beerapp.entities.User;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class UserRole {
     private String roleName;
 
     @ManyToOne
+    @JsonBackReference
     private User user;
 
     public UserRole() {

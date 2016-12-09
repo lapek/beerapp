@@ -8,6 +8,7 @@ import pl.beerapp.entities.Hops;
 import pl.beerapp.repositories.HopsRepository;
 
 @RestController
+@RequestMapping(value = "/api/hops")
 public class HopsController {
 
     private HopsRepository hopsRepository;
@@ -17,8 +18,8 @@ public class HopsController {
         this.hopsRepository = hopsRepository;
     }
 
-    @RequestMapping(value = "/api/hops/list", method = RequestMethod.GET)
-    public Iterable<Hops> findAllStyles() {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public Iterable<Hops> findAllSHops() {
         return hopsRepository.findAll();
     }
 }

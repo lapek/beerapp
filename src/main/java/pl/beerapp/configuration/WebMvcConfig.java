@@ -35,6 +35,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/views/**")
                 .addResourceLocations("classpath:/static/views/")
                 .setCachePeriod(cachePeriod);
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("classpath:/static/images/")
+                .setCachePeriod(cachePeriod);
         registry.addResourceHandler("/favicon.ico")
                 .addResourceLocations("/");
 

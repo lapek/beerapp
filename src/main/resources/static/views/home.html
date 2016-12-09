@@ -1,58 +1,95 @@
-<div ng-controller="HomeController as homeCtrl" layout="column" layout-padding ng-cloak>
+<div ng-controller="HomeController as hVm" data-ng-init="hVm.init()" layout="column" layout-padding ng-cloak>
     <md-content class="md-no-momentum" layout-xs="column" layout="row">
         <!-- 1 column -->
-        <div flex-xs flex-gt-xs="50" layout="column">
+        <div flex="50">
             <md-card flex>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Witaj na BeerApp</span>
-                        <span class="md-subhead">Strona dla piwowarów domowych.</span>
-                    </md-card-title-text>
-                </md-card-title>
-                <md-card-content>
-                    Zapraszamy do logowania. Jeśli nie masz jeszcze konta, zapraszamy do założenia takowego.
+                <md-toolbar layout="row" flex>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline" ng-show="!hVm.currentUser">Witaj na BeerApp</span>
+                            <span class="md-headline" ng-show="hVm.currentUser">Witaj <i>{{ currentUser }}</i></span>
+                        </md-card-title-text>
+                    </md-card-title>
+                </md-toolbar>
+                <md-card-content ng-show="!authenticated">
+                    <div layout="row">
+                        <span class="md-subhead">Zapraszamy do logowania. Tylko zalogowany użytkownik może stworzyć nową recepturę.
+                            Jeśli nie masz jeszcze konta, zapraszamy do założenia takowego.</span>
+                    </div>
+                    <div layout="row" layout-align="center center">
+                        <md-button ui-sref="signup" class="md-raised">
+                            <md-icon md-svg-icon="account-plus"></md-icon>
+                            Utwórz nowe konto
+                        </md-button>
+                    </div>
                 </md-card-content>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button ui-sref="signup">Utwórz nowe konto</md-button>
-                </md-card-actions>
-            </md-card>
-            <md-card flex>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Ostatnie recepury</span>
-                        <!--<span class="md-subhead">Subheader</span>-->
-                    </md-card-title-text>
-                </md-card-title>
-                <md-card-content>
-                    <p>bedo tu sie pokazywac osattnio dodana receptura</p>
-                </md-card-content>
-            </md-card>
-        </div>
-
-        <!-- 2 column -->
-        <div flex-xs flex-gt-xs="50" layout="column">
-            <md-card flex>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">O czym strona</span>
-                        <span class="md-subhead">Subheader</span>
-                    </md-card-title-text>
-                </md-card-title>
-                <md-card-content>
-                    <p>Opis strony.</p>
-                </md-card-content>
-            </md-card>
-            <md-card flex>
-                <md-card-content>
-                    <div ng-show='!auth'>
+                <md-card-content ng-show="authenticated">
+                    <div layout="row">
+                        <span class="md-subhead">Witamy ponownie i zapraszamy do wykonania Twojej nowej receptury.<br></span>
+                    </div>
+                    <div layout="row" layout-align="center center">
                         <md-button ui-sref="newRecipe">
                             <md-icon md-svg-icon="plus-circle-outline"></md-icon>
                             Dodaj nową recepturę
                         </md-button>
                     </div>
-                    <p>Tutaj nie wiem.</p>
+                </md-card-content>
+            </md-card>
+
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Ostatnia recepura użytkowników:</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content layout="row">
+                    <div layout="column" flex="33" layout-align="center center">
+                        <md-icon md-svg-icon="beer" style="width:60px;height:60px;"></md-icon>
+                    </div>
+                    <div layout="column" flex="66" layout-align="center start">
+                        <h2>Nazwa: <i>{{hVm.lastPublic.name}}</i></h2>
+                        <h2>Styl: <i>{{hVm.lastPublic.style}}</i></h2>
+                        <p>Autor: <i>{{hVm.lastPublic.author}}</i></p>
+                    </div>
                 </md-card-content>
             </md-card>
         </div>
-    </md-content>
+
+        <!-- 2 column -->
+        <div flex="50">
+            <md-card flex ng-show="!authenticated">
+                <img ng-src="/images/screen.jpg" class="md-card-image md-whiteframe-4dp">
+                <md-card-content>
+                    <p>Strona przeznaczona dla piwowarów domowych. Udostępniamy komplet kalkulatorów użytecznych przy
+                        warzeniu piwa: gęstość piwa, goryczka i inne.</p>
+                    <p>W naszej bazie posiadamy wiele różnych rodzajów słodów popularnych Słodowni, wiele chmielii
+                        Amerykańskich, Niemieckich i innych oraz drożdże.</p>
+                </md-card-content>
+            </md-card>
+
+            <md-card flex ng-show="authenticated">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Ostatnia twoja receptura:</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content layout="row">
+                    <div layout="column" flex="33" layout-align="center center">
+                        <md-icon md-svg-icon="beer" style="width:60px;height:60px;"></md-icon>
+                    </div>
+                    <div layout="column" flex="66" layout-align="center start" ng-show="hVm.lastUserRecipe != null">
+                        <h2>Nazwa: <i>{{hVm.lastUserRecipe.name}}</i></h2>
+                        <h2>Styl: <i>{{hVm.lastUserRecipe.style}}</i></h2>
+                        <p>Widoczność: <i>{{hVm.lastUserRecipe.visible === false ? 'Prywatna' : 'Publiczna'}}</i></p>
+                        <p>Wielkość warki: <i>{{hVm.lastUserRecipe.batchSize}}</i></p>
+                        <p>Wydajność: <i>{{hVm.lastUserRecipe.efficiency}}</i></p>
+                    </div>
+                    <div layout="column" flex="66" layout-align="center center" ng-show="hVm.lastUserRecipe == null">
+                        <h2>Brak receptur.</h2>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+</div>
+</md-content>
 </div>

@@ -1,5 +1,7 @@
 package pl.beerapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -20,6 +22,7 @@ public class Grain implements Serializable {
     private Double weight;
 
     @ManyToOne
+    @JsonBackReference
     private Recipe recipe;
 
     @Column(name = "id_malt")

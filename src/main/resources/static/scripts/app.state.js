@@ -41,6 +41,20 @@
                 resolve : {
                     resolvedUser : checkForAuthenticatedUser
                 }
+            })
+            .state('myAccount', {
+                url: '/myAccount',
+                templateUrl: '../views/myAccount.html',
+                resolve : {
+                    resolvedUser : checkForAuthenticatedUser
+                }
+            })
+            .state('myRecipes', {
+                url: '/myRecipes',
+                templateUrl: '../views/myRecipes.html',
+                resolve : {
+                    resolvedUser : checkForAuthenticatedUser
+                }
             });
 
         function checkForAuthenticatedUser(AuthService, $state) {

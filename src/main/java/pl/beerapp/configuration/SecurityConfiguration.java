@@ -37,6 +37,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/styles/**",
                         "/scripts/**",
                         "/views/**",
+                        "/images/**",
+                        "/h2-console/**",
                         "/api/**",
                         "/login",
                         "/favicon.ico"
