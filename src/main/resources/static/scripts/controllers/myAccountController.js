@@ -22,9 +22,9 @@
                 params: {
                     username: $rootScope.currentUser
                 }
-            }).success(function (response) {
+            }).then(function onSuccess(response) {
                 vm.userdata = response;
-            }).error(function (response) {
+            }, function onError(response) {
                 //
             });
         }

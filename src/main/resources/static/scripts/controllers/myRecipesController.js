@@ -27,10 +27,10 @@
                 params: {
                     author: $rootScope.currentUser
                 }
-            }).success(function (response) {
+            }).then(function onSuccess(response) {
                 vm.recipes = response;
                 vm.recipeToShow = vm.recipes[0];
-            }).error(function (response) {
+            }, function onError(response) {
                 //
             });
         }

@@ -1,5 +1,7 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
+configs/
+!/configs/test/application.properties
 
 ### STS ###
 .apt_generated
@@ -14,6 +16,9 @@ target/
 *.iws
 *.iml
 *.ipr
+
+### Visual Studio Code editor
+.vscode
 
 ### NetBeans ###
 nbproject/private/

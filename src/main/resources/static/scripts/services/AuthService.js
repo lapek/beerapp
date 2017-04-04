@@ -9,23 +9,24 @@
 
     function AuthService($rootScope, $http, $q, $localStorage, $window) {
         var authenticate = function (callback) {
-            $http.get('/api/users').success(function (data) {
-                if (data.name) {
-                    $rootScope.currentUser = data.name;
-                    $rootScope.authenticated = true;
-                    $window.localStorage.setItem('CurrentUser', JSON.stringify($rootScope.currentUser));
-                } else {
+            $http.get('/api/users')
+                .then(function onSuccess(data) {
+                    if (data.name) {
+                        $rootScope.currentUser = data.name;
+                        $rootScope.authenticated = true;
+                        $window.localStorage.setItem('CurrentUser', JSON.stringify($rootScope.currentUser));
+                    } else {
+                        $rootScope.currentUser = null;
+                        $rootScope.authenticated = false;
+                        $window.localStorage.setItem('CurrentUser', null);
+                    }
+                    callback && callback();
+                }, function onError(data) {
                     $rootScope.currentUser = null;
                     $rootScope.authenticated = false;
                     $window.localStorage.setItem('CurrentUser', null);
-                }
-                callback && callback();
-            }).error(function () {
-                $rootScope.currentUser = null;
-                $rootScope.authenticated = false;
-                $window.localStorage.setItem('CurrentUser', null);
-                callback && callback();
-            });
+                    callback && callback();
+                });
         };
 
         var getCurrentUser = function () {
@@ -49,9 +50,9 @@
             // }
         };
 
-        var isAuthenticated = function() {
+        var isAuthenticated = function () {
             var CurrentUser = $window.localStorage.getItem('CurrentUser').toString();
-            if((CurrentUser !== null) && (CurrentUser !== undefined) && (CurrentUser.toString() != 'null')){
+            if ((CurrentUser !== null) && (CurrentUser !== undefined) && (CurrentUser.toString() != 'null')) {
                 $rootScope.authenticated = true;
                 $rootScope.currentUser = $window.localStorage.getItem('CurrentUser').toString();
                 return true;

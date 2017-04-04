@@ -42,12 +42,12 @@
 
         function logout() {
             console.log('Loging out...');
-            $http.post('logout', {}).success(function () {
+            $http.post('logout', {}).then(function onSuccess(response) {
                 $rootScope.authenticated = false;
                 $rootScope.currentUser = null;
                 window.localStorage.setItem('CurrentUser', null);
                 $state.go("home");
-            }).error(function (data) {
+            }, function onError(response) {
                 $rootScope.authenticated = false;
                 $rootScope.currentUser = null;
                 window.localStorage.setItem('CurrentUser', null);

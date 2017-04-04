@@ -11,7 +11,8 @@
             'ngCookies',
             'ngAria',
             'ui.router',
-            'ngMaterial'
+            'ngMaterial',
+            'angular-loading-bar'
         ]);
 
 })();

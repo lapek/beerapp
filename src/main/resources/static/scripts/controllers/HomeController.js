@@ -28,9 +28,9 @@
             $http({
                 method: 'GET',
                 url: '/api/recipes/list/public'
-            }).success(function (response) {
+            }).then(function onSuccess(response) {
                 vm.allPublic = response;
-            }).error(function (response) {
+            }, function onError(response) {
                 //vm.allPublic = '';
             });
         }
@@ -39,9 +39,9 @@
             $http({
                 method: 'GET',
                 url: '/api/recipes/last/public'
-            }).success(function (response) {
+            }).then(function onSuccess(response) {
                 vm.lastPublic = response;
-            }).error(function (response) {
+            }, function onError(response) {
                 //vm.lastPublic = '';
             });
         }
@@ -53,16 +53,16 @@
                 params: {
                     author: $rootScope.currentUser
                 }
-            }).success(function (response) {
+            }).then(function onSuccess(response) {
                 vm.lastUserRecipe = response;
-            }).error(function (response) {
+            }, function onError(response) {
                 //
             });
         }
 
 
         $interval(vm.getLastPublic, 30000);
-        $interval(vm.getUserLast, 30000);
+        //$interval(vm.getUserLast, 30000);
 
     }
 })();

@@ -18,11 +18,10 @@
         function register() {
             $log.info("signup", vm.user);
             $http.post('/api/users', {
-                    username: vm.user.username,
-                    email: vm.user.email,
-                    password: vm.user.password
-                }
-            ).success(function (data) {
+                username: vm.user.username,
+                email: vm.user.email,
+                password: vm.user.password
+            }).then(function onSuccess(data) {
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('Zarejestrowano.')
@@ -30,15 +29,15 @@
                             .hideDelay(2000)
                     );
                     $location.path("/");
-                })
-                .error(function (data) {
+                }, function onError(data) {
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('Błąd podczas rejestracji.')
                             .position("top left")
                             .hideDelay(8000)
                     );
-                })
+                }
+            )
         }
     }
 

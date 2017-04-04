@@ -35,7 +35,7 @@
                         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
                     return str.join("&");
                 }
-            }).success(function (data) {
+            }).then(function onSuccess(data) {
                 AuthService.authenticate(function () {
                     if ($rootScope.authenticated) {
                         $state.go("home");
@@ -46,7 +46,7 @@
                         errorToast();
                     }
                 });
-            }).error(function (data) {
+            }, function onError(data) {
                 errorToast();
                 $window.localStorage.setItem('CurrentUser', null);
                 $rootScope.currentUser = null;
