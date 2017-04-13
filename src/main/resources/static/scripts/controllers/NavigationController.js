@@ -4,24 +4,22 @@
     angular.module('beerApp')
         .controller('NavigationController', NavigationController);
 
-    NavigationController.$inject = ['$mdDialog', '$mdToast', '$window', '$scope', '$interval', '$http', '$rootScope', '$state', 'AuthService'];
+    NavigationController.$inject = ['$mdDialog', '$mdToast', '$scope', '$rootScope', '$state', '$auth', 'AccountService'];
 
-    function NavigationController($mdDialog, $mdToast, $window, $scope, $interval, $http, $rootScope, $state, AuthService) {
+    function NavigationController($mdDialog, $mdToast, $scope, $rootScope, $state, $auth, AccountService) {
         var vm = this;
+
+        vm.currenUser = '';
 
         vm.showLogin = showLogin;
         vm.openMenu = openMenu;
         vm.logout = logout;
+        vm.getUsername = getUsername;
+        vm.init = init;
 
-        // function checkAuthenticated() {
-        //     if(AuthService.isAuthenticated() == true){
-        //         $rootScope.authenticated = true;
-        //         $rootScope.currentUser = $window.localStorage.getItem('CurrentUser').toString();
-        //     } else {
-        //         $rootScope.authenticated = false;
-        //         $rootScope.currentUser = null;
-        //     }
-        // }
+        function init() {
+            vm.getUsername();
+        }
 
         function openMenu($mdOpenMenu, $event) {
             vm.originatorEv = $event;
@@ -29,7 +27,7 @@
         }
 
         function showLogin($event) {
-            if ($rootScope.authenticated != true) {
+            if (!$auth.isAuthenticated()) {
                 $mdDialog.show({
                     templateUrl: '../../views/login.html',
                     parent: angular.element(document.body),
@@ -40,25 +38,34 @@
             }
         }
 
+        $scope.isAuthenticated = function () {
+            return $auth.isAuthenticated();
+        };
+
         function logout() {
-            console.log('Loging out...');
-            $http.post('logout', {}).then(function onSuccess(response) {
-                $rootScope.authenticated = false;
-                $rootScope.currentUser = null;
-                window.localStorage.setItem('CurrentUser', null);
-                $state.go("home");
-            }, function onError(response) {
-                $rootScope.authenticated = false;
-                $rootScope.currentUser = null;
-                window.localStorage.setItem('CurrentUser', null);
-                $state.go("home");
-            });
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent('Wylogowano.')
-                    .position("top left")
-                    .hideDelay(2000)
-            );
+            $auth.logout()
+                .then(function () {
+                    $state.go("home");
+                    $mdToast.show(
+                        $mdToast.simple()
+                            .textContent('Wylogowano.')
+                            .position("top left")
+                            .hideDelay(2000)
+                    );
+                });
+        }
+
+        function getUsername() {
+            if ($auth.isAuthenticated()) {
+                AccountService.getProfile()
+                    .success(function(data) {
+                        console.log(data);
+                        vm.currenUser = data.username;
+                    })
+                    .error(function(error) {
+                        console.log('Get profile error: ', error)
+                    });
+            }
         }
 
     }

@@ -1,53 +1,49 @@
 package pl.beerapp.controllers;
 
+import com.nimbusds.jose.JOSEException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.beerapp.entities.User;
-import pl.beerapp.security.PasswordCrypto;
+import pl.beerapp.security.AuthUtils;
 import pl.beerapp.security.RoleEnum;
 import pl.beerapp.repositories.UserRepository;
 import pl.beerapp.entities.UserRole;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
 import java.security.Principal;
+import java.text.ParseException;
 
 @RestController
-@RequestMapping("/api/users")
 public class UserController {
 
-    private final UserRepository userRepo;
-
-    private final PasswordCrypto passwordCrypto;
-
     @Autowired
-    public UserController(UserRepository userRepo, PasswordCrypto passwordCrypto) {
-        this.userRepo = userRepo;
-        this.passwordCrypto = passwordCrypto;
+    private final UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        user.setPassword(passwordCrypto.encrypt(user.getPassword()));
-
-        //create a new user with basic user privileges
-        user.getRoles().add(new UserRole(RoleEnum.USER.toString(), user));
-
-        if (userRepo.save(user) != null) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    @RequestMapping("/api/user")
+    public ResponseEntity findUser(@Context final HttpServletRequest request)
+            throws JOSEException {
+        User foundUser = null;
+        try {
+            foundUser = getAuthUser(request);
+            if (foundUser == null) {
+                return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return new ResponseEntity<User>(foundUser, HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public Principal getUser(Principal user){
-        return user;
-    }
-
-    @RequestMapping(value = "/find", method = RequestMethod.GET)
-    public User getUser(@RequestParam String username){
-        return userRepo.findByUsername(username);
+    private User getAuthUser(HttpServletRequest request) throws JOSEException, ParseException {
+        String subject = AuthUtils.getSubject(request.getHeader(AuthUtils.AUTH_HEADER_KEY));
+        return userRepository.findOne(subject);
     }
 
 }

@@ -4,9 +4,9 @@
     angular.module('beerApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', '$window', '$http', '$rootScope', '$interval', 'AuthService'];
+    HomeController.$inject = ['$scope', '$window', '$http', '$rootScope', '$interval', '$auth'];
 
-    function HomeController($scope, $window, $http, $rootScope, $interval, AuthService) {
+    function HomeController($scope, $window, $http, $rootScope, $interval, $auth) {
         var vm = this;
 
         vm.lastPublic = '';
@@ -23,6 +23,10 @@
             vm.getAllPublic();
             vm.getUserLast();
         }
+
+        $scope.isAuthenticated = function() {
+            return $auth.isAuthenticated();
+        };
 
         function getAllPublic() {
             $http({
@@ -47,22 +51,20 @@
         }
 
         function getUserLast() {
-            $http({
-                method: 'GET',
-                url: '/api/recipes/last/user',
-                params: {
-                    author: $rootScope.currentUser
-                }
-            }).then(function onSuccess(response) {
-                vm.lastUserRecipe = response;
-            }, function onError(response) {
-                //
-            });
+            if ($auth.isAuthenticated()) {
+                $http({
+                    method: 'GET',
+                    url: '/api/recipes/last/user',
+                    params: {
+                        author: $rootScope.currentUser
+                    }
+                }).then(function onSuccess(response) {
+                    vm.lastUserRecipe = response;
+                }, function onError(response) {
+                    //
+                });
+            }
         }
-
-
-        $interval(vm.getLastPublic, 30000);
-        //$interval(vm.getUserLast, 30000);
 
     }
 })();

@@ -4,14 +4,9 @@
     angular.module('beerApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$mdDialog',
-        '$mdToast',
-        '$window', '$rootScope',
-        '$scope', '$http',
-        '$state', 'AuthService'
-    ];
+    LoginController.$inject = ['$mdDialog', '$mdToast', '$state', '$auth'];
 
-    function LoginController($mdDialog, $mdToast, $window, $rootScope, $scope, $http, $state, AuthService) {
+    function LoginController($mdDialog, $mdToast, $state, $auth) {
         var vm = this;
 
         vm.cancel = cancel;
@@ -25,34 +20,20 @@
         }
 
         function login($event) {
-            $http.post('login', vm.credentials, {
-                headers: {
-                    "content-type": 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                transformRequest: function (obj) {
-                    var str = [];
-                    for (var p in obj)
-                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                    return str.join("&");
-                }
-            }).then(function onSuccess(data) {
-                AuthService.authenticate(function () {
-                    if ($rootScope.authenticated) {
-                        $state.go("home");
-                        successToast();
-                        cancel();
-                    } else {
-                        //$location.path("/login");
-                        errorToast();
-                    }
+            var user = {
+                username: vm.credentials.username,
+                password: vm.credentials.password
+            };
+            $auth.login(user)
+                .then(function (response) {
+                    $state.go("home");
+                    successToast();
+                    cancel();
+                })
+                .catch(function (response) {
+                    errorToast();
+                    vm.credentials.password = '';
                 });
-            }, function onError(data) {
-                errorToast();
-                $window.localStorage.setItem('CurrentUser', null);
-                $rootScope.currentUser = null;
-                $rootScope.authenticated = false;
-
-            });
         }
 
         function errorToast() {
@@ -73,28 +54,5 @@
             );
         }
 
-        // function login($event) {
-        //     if (vm.user.name != null || vm.user.pass != null) {
-        //         console.log("Trying login...");
-        //         new Login({username: vm.user.name, password: vm.user.pass},
-        //             function (data, headers) {
-        //                 $localStorage.user = data.user;
-        //                 $localStorage.authToken = headers['x-auth-token'];
-        //                 $http.defaults.headers.common['x-auth-token'] = headers['x-auth-token'];
-        //                 $location.path("/");
-        //             }, function (error) {
-        //                 console.log(error);
-        //             });
-        //     }
-        // }
-
-        // function login($event) {
-        //     console.log("Trying login...");
-        //     if (vm.user.name != null || vm.user.pass != null) {
-        //
-        //     } else {
-        //         console.log("No username or/and password.");
-        //     }
-        // }
     }
 })();

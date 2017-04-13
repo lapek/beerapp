@@ -29,13 +29,21 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         pl.beerapp.entities.User user = userRepository.findByUsername(username);
-        List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
-        return buildUserForAuthentication(user, authorities);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
+        } else {
+            List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
+            return buildUserForAuthentication(user, authorities);
+        }
     }
 
-    private User buildUserForAuthentication(pl.beerapp.entities.User user,
-                                            List<GrantedAuthority> authorities) {
-        return new User(user.getUsername(), user.getPassword(), authorities);
+    private User buildUserForAuthentication(pl.beerapp.entities.User user, List<GrantedAuthority> authorities) {
+        return new User(
+                user.getUsername(),
+                user.getPassword(),
+                authorities
+        );
     }
 
     private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {

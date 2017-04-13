@@ -1,7 +1,7 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
-configs/
-!/configs/test/application.properties
+/configs/*
+!/configs/test
 
 ### STS ###
 .apt_generated

@@ -4,9 +4,9 @@
     angular.module('beerApp')
         .controller('myAccountController', myAccountController);
 
-    myAccountController.$inject = ['$rootScope'];
+    myAccountController.$inject = ['$http'];
 
-    function myAccountController($rootScope) {
+    function myAccountController($http) {
         var vm = this;
 
         vm.userdata = {};
@@ -16,17 +16,7 @@
         }
 
         function getUserData() {
-            $http({
-                method: 'GET',
-                url: 'api/users/find',
-                params: {
-                    username: $rootScope.currentUser
-                }
-            }).then(function onSuccess(response) {
-                vm.userdata = response;
-            }, function onError(response) {
-                //
-            });
+            $http.get('/api/user');
         }
     }
 })();

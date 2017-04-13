@@ -4,9 +4,9 @@
     angular.module('beerApp')
         .controller('myRecipesController', myRecipesController);
 
-    myRecipesController.$inject = ['$scope', '$mdDialog', '$http', '$rootScope', '$window', '$timeout'];
+    myRecipesController.$inject = ['$scope', '$mdDialog', '$http', '$rootScope', '$timeout'];
 
-    function myRecipesController($scope, $mdDialog, $http, $rootScope, $window, $timeout) {
+    function myRecipesController($scope, $mdDialog, $http, $rootScope, $timeout) {
         var vm = this;
 
         vm.recipes = [];

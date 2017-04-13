@@ -10,7 +10,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableAutoConfiguration
-
 @EnableTransactionManagement
 @ComponentScan("pl.beerapp")
 @SpringBootApplication
@@ -20,12 +19,12 @@ public class HomebrewingAppApplication {
 
     private Environment env;
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         SpringApplication app = new SpringApplication(HomebrewingAppApplication.class);
 
         Environment env = app.run(args).getEnvironment();
         log.info("\n----------------------------------------------------------\n\t"
                 + "Application is running!" +
                 "\n----------------------------------------------------------");
-	}
+    }
 }

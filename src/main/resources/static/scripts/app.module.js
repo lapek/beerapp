@@ -1,18 +1,18 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('beerApp', [
-            'ngStorage',
             'ngResource',
             'ngSanitize',
             'ngMessages',
             'ngRoute',
             'ngCookies',
             'ngAria',
+            'angular-loading-bar',
+            'satellizer',
             'ui.router',
-            'ngMaterial',
-            'angular-loading-bar'
+            'ngMaterial'
         ]);
 
 })();

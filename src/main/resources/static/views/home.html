@@ -11,7 +11,7 @@
                         </md-card-title-text>
                     </md-card-title>
                 </md-toolbar>
-                <md-card-content ng-show="!authenticated">
+                <md-card-content ng-if="!isAuthenticated()">
                     <div layout="row">
                         <span class="md-subhead">Zapraszamy do logowania. Tylko zalogowany użytkownik może stworzyć nową recepturę.
                             Jeśli nie masz jeszcze konta, zapraszamy do założenia takowego.</span>
@@ -23,7 +23,7 @@
                         </md-button>
                     </div>
                 </md-card-content>
-                <md-card-content ng-show="authenticated">
+                <md-card-content ng-if="isAuthenticated()">
                     <div layout="row">
                         <span class="md-subhead">Witamy ponownie i zapraszamy do wykonania Twojej nowej receptury.<br></span>
                     </div>
@@ -57,7 +57,7 @@
 
         <!-- 2 column -->
         <div flex="50">
-            <md-card flex ng-show="!authenticated">
+            <md-card flex ng-show="!isAuthenticated()">
                 <img ng-src="/images/screen.jpg" class="md-card-image md-whiteframe-4dp">
                 <md-card-content>
                     <p>Strona przeznaczona dla piwowarów domowych. Udostępniamy komplet kalkulatorów użytecznych przy
@@ -67,7 +67,7 @@
                 </md-card-content>
             </md-card>
 
-            <md-card flex ng-show="authenticated">
+            <md-card flex ng-show="isAuthenticated()">
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">Ostatnia twoja receptura:</span>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.beerapp.entities.User;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<User, String> {
     public User findByUsername(String username);
+    public User findByEmail(String email);
 }
