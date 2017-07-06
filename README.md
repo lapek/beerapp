@@ -1,20 +1,20 @@
-# BeerApp (under developing) #
+# BeerApp #
 
-Web app project for studies. Not finished yet, but already rated by the teacher.
+Web application for homebrewers. The application was originally a student project, but I decided to develop it further.
+Spring Boot + Hibernate + PostgreSQL + AngularJS + Angular Material
 
 ### Content ###
-
-* Website is in Polish
-* Working register/login
-* After login you can add new recipe
-* List of your recipes
+* Website is in Polish (in plans: English/Multilanguage support)
+* Working signup/login
+* Logged user can add a new recipe
+* List of user's recipes
+More to come (editing recipes, editing user's profile, admin page, contact page etc).
 
 ### How to run? ###
-
-* Create empty database for project named whatever you want
-* Change configuration in _configs/test/_ directory
+* Create empty database
+* Complete the configuration data in _configs/test/_ directory (name of database, login, password, port, etc)
 * Set profile _test_ in maven 
-* Use in your project directory
+* Run the project
 ```sh
 mvn spring-boot:run
 ```
