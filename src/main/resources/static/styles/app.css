@@ -7,7 +7,7 @@ body {
 }
 
 #loading-bar .bar {
-    background: #65ba5b;
+    background: orange;
     height: 3px;
 }
 

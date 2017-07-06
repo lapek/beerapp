@@ -8,22 +8,23 @@
 
     function NavigationController($mdDialog, $mdToast, $scope, $rootScope, $state, $auth, AccountService) {
         var vm = this;
+        var originatorEv;
 
-        vm.currenUser = '';
+        vm.currentUser = '';
 
         vm.showLogin = showLogin;
         vm.openMenu = openMenu;
         vm.logout = logout;
-        vm.getUsername = getUsername;
-        vm.init = init;
 
         function init() {
-            vm.getUsername();
+            if ($auth.isAuthenticated()) {
+                getUsername();
+            }
         }
 
-        function openMenu($mdOpenMenu, $event) {
-            vm.originatorEv = $event;
-            $mdOpenMenu($event);
+        function openMenu($mdMenu, $event) {
+            originatorEv = $event;
+            $mdMenu.open($event);
         }
 
         function showLogin($event) {
@@ -56,17 +57,15 @@
         }
 
         function getUsername() {
-            if ($auth.isAuthenticated()) {
-                AccountService.getProfile()
-                    .success(function(data) {
-                        console.log(data);
-                        vm.currenUser = data.username;
-                    })
-                    .error(function(error) {
-                        console.log('Get profile error: ', error)
-                    });
-            }
+            AccountService.getProfile()
+                .then(function successCallback(response) {
+                    console.log(response);
+                    vm.currentUser = response.data.username;
+                }, function errorCallback(response) {
+                    console.log('Get profile error: ', response)
+                });
         }
 
+        init();
     }
 })();

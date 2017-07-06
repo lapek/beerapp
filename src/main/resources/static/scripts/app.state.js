@@ -5,9 +5,11 @@
         .module('beerApp')
         .config(stateConfig);
 
-    stateConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$provide', '$httpProvider', '$authProvider'];
+    stateConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$provide', '$httpProvider', '$authProvider', 'cfpLoadingBarProvider'];
 
-    function stateConfig($stateProvider, $urlRouterProvider, $locationProvider, $provide, $httpProvider, $authProvider) {
+    function stateConfig($stateProvider, $urlRouterProvider, $locationProvider, $provide, $httpProvider, $authProvider, cfpLoadingBarProvider) {
+
+        cfpLoadingBarProvider.includeSpinner = false;
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
@@ -50,12 +52,12 @@
             return deferred.promise;
         }];
 
-        var loginRequired = ['$q', '$location', '$auth', function ($q, $location, $auth) {
+        var loginRequired = ['$q', '$location', '$auth', function ($q, $state, $auth) {
             var deferred = $q.defer();
             if ($auth.isAuthenticated()) {
                 deferred.resolve();
             } else {
-                $location.path('/login');
+                $state.go('home');
             }
             return deferred.promise;
         }];

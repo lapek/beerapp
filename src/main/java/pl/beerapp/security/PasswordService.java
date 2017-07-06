@@ -1,6 +1,6 @@
 package pl.beerapp.security;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
 
 public final class PasswordService {
 

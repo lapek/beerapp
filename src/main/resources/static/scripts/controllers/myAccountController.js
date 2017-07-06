@@ -4,19 +4,27 @@
     angular.module('beerApp')
         .controller('myAccountController', myAccountController);
 
-    myAccountController.$inject = ['$http'];
+    myAccountController.$inject = ['AccountService'];
 
-    function myAccountController($http) {
+    function myAccountController(AccountService) {
         var vm = this;
 
         vm.userdata = {};
 
         function init() {
-            vm.getUserData();
+            getUserData();
         }
 
         function getUserData() {
-            $http.get('/api/user');
+            AccountService.getProfile()
+                .then(function successCallback(response) {
+                    console.log(response);
+                    vm.userdata = response.data;
+                }, function errorCallback(response) {
+                    console.log('Get profile error: ', response)
+                });
         }
+
+        init();
     }
 })();

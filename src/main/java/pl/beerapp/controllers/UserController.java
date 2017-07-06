@@ -19,14 +19,14 @@ import java.text.ParseException;
 @RestController
 public class UserController {
 
-    @Autowired
     private final UserRepository userRepository;
 
+    @Autowired
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    @RequestMapping("/api/user")
+    @RequestMapping("/profile")
     public ResponseEntity findUser(@Context final HttpServletRequest request)
             throws JOSEException {
         User foundUser = null;
@@ -43,7 +43,7 @@ public class UserController {
 
     private User getAuthUser(HttpServletRequest request) throws JOSEException, ParseException {
         String subject = AuthUtils.getSubject(request.getHeader(AuthUtils.AUTH_HEADER_KEY));
-        return userRepository.findOne(subject);
+        return userRepository.findOne(Long.valueOf(subject).longValue());
     }
 
 }

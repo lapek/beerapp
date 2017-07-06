@@ -9,9 +9,13 @@
 
     function themeConfig($mdIconProvider, $mdThemingProvider) {
 
-        $mdThemingProvider.theme('default').primaryPalette('yellow').accentPalette('blue');
-        
-        $mdThemingProvider.theme('login').primaryPalette('brown').accentPalette('yellow');
+        $mdThemingProvider.theme('default')
+            .primaryPalette('yellow')
+            .accentPalette('indigo');
+
+        $mdThemingProvider.theme('login')
+            .primaryPalette('deep-orange')
+            .accentPalette('lime');
 
         $mdIconProvider.defaultIconSet('../styles/mdi.svg');
 

@@ -10,10 +10,10 @@
     function AccountService($http) {
         return {
             getProfile: function () {
-                return $http.get('/api/user');
+                return $http.get('/profile');
             },
             updateProfile: function (profileData) {
-                return $http.put('/api/user', profileData);
+                return $http.put('/profile', profileData);
             }
         }
     }
