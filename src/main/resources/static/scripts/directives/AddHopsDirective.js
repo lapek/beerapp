@@ -5,10 +5,10 @@
         .module('beerApp')
         .directive('addHop', addHop);
 
-    AddHopController.$inject = ['$rootScope', '$scope', '$element', '$http', 'HopStoreService', '$log'];
+    AddHopController.$inject = ['$scope', '$element', '$http', 'HopStoreService'];
 
     function addHop() {
-        var directive = {
+        return {
             restrict: "E",
             scope: {},
             templateUrl: '../views/addHop.html',
@@ -16,11 +16,9 @@
             controllerAs: 'ahVm',
             bindToController: true
         };
-
-        return directive;
     }
 
-    function AddHopController($rootScope, $scope, $element, $http, HopStoreService, $log) {
+    function AddHopController($scope, $element, $http, HopStoreService) {
         var vm = this;
 
         vm.hops = null;
