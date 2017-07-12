@@ -5,22 +5,24 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table
-@Entity(name = "mashing")
+@Entity
+@Table(name="grain")
 public class Mashing implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_mashing", nullable = false)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_mashing")
     private Long id_mashing;
 
-    @Column(name = "temperature")
+    @Column
     private Double temperature;
 
-    @Column(name = "time")
+    @Column
     private Double time;
 
-    @Column(name = "amount")
+    @Column
     private Double amount;
 
     @ManyToOne

@@ -1,5 +1,5 @@
 package pl.beerapp.entities.enumeration;
 
-public enum Role {
+public enum UserRole {
     USER, ADMIN;
 }

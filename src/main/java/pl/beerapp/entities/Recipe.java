@@ -1,58 +1,55 @@
 package pl.beerapp.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-@Table
-@Entity(name = "recipe")
+@Entity
+@Table(name = "recipes")
 public class Recipe implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_recipe", nullable = false)
-    private Long id_recipe;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_recipe")
+    private Long id;
 
-    @Column(name = "style")
-    private String style;
-
-    @Column(name = "name")
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "author")
+    @Column(nullable = false)
     private String author;
 
-    @Column(name = "efficiency", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_style", nullable = false)
+    private Style style;
+
+    @Column(nullable = false)
     private Double efficiency;
 
-    @Column(name = "batch_size", nullable = false)
+    @Column(nullable = false)
     private Double batchSize;
 
-    @Column(name = "boil_size", nullable = false)
+    @Column(nullable = false)
     private Double boilSize;
 
-    @Column(name = "boil_time", nullable = false)
+    @Column(nullable = false)
     private Double boilTime;
 
-    @Column(name = "visible", nullable = false)
-    private boolean visible;
+    @Column(nullable = false)
+    private Boolean visible;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_user", referencedColumnName = "id")
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "RecipeGrain",
+            name = "recipe_grain",
             joinColumns = @JoinColumn(name = "id_recipe"),
             inverseJoinColumns = @JoinColumn(name = "id_grain")
     )
@@ -61,7 +58,7 @@ public class Recipe implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "RecipeHopStore",
+            name = "recipe_hop_store",
             joinColumns = @JoinColumn(name = "id_recipe"),
             inverseJoinColumns = @JoinColumn(name = "id_store")
     )
@@ -70,22 +67,22 @@ public class Recipe implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "RecipeMashing",
-            joinColumns = @JoinColumn(name = "id_recipe"),
-            inverseJoinColumns = @JoinColumn(name = "id_mashing")
+            name = "recipe_mashing",
+            joinColumns = @JoinColumn(name = "id_recipe", referencedColumnName = "id_recipe"),
+            inverseJoinColumns = @JoinColumn(name = "id_mashing", referencedColumnName = "id_mashing")
     )
     @JsonManagedReference
     private List<Mashing> mashings;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ferment_fk")
+    @JoinColumn(name = "id_ferment")
     @JsonManagedReference
     private Fermentation fermentation;
 
     public Recipe() {
     }
 
-    public Recipe(String style, String name, String author, Double efficiency, Double batchSize, Double boilSize, Double boilTime, boolean visible, User user, List<Grain> grains, List<HopStore> hopStores, List<Mashing> mashings, Fermentation fermentation) {
+    public Recipe(Style style, String name, String author, Double efficiency, Double batchSize, Double boilSize, Double boilTime, boolean visible, User user, List<Grain> grains, List<HopStore> hopStores, List<Mashing> mashings, Fermentation fermentation) {
         this.style = style;
         this.name = name;
         this.author = author;
@@ -101,19 +98,19 @@ public class Recipe implements Serializable {
         this.fermentation = fermentation;
     }
 
-    public Long getId_recipe() {
-        return id_recipe;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_recipe(Long id_recipe) {
-        this.id_recipe = id_recipe;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getStyle() {
+    public Style getStyle() {
         return style;
     }
 
-    public void setStyle(String style) {
+    public void setStyle(Style style) {
         this.style = style;
     }
 
@@ -165,11 +162,11 @@ public class Recipe implements Serializable {
         this.boilTime = boilTime;
     }
 
-    public boolean isVisible() {
+    public Boolean isVisible() {
         return visible;
     }
 
-    public void setVisible(boolean visible) {
+    public void setVisible(Boolean visible) {
         this.visible = visible;
     }
 
@@ -221,7 +218,7 @@ public class Recipe implements Serializable {
         Recipe recipe = (Recipe) o;
 
         if (visible != recipe.visible) return false;
-        if (id_recipe != null ? !id_recipe.equals(recipe.id_recipe) : recipe.id_recipe != null) return false;
+        if (id != null ? !id.equals(recipe.id) : recipe.id != null) return false;
         if (style != null ? !style.equals(recipe.style) : recipe.style != null) return false;
         if (name != null ? !name.equals(recipe.name) : recipe.name != null) return false;
         if (author != null ? !author.equals(recipe.author) : recipe.author != null) return false;
@@ -238,7 +235,7 @@ public class Recipe implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id_recipe != null ? id_recipe.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (style != null ? style.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
@@ -258,7 +255,7 @@ public class Recipe implements Serializable {
     @Override
     public String toString() {
         return "Recipe{" +
-                "id_recipe=" + id_recipe +
+                "id=" + id +
                 ", style='" + style + '\'' +
                 ", name='" + name + '\'' +
                 ", author='" + author + '\'' +

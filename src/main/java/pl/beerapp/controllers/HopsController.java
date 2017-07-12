@@ -4,22 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pl.beerapp.entities.Hops;
-import pl.beerapp.repositories.HopsRepository;
+import pl.beerapp.entities.Hop;
+import pl.beerapp.services.HopService;
 
 @RestController
 @RequestMapping(value = "/api/hops")
 public class HopsController {
 
-    private HopsRepository hopsRepository;
+    private final HopService hopService;
 
     @Autowired
-    public void setMaltsRepository(HopsRepository hopsRepository) {
-        this.hopsRepository = hopsRepository;
+    public HopsController(HopService hopService) {
+        this.hopService = hopService;
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Iterable<Hops> findAllSHops() {
-        return hopsRepository.findAll();
+    public Iterable<Hop> findAllHops() {
+        return hopService.findAllHops();
     }
 }

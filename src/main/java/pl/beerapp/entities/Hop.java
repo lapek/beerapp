@@ -3,18 +3,18 @@ package pl.beerapp.entities;
 import pl.beerapp.entities.enumeration.HopType;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table
-@Entity(name = "hops")
-public class Hops implements Serializable {
+@Entity
+@Table(name = "hops")
+public class Hop implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_hop", nullable = false)
-    private Long id_hop;
+    @Column(name = "id_hop")
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -29,22 +29,22 @@ public class Hops implements Serializable {
     @Column(name = "alpha", nullable = false)
     private Double alpha;
 
-    public Hops() {
+    public Hop() {
     }
 
-    public Hops(String name, String country, HopType hopType, Double alpha) {
+    public Hop(String name, String country, HopType hopType, Double alpha) {
         this.name = name;
         this.country = country;
         this.hopType = hopType;
         this.alpha = alpha;
     }
 
-    public Long getId_hop() {
-        return id_hop;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_hop(Long id_hop) {
-        this.id_hop = id_hop;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -81,8 +81,8 @@ public class Hops implements Serializable {
 
     @Override
     public String toString() {
-        return "Hops{" +
-                "id_hop=" + id_hop +
+        return "Hop{" +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
                 ", hopType=" + hopType +
@@ -95,9 +95,9 @@ public class Hops implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Hops hops = (Hops) o;
+        Hop hops = (Hop) o;
 
-        if (id_hop != null ? !id_hop.equals(hops.id_hop) : hops.id_hop != null) return false;
+        if (id != null ? !id.equals(hops.id) : hops.id != null) return false;
         if (name != null ? !name.equals(hops.name) : hops.name != null) return false;
         if (country != null ? !country.equals(hops.country) : hops.country != null) return false;
         if (hopType != hops.hopType) return false;
@@ -106,7 +106,7 @@ public class Hops implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id_hop != null ? id_hop.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (hopType != null ? hopType.hashCode() : 0);

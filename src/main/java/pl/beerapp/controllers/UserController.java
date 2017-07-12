@@ -7,23 +7,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.beerapp.entities.User;
 import pl.beerapp.security.AuthUtils;
-import pl.beerapp.security.RoleEnum;
 import pl.beerapp.repositories.UserRepository;
-import pl.beerapp.entities.UserRole;
+import pl.beerapp.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
-import java.security.Principal;
 import java.text.ParseException;
 
 @RestController
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @RequestMapping("/profile")
@@ -43,7 +41,7 @@ public class UserController {
 
     private User getAuthUser(HttpServletRequest request) throws JOSEException, ParseException {
         String subject = AuthUtils.getSubject(request.getHeader(AuthUtils.AUTH_HEADER_KEY));
-        return userRepository.findOne(Long.valueOf(subject).longValue());
+        return userService.findById(Long.valueOf(subject));
     }
 
 }

@@ -1,15 +1,12 @@
 package pl.beerapp.repositories;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.beerapp.entities.Styles;
+import pl.beerapp.entities.Style;
 
 import java.util.List;
 
 @Repository
-public interface StylesRepository extends CrudRepository<Styles, Long> {
-
-    //List<Styles> findByName(@Param("name") String name);
-
+public interface StylesRepository extends JpaRepository<Style, Long> {
+    List<Style> findAll();
 }

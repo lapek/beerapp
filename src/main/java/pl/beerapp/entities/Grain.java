@@ -4,19 +4,19 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 
 
-@Table
-@Entity(name = "grain")
+@Entity
+@Table(name="grain")
 public class Grain implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_grain", nullable = false)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_grain")
+    private Long idGrain;
 
     @Column(name = "weight")
     private Double weight;
@@ -34,7 +34,7 @@ public class Grain implements Serializable {
 //            joinColumns = @JoinColumn( name="id_grain"),
 //            inverseJoinColumns = @JoinColumn( name="id_malt")
 //    )
-//    private List<Malts> malts;
+//    private List<Malt> malts;
 
 //    @OneToMany(cascade = {CascadeType.PERSIST})
 //    @JoinTable(
@@ -42,7 +42,7 @@ public class Grain implements Serializable {
 //            joinColumns = @JoinColumn( name="id_grain"),
 //            inverseJoinColumns = @JoinColumn( name="id_malt")
 //    )
-//    private Set<Malts> malt = new HashSet<>();
+//    private Set<Malt> malt = new HashSet<>();
 
     public Grain() {
     }
@@ -53,12 +53,12 @@ public class Grain implements Serializable {
         this.maltId = maltId;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdGrain() {
+        return idGrain;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdGrain(Long idGrain) {
+        this.idGrain = idGrain;
     }
 
     public Double getWeight() {
@@ -88,7 +88,7 @@ public class Grain implements Serializable {
     @Override
     public String toString() {
         return "Grain{" +
-                "id=" + id +
+                "idGrain=" + idGrain +
                 ", weight=" + weight +
                 ", recipe=" + recipe +
                 ", maltId=" + maltId +
@@ -102,7 +102,7 @@ public class Grain implements Serializable {
 
         Grain grain = (Grain) o;
 
-        if (id != null ? !id.equals(grain.id) : grain.id != null) return false;
+        if (idGrain != null ? !idGrain.equals(grain.idGrain) : grain.idGrain != null) return false;
         if (weight != null ? !weight.equals(grain.weight) : grain.weight != null) return false;
         if (recipe != null ? !recipe.equals(grain.recipe) : grain.recipe != null) return false;
         return maltId != null ? maltId.equals(grain.maltId) : grain.maltId == null;
@@ -110,7 +110,7 @@ public class Grain implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = idGrain != null ? idGrain.hashCode() : 0;
         result = 31 * result + (weight != null ? weight.hashCode() : 0);
         result = 31 * result + (recipe != null ? recipe.hashCode() : 0);
         result = 31 * result + (maltId != null ? maltId.hashCode() : 0);
