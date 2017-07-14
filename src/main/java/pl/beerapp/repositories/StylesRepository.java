@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface StylesRepository extends JpaRepository<Style, Long> {
     List<Style> findAll();
+
+    Style findStyleByName(String name);
 }

@@ -23,12 +23,9 @@
         function getAllUserRecipes() {
             $http({
                 method: 'GET',
-                url: '/api/recipes/list/user',
-                params: {
-                    author: $rootScope.currentUser
-                }
+                url: '/api/recipes/list/user'
             }).then(function onSuccess(response) {
-                vm.recipes = response;
+                vm.recipes = response.data;
                 vm.recipeToShow = vm.recipes[0];
             }, function onError(response) {
                 //
@@ -38,7 +35,6 @@
         function goToRecipe(recipe, $event) {
             vm.recipeToShow = recipe;
         }
-
 
     }
 })();

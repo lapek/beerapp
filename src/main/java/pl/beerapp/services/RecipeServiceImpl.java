@@ -20,24 +20,27 @@ public class RecipeServiceImpl implements RecipeService {
         this.recipeRepository = recipeRepository;
     }
 
-    public List<Recipe> findAllRecipes(){
+    public List<Recipe> findAllRecipes() {
         return recipeRepository.findAll();
     }
 
-    public List<Recipe> findAllByUser(User user){
+    public List<Recipe> findAllByUser(User user) {
         return recipeRepository.findByUser(user);
     }
 
-    public List<Recipe> findAllPublicRecipes(){
-        //return recipeRepository.findAllPublic();
+    public List<Recipe> findAllPublicRecipes() {
         return recipeRepository.findByVisibleTrue();
     }
 
-//    public Recipe findLastPublicRecipe(){
-//
-//    }
-//
-//    public Recipe findLastUserRecipe(Long id){
-//
-//    }
+    public Recipe findLastPublicRecipe() {
+        return recipeRepository.findFirstByVisibleTrueOrderByIdDesc();
+    }
+
+    public Recipe findLastUserRecipe(User user) {
+        return recipeRepository.findFirstByUserOrderByIdDesc(user);
+    }
+
+    public Recipe saveRecipe(Recipe recipe) {
+        return recipeRepository.save(recipe);
+    }
 }

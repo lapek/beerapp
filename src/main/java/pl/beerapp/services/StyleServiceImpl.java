@@ -22,4 +22,8 @@ public class StyleServiceImpl implements StyleService {
     public List<Style> findAllStyles() {
         return stylesRepository.findAll();
     }
+
+    public Style findOneByName(String name) {
+        return stylesRepository.findStyleByName(name);
+    }
 }

@@ -12,7 +12,11 @@ public interface RecipeService {
 
     List<Recipe> findAllPublicRecipes();
 
-//    Recipe findLastPublicRecipe();
+    Recipe findLastPublicRecipe();
 
-//    Recipe findLastUserRecipe(Long id);
+    Recipe findLastUserRecipe(User user);
+
+    //void updateRecipe(Recipe recipe);
+
+    Recipe saveRecipe(Recipe recipe);
 }

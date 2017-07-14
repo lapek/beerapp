@@ -2,10 +2,9 @@ package pl.beerapp.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User implements Serializable {
 
     @Id
@@ -27,17 +26,18 @@ public class User implements Serializable {
 //    @Column(name = "user_role", nullable = false)
 //    private UserRole userRole;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
-    private List<Recipe> recipes;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    //@OneToMany(mappedBy = "user")
+    //private List<Recipe> recipes;
 
     public User() {
     }
 
-    public User(String username, String password, String email, List<Recipe> recipes) {
+    public User(String username, String password, String email) {//, List<Recipe> recipes) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.recipes = recipes;
+        //this.recipes = recipes;
     }
 
     public Long getId() {
@@ -72,11 +72,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public List<Recipe> getRecipes() {
-        return recipes;
-    }
+//    public List<Recipe> getRecipes() {
+//        return recipes;
+//    }
 
-    public void setRecipes(List<Recipe> recipes) {
-        this.recipes = recipes;
-    }
+//    public void setRecipes(List<Recipe> recipes) {
+//        this.recipes = recipes;
+//    }
 }

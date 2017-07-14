@@ -1,12 +1,13 @@
 package pl.beerapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
 
+@JsonAutoDetect
 @Entity
 @Table(name = "recipes")
 public class Recipe implements Serializable {
@@ -15,7 +16,7 @@ public class Recipe implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_recipe")
+    @Column(name = "id_recipe", unique = true, nullable = false)
     private Long id;
 
     @Column(nullable = false)
@@ -24,7 +25,7 @@ public class Recipe implements Serializable {
     @Column(nullable = false)
     private String author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_style", nullable = false)
     private Style style;
 
@@ -43,7 +44,7 @@ public class Recipe implements Serializable {
     @Column(nullable = false)
     private Boolean visible;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
@@ -252,23 +253,4 @@ public class Recipe implements Serializable {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "Recipe{" +
-                "id=" + id +
-                ", style='" + style + '\'' +
-                ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
-                ", efficiency=" + efficiency +
-                ", batchSize=" + batchSize +
-                ", boilSize=" + boilSize +
-                ", boilTime=" + boilTime +
-                ", visible=" + visible +
-                ", user=" + user +
-                ", grains=" + grains +
-                ", hopStores=" + hopStores +
-                ", mashings=" + mashings +
-                ", fermentation=" + fermentation +
-                '}';
-    }
 }

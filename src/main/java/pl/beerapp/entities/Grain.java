@@ -3,18 +3,17 @@ package pl.beerapp.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import java.io.Serializable;
 
 
 @Entity
-@Table(name="grain")
+@Table(name = "grain")
 public class Grain implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_grain")
     private Long idGrain;
 

@@ -48,7 +48,7 @@
                     </div>
                     <div layout="column" flex="66" layout-align="center start">
                         <h2>Nazwa: <i>{{hVm.lastPublic.name}}</i></h2>
-                        <h2>Styl: <i>{{hVm.lastPublic.style}}</i></h2>
+                        <h2>Styl: <i>{{hVm.lastPublic.style.name}}</i></h2>
                         <p>Autor: <i>{{hVm.lastPublic.author}}</i></p>
                     </div>
                 </md-card-content>
@@ -79,7 +79,7 @@
                     </div>
                     <div layout="column" flex="66" layout-align="center start" ng-show="hVm.lastUserRecipe != null">
                         <h2>Nazwa: <i>{{hVm.lastUserRecipe.name}}</i></h2>
-                        <h2>Styl: <i>{{hVm.lastUserRecipe.style}}</i></h2>
+                        <h2>Styl: <i>{{hVm.lastUserRecipe.style.name}}</i></h2>
                         <p>Widoczność: <i>{{hVm.lastUserRecipe.visible === false ? 'Prywatna' : 'Publiczna'}}</i></p>
                         <p>Wielkość warki: <i>{{hVm.lastUserRecipe.batchSize}}</i></p>
                         <p>Wydajność: <i>{{hVm.lastUserRecipe.efficiency}}</i></p>

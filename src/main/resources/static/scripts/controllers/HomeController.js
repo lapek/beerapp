@@ -9,9 +9,9 @@
     function HomeController($scope, $window, $http, $rootScope, $interval, $auth) {
         var vm = this;
 
-        vm.lastPublic = '';
-        vm.allPublic = '';
-        vm.lastUserRecipe = '';
+        vm.lastPublic = {};
+        vm.allPublic = [];
+        vm.lastUserRecipe = {};
 
         vm.getAllPublic = getAllPublic;
         vm.getLastPublic = getLastPublic;
@@ -21,7 +21,7 @@
         function init() {
             vm.getLastPublic();
             vm.getAllPublic();
-            vm.getUserLast();
+            if($auth.isAuthenticated()) vm.getUserLast();
         }
 
         $scope.isAuthenticated = function() {
@@ -33,7 +33,7 @@
                 method: 'GET',
                 url: '/api/recipes/list/public'
             }).then(function onSuccess(response) {
-                vm.allPublic = response;
+                vm.allPublic = response.data;
             }, function onError(response) {
                 //vm.allPublic = '';
             });
@@ -44,7 +44,7 @@
                 method: 'GET',
                 url: '/api/recipes/last/public'
             }).then(function onSuccess(response) {
-                vm.lastPublic = response;
+                vm.lastPublic = response.data;
             }, function onError(response) {
                 //vm.lastPublic = '';
             });
@@ -59,7 +59,7 @@
                         author: $rootScope.currentUser
                     }
                 }).then(function onSuccess(response) {
-                    vm.lastUserRecipe = response;
+                    vm.lastUserRecipe = response.data;
                 }, function onError(response) {
                     //
                 });
