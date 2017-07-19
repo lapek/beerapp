@@ -4,9 +4,9 @@
     angular.module('beerApp')
         .controller('myRecipesController', myRecipesController);
 
-    myRecipesController.$inject = ['$scope', '$mdDialog', '$http', '$rootScope', '$window', '$timeout'];
+    myRecipesController.$inject = ['$scope', '$mdDialog', '$http', '$rootScope', '$timeout'];
 
-    function myRecipesController($scope, $mdDialog, $http, $rootScope, $window, $timeout) {
+    function myRecipesController($scope, $mdDialog, $http, $rootScope, $timeout) {
         var vm = this;
 
         vm.recipes = [];
@@ -23,14 +23,11 @@
         function getAllUserRecipes() {
             $http({
                 method: 'GET',
-                url: '/api/recipes/list/user',
-                params: {
-                    author: $rootScope.currentUser
-                }
-            }).success(function (response) {
-                vm.recipes = response;
+                url: '/api/recipes/list/user'
+            }).then(function onSuccess(response) {
+                vm.recipes = response.data;
                 vm.recipeToShow = vm.recipes[0];
-            }).error(function (response) {
+            }, function onError(response) {
                 //
             });
         }
@@ -38,7 +35,6 @@
         function goToRecipe(recipe, $event) {
             vm.recipeToShow = recipe;
         }
-
 
     }
 })();

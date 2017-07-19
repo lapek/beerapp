@@ -5,10 +5,10 @@
         .module('beerApp')
         .directive('addMalt', addMalt);
 
-    AddMaltController.$inject = ['$rootScope', '$scope', '$element', '$http', 'GrainService', '$log'];
+    AddMaltController.$inject = ['$scope', '$element', '$http', 'GrainService'];
 
     function addMalt() {
-        var directive = {
+        return {
             restrict: "E",
             scope: {},
             templateUrl: '../views/addMalt.html',
@@ -16,11 +16,9 @@
             controllerAs: 'adVm',
             bindToController: true
         };
-
-        return directive;
     }
 
-    function AddMaltController($rootScope, $scope, $element, $http, GrainService, $log) {
+    function AddMaltController($scope, $element, $http, GrainService) {
         var vm = this;
 
         vm.malts = null;

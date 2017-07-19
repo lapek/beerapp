@@ -6,6 +6,11 @@ body {
     box-sizing: border-box;
 }
 
+#loading-bar .bar {
+    background: orange;
+    height: 3px;
+}
+
 md-no-animations, md-dialog.md-transition-in, md-dialog.md-transition-out {
     -webkit-transform: none !important;
     transform: none !important;

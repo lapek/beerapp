@@ -5,20 +5,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pl.beerapp.entities.Yeast;
-import pl.beerapp.repositories.YeastRepository;
+import pl.beerapp.services.YeastService;
 
 @RestController
 @RequestMapping(value = "/api/yeast")
 public class YeastController {
-    private YeastRepository yeastRepository;
+
+    private final YeastService yeastService;
 
     @Autowired
-    public void setMaltsRepository(YeastRepository yeastRepository) {
-        this.yeastRepository = yeastRepository;
+    public YeastController(YeastService yeastService) {
+        this.yeastService = yeastService;
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Iterable<Yeast> findAllStyles() {
-        return yeastRepository.findAll();
+        return yeastService.findAllYeasts();
     }
 }

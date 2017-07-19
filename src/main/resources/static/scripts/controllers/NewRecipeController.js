@@ -107,7 +107,7 @@
             });
             $http({
                 method: 'POST',
-                url: '/api/recipe/color',
+                url: '/api/recipes/color',
                 data: angular.toJson(request),
                 params: {
                     'batchSize': vm.recipe.batchSize
@@ -132,7 +132,7 @@
             });
             $http({
                 method: 'POST',
-                url: '/api/recipe/sg',
+                url: '/api/recipes/sg',
                 data: angular.toJson(request),
                 params: {
                     'batchSize': vm.recipe.batchSize,
@@ -161,7 +161,7 @@
             });
             $http({
                 method: 'POST',
-                url: '/api/recipe/ibu',
+                url: '/api/recipes/ibu',
                 data: angular.toJson(request),
                 params: {
                     'estBoilSize': vm.recipe.estBoilSize,
@@ -206,7 +206,6 @@
 
             var request = {
                 name: vm.recipe.name,
-                author: vm.recipe.author,
                 visible: vm.recipe.visible,
                 style: vm.recipe.style.name,
                 batchSize: vm.recipe.batchSize,
@@ -229,12 +228,14 @@
 
             $http({
                 method: 'POST',
-                url: '/api/recipe/save',
+                url: '/api/recipes/save',
                 data: angular.toJson(request)
             }).then(function mySuccess(response) {
-                vm.recipe.details.IBU = response.data.IBU;
+                console.log('succes response: ', response);
+                showToast('Zapisano recepturę');
+                $location.path("/");
             }, function myError(response) {
-                //error
+                console.log('error response: ', response);
             });
         }
 
@@ -268,8 +269,6 @@
             //console.log('recipe: ', vm.recipe);
             if(vm.recipe.grain.length > 0 && vm.recipe.hopStore.length > 0 && vm.recipe.mashing.length > 0 && vm.recipe.yeast != null) {
                 saveRecipe();
-                showToast('Zapisano recepturę');
-                $location.path("/");
             } else {
                 //showToast('Proszę uzupełnić recepturę.')
             }

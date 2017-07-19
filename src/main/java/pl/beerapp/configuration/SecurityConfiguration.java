@@ -1,75 +1,47 @@
 package pl.beerapp.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import pl.beerapp.security.CsrfHeaderFilter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import pl.beerapp.controllers.RecipeController;
+import pl.beerapp.security.AuthFilter;
 
-@Configuration
+@Configurable
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService customUserDetailsService;
-
-    @Autowired
-    private PasswordEncoder encoder;
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        // @formatter:off
+        web.ignoring()
+                .antMatchers(
+                        "/",
+                        "/index.html",
+                        "/home",
+                        "/webjars/**",
+                        "/images/**",
+                        "/scripts/**",
+                        "/styles/**",
+                        "/views/**",
+                        "/auth/**",
+                        "/favicon.ico"
+                );
+        // @formatter:on
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // @formatter:off
         http
-                .authorizeRequests()
-                .antMatchers("/**",
-                        "/styles/**",
-                        "/scripts/**",
-                        "/views/**",
-                        "/images/**",
-                        "/h2-console/**",
-                        "/api/**",
-                        "/login",
-                        "/favicon.ico"
-                ).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .and()
-                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-                .csrf().csrfTokenRepository(csrfTokenRepository())
-                .and()
-                .logout();
+            .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+                .addFilterBefore(new AuthFilter(), UsernamePasswordAuthenticationFilter.class);
+        // @formatter:on
     }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
-    }
-
-    private CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName("X-XSRF-TOKEN");
-        return repository;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        if (encoder == null) {
-            encoder = new BCryptPasswordEncoder();
-        }
-        return encoder;
-    }
-
 }

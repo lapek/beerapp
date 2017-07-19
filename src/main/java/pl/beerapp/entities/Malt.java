@@ -5,19 +5,21 @@ import pl.beerapp.entities.enumeration.MaltType;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table
-@Entity(name = "malts")
-public class Malts implements Serializable {
+@Entity
+@Table(name = "malts")
+public class Malt implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_malt", nullable = false)
-    private Long id_malt;
+    @Column(name = "id_malt")
+    private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "country", nullable = false)
+    @Column(nullable = false)
     private String country;
 
     @Enumerated(EnumType.STRING)
@@ -27,16 +29,16 @@ public class Malts implements Serializable {
     @Column(name = "colorEBC", nullable = false)
     private Double colorEBC;
 
-    @Column(name = "potential", nullable = false)
+    @Column(nullable = false)
     private Double potential;
 
-    @Column(name = "max", nullable = false)
+    @Column(nullable = false)
     private Double max;
 
-    public Malts() {
+    public Malt() {
     }
 
-    public Malts(String name, String country, MaltType maltType, Double colorEBC, Double potential, Double max) {
+    public Malt(String name, String country, MaltType maltType, Double colorEBC, Double potential, Double max) {
         this.name = name;
         this.country = country;
         this.maltType = maltType;
@@ -45,12 +47,12 @@ public class Malts implements Serializable {
         this.max = max;
     }
 
-    public Long getId_malt() {
-        return id_malt;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_malt(Long id_malt) {
-        this.id_malt = id_malt;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -106,9 +108,9 @@ public class Malts implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Malts malts = (Malts) o;
+        Malt malts = (Malt) o;
 
-        if (id_malt != null ? !id_malt.equals(malts.id_malt) : malts.id_malt != null) return false;
+        if (id != null ? !id.equals(malts.id) : malts.id != null) return false;
         if (name != null ? !name.equals(malts.name) : malts.name != null) return false;
         if (country != null ? !country.equals(malts.country) : malts.country != null) return false;
         if (maltType != malts.maltType) return false;
@@ -120,7 +122,7 @@ public class Malts implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id_malt != null ? id_malt.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (maltType != null ? maltType.hashCode() : 0);
@@ -132,8 +134,8 @@ public class Malts implements Serializable {
 
     @Override
     public String toString() {
-        return "Malts{" +
-                "id_malt=" + id_malt +
+        return "Malt{" +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
                 ", maltType=" + maltType +

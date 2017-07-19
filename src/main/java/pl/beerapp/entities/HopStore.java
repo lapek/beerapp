@@ -4,16 +4,17 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table
-@Entity(name = "hop_store")
+@Entity
+@Table(name = "hop_store")
 public class HopStore implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_store", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_store")
     private Long id;
 
     @Column(name = "weight")
@@ -36,7 +37,7 @@ public class HopStore implements Serializable {
 //            joinColumns = @JoinColumn( name="id_store"),
 //            inverseJoinColumns = @JoinColumn( name="id_hop")
 //    )
-//    private List<Hops> hops;
+//    private List<Hop> hops;
 
     public HopStore() {
     }

@@ -1,39 +1,45 @@
 package pl.beerapp.entities;
 
+import pl.beerapp.entities.enumeration.YeastPacking;
+import pl.beerapp.entities.enumeration.YeastType;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table
-@Entity(name = "yeasts")
+@Entity
+@Table(name = "yeasts")
 public class Yeast implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_yeast", nullable = false)
-    private Long id_yeast;
+    private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "lab", nullable = false)
+    @Column(nullable = false)
     private String lab;
 
-    @Column(name = "symbol", nullable = false)
+    @Column(nullable = false)
     private String symbol;
 
-    @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private YeastType type;
 
-    @Column(name = "packaging")
-    private String packaging;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private YeastPacking packaging;
 
-    @Column(name = "attenuation", nullable = false)
+    @Column(nullable = false)
     private Double attenuation;
 
     public Yeast() {
     }
 
-    public Yeast(String name, String lab, String symbol, String type, String packaging, Double attenuation) {
+    public Yeast(String name, String lab, String symbol, YeastType type, YeastPacking packaging, Double attenuation) {
         this.name = name;
         this.lab = lab;
         this.symbol = symbol;
@@ -42,12 +48,12 @@ public class Yeast implements Serializable {
         this.attenuation = attenuation;
     }
 
-    public Long getId_yeast() {
-        return id_yeast;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_yeast(Long id_yeast) {
-        this.id_yeast = id_yeast;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -74,19 +80,19 @@ public class Yeast implements Serializable {
         this.symbol = symbol;
     }
 
-    public String getType() {
+    public YeastType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(YeastType type) {
         this.type = type;
     }
 
-    public String getPackaging() {
+    public YeastPacking getPackaging() {
         return packaging;
     }
 
-    public void setPackaging(String packaging) {
+    public void setPackaging(YeastPacking packaging) {
         this.packaging = packaging;
     }
 
@@ -98,44 +104,4 @@ public class Yeast implements Serializable {
         this.attenuation = attenuation;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Yeast yeast = (Yeast) o;
-
-        if (id_yeast != null ? !id_yeast.equals(yeast.id_yeast) : yeast.id_yeast != null) return false;
-        if (name != null ? !name.equals(yeast.name) : yeast.name != null) return false;
-        if (lab != null ? !lab.equals(yeast.lab) : yeast.lab != null) return false;
-        if (symbol != null ? !symbol.equals(yeast.symbol) : yeast.symbol != null) return false;
-        if (type != null ? !type.equals(yeast.type) : yeast.type != null) return false;
-        if (packaging != null ? !packaging.equals(yeast.packaging) : yeast.packaging != null) return false;
-        return attenuation != null ? attenuation.equals(yeast.attenuation) : yeast.attenuation == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id_yeast != null ? id_yeast.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (lab != null ? lab.hashCode() : 0);
-        result = 31 * result + (symbol != null ? symbol.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (packaging != null ? packaging.hashCode() : 0);
-        result = 31 * result + (attenuation != null ? attenuation.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Yeast{" +
-                "id_yeast=" + id_yeast +
-                ", name='" + name + '\'' +
-                ", lab='" + lab + '\'' +
-                ", symbol='" + symbol + '\'' +
-                ", type='" + type + '\'' +
-                ", packaging='" + packaging + '\'' +
-                ", attenuation=" + attenuation +
-                '}';
-    }
 }

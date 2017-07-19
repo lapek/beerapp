@@ -5,10 +5,10 @@
         .module('beerApp')
         .directive('addMashing', addMashing);
 
-    AddMashingController.$inject = ['$rootScope', '$scope', '$element', '$http', '$log', 'MashingService'];
+    AddMashingController.$inject = ['$scope', '$element', 'MashingService'];
 
     function addMashing() {
-        var directive = {
+        return {
             restrict: "E",
             scope: {},
             templateUrl: '../views/addMashStep.html',
@@ -16,14 +16,13 @@
             controllerAs: 'amVm',
             bindToController: true
         };
-
-        return directive;
     }
 
-    function AddMashingController($rootScope, $scope, $element, $http, $log, MashingService) {
+    function AddMashingController($scope, $element, MashingService) {
         var vm = this;
 
         vm.mashing = {};
+
         vm.mashing.time = '';
         vm.mashing.temperature = '';
         vm.mashing.amount = '';
@@ -32,15 +31,14 @@
 
         /*Delete row*/
         function Delete(e) {
-            GrainService.removeList(vm.grain);
+            GrainService.removeList(vm.mashing);
             $element.remove();
             $scope.$destroy();
         }
 
-        $scope.$watch('vm.mashing', function(current, original) {
+        $scope.$watch('vm.mashing', function (current, original) {
             MashingService.addList(vm.mashing);
         });
-
     }
 
 })();

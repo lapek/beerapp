@@ -10,7 +10,6 @@ import java.util.List;
 public class RecipeDTO implements Serializable {
     private String name;
     private String style;
-    private String author;
     private Boolean visible;
     private Double batchSize;
     private Double efficiency;
@@ -25,10 +24,9 @@ public class RecipeDTO implements Serializable {
     public RecipeDTO() {
     }
 
-    public RecipeDTO(String name, String style, String author, Boolean visible, Double batchSize, Double efficiency, Double estBoilSize, Double estBoilTime, FermentationDTO fermentationDTO, Long yeastID, ArrayList<GrainDTO> grainList, ArrayList<HopStoreDTO> hopStoreList, ArrayList<MashingDTO> mashingList) {
+    public RecipeDTO(String name, String style, Boolean visible, Double batchSize, Double efficiency, Double estBoilSize, Double estBoilTime, FermentationDTO fermentationDTO, Long yeastID, ArrayList<GrainDTO> grainList, ArrayList<HopStoreDTO> hopStoreList, ArrayList<MashingDTO> mashingList) {
         this.name = name;
         this.style = style;
-        this.author = author;
         this.visible = visible;
         this.batchSize = batchSize;
         this.efficiency = efficiency;
@@ -55,14 +53,6 @@ public class RecipeDTO implements Serializable {
 
     public void setStyle(String style) {
         this.style = style;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public Boolean getVisible() {
@@ -150,7 +140,6 @@ public class RecipeDTO implements Serializable {
         return "RecipeDTO{" +
                 "name='" + name + '\'' +
                 ", style='" + style + '\'' +
-                ", author='" + author + '\'' +
                 ", visible=" + visible +
                 ", batchSize=" + batchSize +
                 ", efficiency=" + efficiency +

@@ -14,10 +14,16 @@ import java.io.IOException;
 
 @Configuration
 @EnableConfigurationProperties({ResourceProperties.class})
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class ResourceConfiguration extends WebMvcConfigurerAdapter {
+
+    private ResourceProperties resourceProperties = new ResourceProperties();
+
+    private String staticFilepath;
 
     @Autowired
-    private ResourceProperties resourceProperties = new ResourceProperties();
+    public ResourceConfiguration(ResourceProperties resourceProperties) {
+        this.resourceProperties = resourceProperties;
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
