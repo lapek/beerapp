@@ -1,5 +1,8 @@
 package pl.beerapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import pl.beerapp.entities.enumeration.UserRole;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,15 +19,15 @@ public class User implements Serializable {
     private String username;
 
     @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(unique = true, nullable = false)
     private String email;
 
-    //TODO add user roles
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "user_role", nullable = false)
-//    private UserRole userRole;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role", nullable = false)
+    private UserRole userRole;
 
     //@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     //@OneToMany(mappedBy = "user")
@@ -33,11 +36,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String username, String password, String email) {//, List<Recipe> recipes) {
+    public User(String username, String password, String email, UserRole userRole) {
         this.username = username;
         this.password = password;
         this.email = email;
-        //this.recipes = recipes;
+        this.userRole = userRole;
     }
 
     public Long getId() {
@@ -72,11 +75,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-//    public List<Recipe> getRecipes() {
-//        return recipes;
-//    }
+    public UserRole getUserRole() {
+        return userRole;
+    }
 
-//    public void setRecipes(List<Recipe> recipes) {
-//        this.recipes = recipes;
-//    }
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
 }

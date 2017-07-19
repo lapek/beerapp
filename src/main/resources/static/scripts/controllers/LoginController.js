@@ -4,9 +4,9 @@
     angular.module('beerApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$mdDialog', '$mdToast', '$state', '$auth'];
+    LoginController.$inject = ['$mdDialog', '$mdToast', '$state', '$rootScope', '$auth', 'AccountService'];
 
-    function LoginController($mdDialog, $mdToast, $state, $auth) {
+    function LoginController($mdDialog, $mdToast, $state, $rootScope, $auth, AccountService) {
         var vm = this;
 
         vm.cancel = cancel;
@@ -20,12 +20,12 @@
         }
 
         function login($event) {
-            var user = {
-                username: vm.credentials.username,
-                password: vm.credentials.password
-            };
-            $auth.login(user)
+            $auth.login(vm.credentials)
                 .then(function (response) {
+                    AccountService.getProfile()
+                        .then(function successCallback(data) {
+                            $rootScope.user = data;
+                        });
                     $state.go("home");
                     successToast();
                     cancel();

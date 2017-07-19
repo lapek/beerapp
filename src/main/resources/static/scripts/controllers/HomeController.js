@@ -4,9 +4,9 @@
     angular.module('beerApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', '$window', '$http', '$rootScope', '$interval', '$auth'];
+    HomeController.$inject = ['$scope', '$http', '$rootScope', '$auth'];
 
-    function HomeController($scope, $window, $http, $rootScope, $interval, $auth) {
+    function HomeController($scope, $http, $rootScope, $auth) {
         var vm = this;
 
         vm.lastPublic = {};
@@ -20,7 +20,7 @@
 
         function init() {
             vm.getLastPublic();
-            vm.getAllPublic();
+            //vm.getAllPublic();
             if($auth.isAuthenticated()) vm.getUserLast();
         }
 
@@ -31,7 +31,8 @@
         function getAllPublic() {
             $http({
                 method: 'GET',
-                url: '/api/recipes/list/public'
+                url: '/api/recipes/list/public',
+                skipAuthorization: true
             }).then(function onSuccess(response) {
                 vm.allPublic = response.data;
             }, function onError(response) {
@@ -43,6 +44,7 @@
             $http({
                 method: 'GET',
                 url: '/api/recipes/last/public'
+                //skipAuthorization: true
             }).then(function onSuccess(response) {
                 vm.lastPublic = response.data;
             }, function onError(response) {
@@ -54,10 +56,7 @@
             if ($auth.isAuthenticated()) {
                 $http({
                     method: 'GET',
-                    url: '/api/recipes/last/user',
-                    params: {
-                        author: $rootScope.currentUser
-                    }
+                    url: '/api/recipes/last/user'
                 }).then(function onSuccess(response) {
                     vm.lastUserRecipe = response.data;
                 }, function onError(response) {

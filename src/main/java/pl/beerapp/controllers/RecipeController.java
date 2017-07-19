@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.beerapp.dto.GrainDTO;
 import pl.beerapp.dto.HopsDTO;
@@ -41,6 +42,7 @@ public class RecipeController {
         this.styleService = styleService;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Iterable<Recipe> findAllRecipes() {
         return recipeService.findAllRecipes();

@@ -115,4 +115,4 @@ INSERT INTO yeasts(name, lab, symbol, type, packaging, attenuation) VALUES ('Kol
 INSERT INTO yeasts(name, lab, symbol, type, packaging, attenuation) VALUES ('Trappist High Gravity',	'Wyeast Labs', '3787', 'WHEAT',	'PŁYNNE', 77);
 
 -- User: test@test.tt test | pass: test123 --
-INSERT INTO users(id_user, email, password, username) VALUES (1, 'test@test.tt', '$2a$10$4H9UaHRn/mDvVCTpTesbpegGuWDlW.AbjHCN/ZIxYozIILX0opmNK', 'test');
+INSERT INTO users(id_user, email, password, username, user_role) VALUES (1, 'test@test.tt', '$2a$10$4H9UaHRn/mDvVCTpTesbpegGuWDlW.AbjHCN/ZIxYozIILX0opmNK', 'test', 'USER');

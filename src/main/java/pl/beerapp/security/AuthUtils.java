@@ -32,12 +32,13 @@ public final class AuthUtils {
         }
     }
 
-    public static Token createToken(String host, String sub) throws JOSEException {
+    public static Token createToken(String host, String sub, String role) throws JOSEException {
         JWTClaimsSet claim = new JWTClaimsSet();
         claim.setSubject(sub);
         claim.setIssuer(host);
         claim.setIssueTime(DateTime.now().toDate());
-        claim.setExpirationTime(DateTime.now().plusDays(14).toDate());
+        claim.setCustomClaim("role", role);
+        claim.setExpirationTime(DateTime.now().plusDays(7).toDate());
 
         JWSSigner signer = new MACSigner(TOKEN_SECRET);
         SignedJWT jwt = new SignedJWT(JWT_HEADER, claim);

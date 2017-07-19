@@ -59,7 +59,6 @@
         function getUsername() {
             AccountService.getProfile()
                 .then(function successCallback(response) {
-                    console.log(response);
                     vm.currentUser = response.data.username;
                 }, function errorCallback(response) {
                     console.log('Get profile error: ', response)
