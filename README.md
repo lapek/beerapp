@@ -40,8 +40,9 @@ mvn spring-boot:run
 * Spring Boot 1.5.2
 * Spring Data JPA 1.11.1 (with Hibernate 5.0.2) 
 * PostgreSQL 9.4
-* AngularJS 1.6.2 
-* Angular Material 1.1.3
+* AngularJS 1.6.5 (with Angular Ui-Router 0.4.2 and Angular-Translate 2.15.2)
+* Angular Material 1.1.4
+* Satellizer 0.15.5
 
 Webjars for frontend dependencies.
 

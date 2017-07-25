@@ -26,7 +26,7 @@
                         .then(function successCallback(data) {
                             $rootScope.user = data;
                         });
-                    $state.go("home");
+                    $state.go("app.home");
                     successToast();
                     cancel();
                 })

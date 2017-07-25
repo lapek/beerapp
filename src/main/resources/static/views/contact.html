@@ -1,25 +1,25 @@
-<div ng-controller="ContactController as cVm" layout="column" layout-padding ng-cloak>
+<div ng-controller="contactController as cVm" layout="column" layout-padding ng-cloak>
     <md-content class="md-no-momentum">
         <div layout="column" layout-align="start center">
             <md-card flex>
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline">Kontakt</span>
+                        <span class="md-headline" translate>CONTACT</span>
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
                     <!-- TODO sending messages -->
                     <md-input-container class="md-icon-float md-block" required>
-                        <label>Email</label>
+                        <label translate>EMAIL</label>
                         <md-icon md-svg-icon="email"></md-icon>
                         <input ng-model="cVm.email" type="email">
                     </md-input-container>
                     <md-input-container class="md-block">
-                        <label>Wiadomość</label>
+                        <label translate>MESSAGE</label>
                         <textarea ng-model="cVm.message" md-maxlength="250" rows="5" md-select-on-focus required></textarea>
                     </md-input-container>
                     <div layout="row" layout-align="end start">
-                        <md-button>Wyślij</md-button>
+                        <md-button>{{ 'SEND' | translate }}</md-button>
                     </div>
                 </md-card-content>
             </md-card>

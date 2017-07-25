@@ -2,15 +2,15 @@
     'use strict';
 
     angular.module('beerApp')
-        .controller('ContactController', ContactController);
+        .controller('contactController', contactController);
 
-    ContactController.$inject = [];
+    contactController.$inject = [];
 
-    function ContactController() {
+    function contactController() {
         var vm = this;
 
         vm.email = '';
-        vm.message = {};
+        vm.message = '';
 
     }
 })();

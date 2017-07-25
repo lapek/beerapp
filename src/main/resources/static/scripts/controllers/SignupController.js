@@ -29,7 +29,7 @@
                             .position("top left")
                             .hideDelay(2000)
                     );
-                    $state.go('home');
+                    $state.go('app.home');
                 })
                 .catch(function (response) {
                     $mdToast.show(

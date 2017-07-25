@@ -12,7 +12,8 @@
             'angular-loading-bar',
             'satellizer',
             'ui.router',
-            'ngMaterial'
+            'ngMaterial',
+            'pascalprecht.translate'
         ]);
 
 })();

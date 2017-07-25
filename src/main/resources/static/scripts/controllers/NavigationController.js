@@ -46,7 +46,7 @@
         function logout() {
             $auth.logout()
                 .then(function () {
-                    $state.go("home");
+                    $state.go("app.home");
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('Wylogowano.')

@@ -57,28 +57,42 @@
             if ($auth.isAuthenticated()) {
                 deferred.resolve();
             } else {
-                $state.go('home');
+                $state.go('app.home');
             }
             return deferred.promise;
         }];
 
         $stateProvider
-            .state('home', {
+            .state('app', {
+                abstract: true,
+                views: {
+                    '': {
+                        template: '<ui-view/>'
+                    },
+                    'navbar': {
+                        templateUrl: '../views/navbar.html'
+                    },
+                    'footer': {
+                        templateUrl: '../views/footer.html'
+                    }
+                }
+            })
+            .state('app.home', {
                 url: '/home',
                 templateUrl: '../views/home.html'
             })
-            .state('signup', {
+            .state('app.signup', {
                 url: '/signup',
                 templateUrl: '../views/signup.html',
                 resolve: {
                     skipIfLoggedIn: skipIfLoggedIn
                 }
             })
-            .state('contact', {
+            .state('app.contact', {
                 url: '/contact',
                 templateUrl: '../views/contact.html'
             })
-            .state('help', {
+            .state('app.help', {
                 url: '/help',
                 templateUrl: '../views/help.html'
             })
@@ -89,14 +103,14 @@
                     loginRequired: loginRequired
                 }
             })
-            .state('myAccount', {
+            .state('app.myAccount', {
                 url: '/myAccount',
                 templateUrl: '../views/myAccount.html',
                 resolve: {
                     loginRequired: loginRequired
                 }
             })
-            .state('myRecipes', {
+            .state('app.myRecipes', {
                 url: '/myRecipes',
                 templateUrl: '../views/myRecipes.html',
                 resolve: {

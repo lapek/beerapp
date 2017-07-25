@@ -1,0 +1,47 @@
+<md-toolbar>
+    <div class="md-toolbar-tools" ng-controller="NavigationController as navVm" md-theme="default">
+        <h2><a class="navbar-brand" ui-sref="app.home">
+            <md-icon md-svg-icon="beer"></md-icon>
+            <span>BeerApp</span></a></h2>
+        <span flex></span>
+        <div ng-if="!isAuthenticated()">
+            <md-button ui-sref="app.signup">
+                <md-icon md-svg-icon="account-plus"></md-icon>
+                Rejestracja
+            </md-button>
+            <md-button ng-click="navVm.showLogin($event)">
+                <md-icon md-svg-icon="account"></md-icon>
+                Logowanie
+            </md-button>
+        </div>
+        <div ng-if="isAuthenticated()">
+            <md-menu>
+                <md-button ng-click="navVm.openMenu($mdMenu, $event)">
+                    <md-icon md-svg-icon="account"></md-icon>
+                    {{ navVm.currentUser }}
+                </md-button>
+                <md-menu-content width="4">
+                    <md-menu-item>
+                        <md-button ui-sref="app.myRecipes">
+                            <md-icon md-svg-icon="library-books"></md-icon>
+                            Moje receptury
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ui-sref="app.myAccount">
+                            <md-icon md-svg-icon="wrench"></md-icon>
+                            Moje konto
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item>
+                        <md-button ng-click="navVm.logout()">
+                            <md-icon md-svg-icon="logout"></md-icon>
+                            Wyloguj
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+    </div>
+</md-toolbar>

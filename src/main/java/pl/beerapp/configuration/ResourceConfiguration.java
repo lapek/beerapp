@@ -38,6 +38,9 @@ public class ResourceConfiguration extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/styles/**")
                 .addResourceLocations("classpath:/static/styles/")
                 .setCachePeriod(cachePeriod);
+        registry.addResourceHandler("/translations/**")
+                .addResourceLocations("classpath:/static/translations/")
+                .setCachePeriod(cachePeriod);
         registry.addResourceHandler("/views/**")
                 .addResourceLocations("classpath:/static/views/")
                 .setCachePeriod(cachePeriod);
