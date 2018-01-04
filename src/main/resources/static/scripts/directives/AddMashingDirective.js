@@ -11,7 +11,7 @@
         return {
             restrict: "E",
             scope: {},
-            templateUrl: '../views/addMashStep.html',
+            templateUrl: '/addMashStep.html',
             controller: AddMashingController,
             controllerAs: 'amVm',
             bindToController: true

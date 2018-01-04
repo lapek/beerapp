@@ -11,7 +11,7 @@
         return {
             restrict: "E",
             scope: {},
-            templateUrl: '../views/addMalt.html',
+            templateUrl: '/addMalt.html',
             controller: AddMaltController,
             controllerAs: 'adVm',
             bindToController: true

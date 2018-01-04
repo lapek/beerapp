@@ -2,51 +2,29 @@
     'use strict';
 
     angular.module('beerApp')
-        .controller('NavigationController', NavigationController);
+        .controller('UserNavigationController', UserNavigationController);
 
-    NavigationController.$inject = ['$mdDialog', '$mdToast', '$scope', '$rootScope', '$state', '$auth', 'AccountService'];
+    UserNavigationController.$inject = ['$mdToast', '$scope', '$rootScope', '$state', '$auth', 'AccountService'];
 
-    function NavigationController($mdDialog, $mdToast, $scope, $rootScope, $state, $auth, AccountService) {
+    function UserNavigationController($mdToast, $scope, $rootScope, $state, $auth, AccountService) {
         var vm = this;
         var originatorEv;
 
         vm.currentUser = '';
 
-        vm.showLogin = showLogin;
         vm.openMenu = openMenu;
         vm.logout = logout;
-
-        function init() {
-            if ($auth.isAuthenticated()) {
-                getUsername();
-            }
-        }
+        vm.$onInit = onInit;
 
         function openMenu($mdMenu, $event) {
             originatorEv = $event;
             $mdMenu.open($event);
         }
 
-        function showLogin($event) {
-            if (!$auth.isAuthenticated()) {
-                $mdDialog.show({
-                    templateUrl: '../../views/login.html',
-                    parent: angular.element(document.body),
-                    targetEvent: $event,
-                    clickOutsideToClose: true,
-                    fullscreen: $scope.customFullscreen
-                });
-            }
-        }
-
-        $scope.isAuthenticated = function () {
-            return $auth.isAuthenticated();
-        };
-
         function logout() {
             $auth.logout()
                 .then(function () {
-                    $state.go("app.home");
+                    $state.go("app.anon.home");
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('Wylogowano.')
@@ -65,6 +43,8 @@
                 });
         }
 
-        init();
+        function onInit() {
+            getUsername();
+        }
     }
 })();

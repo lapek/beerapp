@@ -14,7 +14,7 @@ import pl.beerapp.dto.RecipeDTOs.FermentationDTO;
 import pl.beerapp.dto.RecipeDTOs.MashingDTO;
 import pl.beerapp.entities.*;
 import pl.beerapp.security.AuthUtils;
-import pl.beerapp.services.CalculateService;
+import pl.beerapp.utils.CalculateService;
 import pl.beerapp.services.RecipeService;
 import pl.beerapp.services.StyleService;
 import pl.beerapp.services.UserService;
@@ -29,14 +29,12 @@ import java.util.List;
 @RequestMapping(value = "/api/recipes")
 public class RecipeController {
 
-    private final CalculateService calculateService;
     private final RecipeService recipeService;
     private final UserService userService;
     private final StyleService styleService;
 
     @Autowired
-    public RecipeController(CalculateService calculateService, RecipeService recipeService, UserService userService, StyleService styleService) {
-        this.calculateService = calculateService;
+    public RecipeController(RecipeService recipeService, UserService userService, StyleService styleService) {
         this.recipeService = recipeService;
         this.userService = userService;
         this.styleService = styleService;
@@ -88,14 +86,14 @@ public class RecipeController {
 
         try {
             for (GrainDTO grain : grains) {
-                MCU += calculateService.calculateMCU(grain.getWeight(), grain.getColorEBC(), batchSize);
+                MCU += CalculateService.calculateMCU(grain.getWeight(), grain.getColorEBC(), batchSize);
             }
         } catch (Exception e) {
             return null;
         }
 
-        SRM = calculateService.calculateSRM(MCU);
-        Color = calculateService.returnColor(SRM);
+        SRM = CalculateService.calculateSRM(MCU);
+        Color = CalculateService.returnColor(SRM);
 
         obj.put("SRM", SRM);
         obj.put("color", Color);
@@ -114,7 +112,7 @@ public class RecipeController {
 
         try {
             for (GrainDTO grain : grains) {
-                OG += calculateService.calculateMaltSG(grain.getWeight(), grain.getPotential(), batchSize, efficiency);
+                OG += CalculateService.calculateMaltSG(grain.getWeight(), grain.getPotential(), batchSize, efficiency);
             }
             FG = (OG - 1) * (1 - (attenuation / 100));
         } catch (Exception e) {
@@ -123,7 +121,7 @@ public class RecipeController {
 
         obj.put("OG", OG);
         obj.put("FG", FG);
-        obj.put("ABV", calculateService.calculateABV(OG, FG));
+        obj.put("ABV", CalculateService.calculateABV(OG, FG));
 
         return obj.toString();
     }
@@ -134,12 +132,12 @@ public class RecipeController {
                                @RequestParam("batchSize") Double batchSize,
                                @RequestParam("gravity") Double gravity) {
         Double IBU = 0.0;
-        Double boilGravity = calculateService.calculateBoilGravity(gravity, estBoilSize, batchSize);
+        Double boilGravity = CalculateService.calculateBoilGravity(gravity, estBoilSize, batchSize);
         JSONObject obj = new JSONObject();
 
         try {
             for (HopsDTO hop : hops) {
-                IBU += calculateService.calculateIBURager(hop.getWeight(), hop.getTime(), hop.getAlpha(), estBoilSize, boilGravity);
+                IBU += CalculateService.calculateIBURager(hop.getWeight(), hop.getTime(), hop.getAlpha(), estBoilSize, boilGravity);
             }
         } catch (Exception e) {
             return null;

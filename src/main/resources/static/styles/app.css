@@ -1,9 +1,13 @@
-body {
-    width:100%;
-    height: 100%;
-    padding:0;
-    margin:0;
-    box-sizing: border-box;
+.height-100 {
+    height: 100vh;
+}
+
+.content-only {
+    top: 0;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 #loading-bar .bar {
@@ -26,9 +30,10 @@ md-dialog form {
 }
 
 md-content {
-    height:100%;
-    padding:10px;
+    height: 100%;
+    padding: 10px;
 }
+
 md-toolbar {
     height: 60px;
 }
@@ -43,10 +48,21 @@ md-toolbar {
     font-size: 12px;
     line-height: 14px;
     transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-    /* Set our own color */
     color: grey;
 }
 
 .min-200 {
     min-width: 200px;
+}
+
+.footer {
+    border-top: 1px solid #bbb;
+}
+
+.footer span {
+    font-size: inherit;
+    font-weight: inherit;
+    box-sizing: border-box;
+    padding: 0 6px;
+    margin: 6px 8px;
 }

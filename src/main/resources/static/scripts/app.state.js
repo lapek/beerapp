@@ -57,7 +57,7 @@
             if ($auth.isAuthenticated()) {
                 deferred.resolve();
             } else {
-                $state.go('app.home');
+                $state.go('app.anon.home');
             }
             return deferred.promise;
         }];
@@ -65,54 +65,127 @@
         $stateProvider
             .state('app', {
                 abstract: true,
+                template: '<ui-view/>'
+            })
+            // -- anon states --
+            .state('app.anon', {
+                abstract: true,
                 views: {
-                    '': {
-                        template: '<ui-view/>'
+                    '@': {
+                        templateUrl: '../views/layout.html'
                     },
-                    'navbar': {
-                        templateUrl: '../views/navbar.html'
+                    'navbar@app.anon': {
+                        templateUrl: '../views/anon/navbar.html'
                     },
-                    'footer': {
-                        templateUrl: '../views/footer.html'
+                    'footer@app.anon': {
+                        templateUrl: '../views/anon/footer.html'
                     }
                 }
             })
-            .state('app.home', {
-                url: '/home',
-                templateUrl: '../views/home.html'
-            })
-            .state('app.signup', {
-                url: '/signup',
-                templateUrl: '../views/signup.html',
+            .state('app.anon.home', {
+                url: '/',
+                views: {
+                    'content@app.anon': {
+                        templateUrl: '../views/anon/home.html'
+                    }
+                },
                 resolve: {
                     skipIfLoggedIn: skipIfLoggedIn
                 }
             })
-            .state('app.contact', {
+            .state('app.anon.signup', {
+                url: '/signup',
+                views: {
+                    'content@app.anon': {
+                        templateUrl: '../views/anon/signup.html'
+                    }
+                },
+                resolve: {
+                    skipIfLoggedIn: skipIfLoggedIn
+                }
+            })
+            .state('app.anon.login', {
+                url: '/login',
+                views: {
+                    'content@app.anon': {
+                        templateUrl: '../views/anon/login.html'
+                    }
+                },
+                resolve: {
+                    skipIfLoggedIn: skipIfLoggedIn
+                }
+            })
+            .state('app.anon.contact', {
                 url: '/contact',
-                templateUrl: '../views/contact.html'
+                views: {
+                    'content@app.anon': {
+                        templateUrl: '../views/anon/contact.html'
+                    }
+                }
             })
-            .state('app.help', {
+            .state('app.anon.help', {
                 url: '/help',
-                templateUrl: '../views/help.html'
+                views: {
+                    'content@app.anon': {
+                        templateUrl: '../views/help.html'
+                    }
+                }
             })
-            .state('newRecipe', {
+            // -- user states --
+            .state('app.user', {
+                abstract: true,
+                views: {
+                    '@': {
+                        templateUrl: '../views/layout-side.html'
+                    },
+                    'navbar@app.user': {
+                        templateUrl: '../views/user/navbar.html'
+                    },
+                    'sidebar@app.user': {
+                        templateUrl: '../views/user/sidebar.html'
+                    }
+                }
+            })
+            .state('app.user.home', {
+                url: '/home',
+                views: {
+                    'content@app.user': {
+                        templateUrl: '../views/user/home.html'
+                    }
+                },
+                resolve: {
+                    loginRequired: loginRequired
+                }
+            })
+            .state('app.user.newRecipe', {
                 url: '/newRecipe',
-                templateUrl: '../views/newRecipe.html',
+                views: {
+                    'content@app.user': {
+                        templateUrl: '../views/user/newRecipe.html'
+                    }
+                },
                 resolve: {
                     loginRequired: loginRequired
                 }
             })
-            .state('app.myAccount', {
+            .state('app.user.myAccount', {
                 url: '/myAccount',
-                templateUrl: '../views/myAccount.html',
+                views: {
+                    'content@app.user': {
+                        templateUrl: '../views/user/myAccount.html'
+                    }
+                },
                 resolve: {
                     loginRequired: loginRequired
                 }
             })
-            .state('app.myRecipes', {
+            .state('app.user.myRecipes', {
                 url: '/myRecipes',
-                templateUrl: '../views/myRecipes.html',
+                views: {
+                    'content@app.user': {
+                        templateUrl: '../views/user/myRecipes.html'
+                    }
+                },
                 resolve: {
                     loginRequired: loginRequired
                 }

@@ -1,0 +1,33 @@
+<div class="footer" ng-controller="footerController as fVm" layout="row" layout-align="space-between center">
+    <div>
+        <span>BeerApp 2016 by P.Łapa</span>
+    </div>
+    <div>
+        <md-menu>
+            <md-button ng-click="fVm.openMenu($mdMenu, $event)">
+                <md-icon md-svg-icon="translate"></md-icon>
+                {{ 'LANGUAGE' | translate }}
+            </md-button>
+            <md-menu-content width="3" md-position-mode="target-right target">
+                <md-menu-item>
+                    <md-button ng-click="fVm.changeLanguage('pl')" aria-label="Change language to Polish">
+                        {{ 'BUTTON_LANG_PL' | translate }}
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="fVm.changeLanguage('en')" aria-label="Change language to English">
+                        {{ 'BUTTON_LANG_EN' | translate }}
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        <md-button ui-sref="app.anon.contact">
+            <md-icon md-svg-icon="contact-mail"></md-icon>
+            {{ 'CONTACT' | translate }}
+        </md-button>
+        <md-button ui-sref="app.anon.help">
+            <md-icon md-svg-icon="help-box"></md-icon>
+            {{ 'HELP' | translate }}
+        </md-button>
+    </div>
+</div>

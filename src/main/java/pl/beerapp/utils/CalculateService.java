@@ -1,4 +1,4 @@
-package pl.beerapp.services;
+package pl.beerapp.utils;
 
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ public class CalculateService {
      * @param volume   water volume
      * @return calculated MCU
      */
-    public Double calculateMCU(Double grainKg, Double colorEBC, Double volume) {
+    public static Double calculateMCU(Double grainKg, Double colorEBC, Double volume) {
         Double MCU;
         Double WeightOfGrainInLbs = grainKg * 2.2046;
         Double ColorOfGrainInDegreesLovibond = calculateEBCtoLovibond(colorEBC);
@@ -30,7 +30,7 @@ public class CalculateService {
      * @param MCU mcu value
      * @return calculated SRM value
      */
-    public Double calculateSRM(Double MCU) {
+    public static Double calculateSRM(Double MCU) {
         Double SRM;
         SRM = 1.49 * Math.pow(MCU, 0.69);
 
@@ -44,7 +44,7 @@ public class CalculateService {
      * @param SRM srm value
      * @return color in hex string
      */
-    public String returnColor(Double SRM) {
+    public static String returnColor(Double SRM) {
         String color;
         String[] colorArray = {
                 "#FFE699",
@@ -101,20 +101,6 @@ public class CalculateService {
     }
 
     /**
-     * Calculate EBC to Lovibond deegres
-     *
-     * @param EBC color of malt in ebc
-     * @return calculated lovibond
-     */
-    private Double calculateEBCtoLovibond(Double EBC) {
-        Double Lovibond;
-        Double SRM;
-        SRM = EBC * 0.508;
-        Lovibond = (SRM + 0.76) / 1.3546;
-        return Lovibond;
-    }
-
-    /**
      * Calculate Malt Specific Gravity
      * by http://homebrew.stackexchange.com/questions/1434/wiki-how-do-you-calculate-original-gravity
      *
@@ -124,7 +110,7 @@ public class CalculateService {
      * @param efficiency        efficiency in %
      * @return malt sg point
      */
-    public Double calculateMaltSG(Double weightInKG, Double potentialInPoints, Double VolumeInLiters, Double efficiency) {
+    public static Double calculateMaltSG(Double weightInKG, Double potentialInPoints, Double VolumeInLiters, Double efficiency) {
         Double SG;
         Double weightInLB = calculateKGtoLBS(weightInKG);
         Double VolumeInGallons = calculateLitersToGallons(VolumeInLiters);
@@ -145,7 +131,7 @@ public class CalculateService {
      * @param boilGravity    gravity when boil
      * @return calculated IBU
      */
-    public Double calculateIBURager(Double weightInG, Double timeInMinutes, Double Alpha, Double volumeInLiters, Double boilGravity) {
+    public static Double calculateIBURager(Double weightInG, Double timeInMinutes, Double Alpha, Double volumeInLiters, Double boilGravity) {
         Double IBU;
         Double GA;
         Double utilization = 18.11 + 13.86 * Math.tanh((timeInMinutes - 31.32) / 18.27);
@@ -165,7 +151,7 @@ public class CalculateService {
      * @param FG final gravity
      * @return calculated abv
      */
-    public Double calculateABV(Double OG, Double FG) {
+    public static Double calculateABV(Double OG, Double FG) {
         return (calculatePlatoToSG(OG) - calculatePlatoToSG(FG)) * 131;
     }
 
@@ -177,33 +163,47 @@ public class CalculateService {
      * @param finalVolume batch size
      * @return Boil Gravity
      */
-    public Double calculateBoilGravity(Double OG, Double boilVolume, Double finalVolume) {
+    public static Double calculateBoilGravity(Double OG, Double boilVolume, Double finalVolume) {
         return ((boilVolume / finalVolume) * ((calculatePlatoToSG(OG) - 1) * 1000)/1000) + 1;
     }
 
     /* ------------------------- Conversions ------------------------- */
 
-    private Double calculateLitersToGallons(Double Liters) {
+    /**
+     * Calculate EBC to Lovibond deegres
+     *
+     * @param EBC color of malt in ebc
+     * @return calculated lovibond
+     */
+    private static Double calculateEBCtoLovibond(Double EBC) {
+        Double Lovibond;
+        Double SRM;
+        SRM = EBC * 0.508;
+        Lovibond = (SRM + 0.76) / 1.3546;
+        return Lovibond;
+    }
+
+    private static Double calculateLitersToGallons(Double Liters) {
         return (Liters / 3.785411784);
     }
 
-    private Double calculateGallonsToLiters(Double Gallons) {
+    private static Double calculateGallonsToLiters(Double Gallons) {
         return (Gallons * 3.785411784);
     }
 
-    private Double calculateLBtoKG(Double LB) {
+    private static Double calculateLBtoKG(Double LB) {
         return (LB / 2.2046);
     }
 
-    private Double calculateKGtoLBS(Double KG) {
+    private static Double calculateKGtoLBS(Double KG) {
         return (KG * 2.2046);
     }
 
-    private Double calculateSGtoPlato(Double SG) {
+    private static Double calculateSGtoPlato(Double SG) {
         return (-1 * 616.868) + +(1111.14 * SG) - (630.272 * Math.pow(SG, 2)) + (135.997 * Math.pow(SG, 3));
     }
 
-    private Double calculatePlatoToSG(Double Plato) {
+    private static Double calculatePlatoToSG(Double Plato) {
         return 1 + (Plato / (258.6 - ((Plato / 258.2) * 227.1)));
     }
 }

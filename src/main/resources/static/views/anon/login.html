@@ -1,0 +1,31 @@
+<div ng-controller="LoginController as loginVm" layout="column" layout-padding ng-cloak>
+    <md-content class="md-no-momentum">
+        <div layout="column" layout-align="start center">
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Logowanie</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+
+                    <md-input-container class="md-icon-float md-block" required>
+                        <label>Nazwa użytkownika</label>
+                        <md-icon md-svg-icon="account"></md-icon>
+                        <input ng-model="loginVm.credentials.username" type="text">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block" required>
+                        <label>Hasło</label>
+                        <md-icon md-svg-icon="lock"></md-icon>
+                        <input ng-model="loginVm.credentials.password" type="password">
+                    </md-input-container>
+
+                    <div layout="row" layout-align="space-between center">
+                        <md-button ui-sref="app.anon.signup">Nie masz konta?</md-button>
+                        <md-button class="md-raised md-primary" ng-click="loginVm.login($event)">Zaloguj</md-button>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+</div>

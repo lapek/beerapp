@@ -27,22 +27,27 @@ More to come (English/Multilanguage support, editing recipes, editing user's pro
         </profile>
     </profiles>
 ``` 
-* Then set the _your_profile_name_ in maven (at now, I don't know how do this without IDE)
-* Run the project with your IDE or write in the terminal
+* Run the project with your IDE (remeber to set right profile) or write in the terminal
 ```sh
-mvn spring-boot:run
+mvn spring-boot:run -Pyour_profile_name
 ```
 
 
 ## Developing
 
 ### Built With
+
+Backend:
 * Spring Boot 1.5.2
-* Spring Data JPA 1.11.1 (with Hibernate 5.0.2) 
+* Spring Data JPA 1.11.1 (w/ Hibernate 5.0.2)
 * PostgreSQL 9.4
-* AngularJS 1.6.5 (with Angular Ui-Router 0.4.2 and Angular-Translate 2.15.2)
-* Angular Material 1.1.4
+
+Frontend:
+* AngularJS 1.6.6 
+* Angular Ui-Router 1.0.6 
+* Angular-Translate 2.15.2
 * Satellizer 0.15.5
+* Angular Material 1.1.5
 
 Webjars for frontend dependencies.
 

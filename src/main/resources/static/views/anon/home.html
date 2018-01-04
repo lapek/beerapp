@@ -1,0 +1,73 @@
+<div ng-controller="AnonHomeController as homeVm" layout="column" layout-padding ng-cloak>
+    <md-content class="md-no-momentum" layout-xs="column" layout="row">
+
+        <div flex="50">
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Witaj na BeerApp</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <div layout="row">
+                        <span class="md-subhead">Zapraszamy do logowania. Tylko zalogowany użytkownik może stworzyć nową recepturę.
+                            Jeśli nie masz jeszcze konta, zapraszamy do założenia takowego.</span>
+                    </div>
+                </md-card-content>
+            </md-card>
+
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Najnowsze receptury:</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <md-list>
+                        <md-list-item class="md-3-line" ng-repeat="recipe in homeVm.newestPublicRecipes">
+                            <md-icon md-svg-icon="beer" class="md-avatar"></md-icon>
+                            <div class="md-list-item-text" layout="column">
+                                <h3>{{recipe.name}}</h3>
+                                <h4>{{recipe.style + " by " + recipe.author}}</h4>
+                                <p>OG: 0 FG: 0 ABV: 0 IBU: 0</p>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-card-content>
+            </md-card>
+        </div>
+
+        <div flex="50">
+            <md-card ng-controller="SignupController as signVm" flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Rejestracja</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+
+                    <md-input-container class="md-icon-float md-block" required>
+                        <label>Nazwa użytkownika</label>
+                        <md-icon md-svg-icon="account"></md-icon>
+                        <input ng-model="signVm.user.username" type="text">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block" required>
+                        <label>Email</label>
+                        <md-icon md-svg-icon="email"></md-icon>
+                        <input ng-model="signVm.user.email" type="email">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float md-block" required>
+                        <label>Hasło</label>
+                        <md-icon md-svg-icon="lock"></md-icon>
+                        <input ng-model="signVm.user.password" type="password">
+                    </md-input-container>
+
+                    <div layout="row" layout-align="space-between center">
+                        <md-button ui-sref="app.anon.login">Posiadasz już konto?</md-button>
+                        <md-button class="md-raised md-primary" ng-click="signVm.register()">Rejestracja</md-button>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+</div>

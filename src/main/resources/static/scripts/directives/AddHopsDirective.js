@@ -11,7 +11,7 @@
         return {
             restrict: "E",
             scope: {},
-            templateUrl: '../views/addHop.html',
+            templateUrl: '/addHop.html',
             controller: AddHopController,
             controllerAs: 'ahVm',
             bindToController: true

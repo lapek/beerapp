@@ -1,0 +1,51 @@
+<div ng-controller="UserHomeController as hVm" layout="column" layout-padding ng-cloak>
+    <md-content class="md-no-momentum" layout-xs="column" layout="row" layout-wrap>
+
+        <div flex="50">
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline" ng-show="hVm.currentUser">Witaj <i>{{ currentUser }}</i></span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <div layout="row">
+                        <span class="md-subhead">Witamy ponownie i zapraszamy do wykonania Twojej nowej receptury.<br></span>
+                    </div>
+                    <div layout="row" layout-align="center center">
+                        <md-button ui-sref="app.user.newRecipe">
+                            <md-icon md-svg-icon="plus-circle-outline"></md-icon>
+                            Dodaj nową recepturę
+                        </md-button>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+
+        <div flex="50">
+            <md-card flex>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Ostatnia twoja receptura:</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content layout="row">
+                    <div layout="column" flex="33" layout-align="center center">
+                        <md-icon md-svg-icon="beer" style="width:60px;height:60px;"></md-icon>
+                    </div>
+                    <div layout="column" flex="66" layout-align="center start" ng-show="hVm.lastUserRecipe != null">
+                        <h2>Nazwa: <i>{{hVm.lastUserRecipe.name}}</i></h2>
+                        <h2>Styl: <i>{{hVm.lastUserRecipe.style.name}}</i></h2>
+                        <p>Widoczność: <i>{{hVm.lastUserRecipe.visible === false ? 'Prywatna' : 'Publiczna'}}</i></p>
+                        <p>Wielkość warki: <i>{{hVm.lastUserRecipe.batchSize}}</i></p>
+                        <p>Wydajność: <i>{{hVm.lastUserRecipe.efficiency}}</i></p>
+                    </div>
+                    <div layout="column" flex="66" layout-align="center center" ng-show="hVm.lastUserRecipe == null">
+                        <h2>Brak receptur.</h2>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+
+    </md-content>
+</div>

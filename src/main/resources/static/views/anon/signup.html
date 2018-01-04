@@ -8,6 +8,7 @@
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
+
                     <md-input-container class="md-icon-float md-block" required>
                         <label>Nazwa użytkownika</label>
                         <md-icon md-svg-icon="account"></md-icon>
@@ -23,7 +24,9 @@
                         <md-icon md-svg-icon="lock"></md-icon>
                         <input ng-model="signVm.user.password" type="password">
                     </md-input-container>
-                    <div layout="row" layout-align="center center">
+
+                    <div layout="row" layout-align="space-between center">
+                        <md-button ui-sref="app.anon.login">Posiadasz już konto?</md-button>
                         <md-button class="md-raised md-primary" ng-click="signVm.register()">Rejestracja</md-button>
                     </div>
                 </md-card-content>
