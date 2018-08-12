@@ -1,11 +1,13 @@
 # BeerApp 
+> This repository is archived. New version is [here](https://github.com/lapek/beerapp2/).
+
 Web application for homebrewers. The application was originally a student project, but I decided to develop it further.
 * Website is in Polish
 * Signup/login, stateless (JWT)
 * Logged user can add a new recipe
 * List of user's recipes
 
-More to come (English/Multilanguage support, editing recipes, editing user's profile, admin page, contact page etc).
+<s>More to come (English/Multilanguage support, editing recipes, editing user's profile, admin page, contact page etc).</s>
 
 
 ## Installing / Getting started
